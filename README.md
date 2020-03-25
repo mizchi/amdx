@@ -1,12 +1,36 @@
-# Doc Builder
+# MDXX
 
-文字列にコンパイルできた(だけ)
+WIP
 
-```bash
-$ yarn ts-node -T src/index.tsx
-# <h1>Foo</h1><p><strong>aa</strong></p> <h1>Bar</h1>
+## Example
+
+```md
+<!-- bar.mdx -->
+
+import Bar from "./bar"
+
+# Bar
 ```
 
-## TODO
+```md
+<!-- foo.mdx -->
 
-- [] コンポーネント同士の相互解決を行う。
+import Bar from "./bar"
+
+# Hello from Foo
+
+<Bar />
+```
+
+```tsx
+import React from "react";
+import ReactDOM from "react-dom/server";
+import Foo from "./foo.mdx";
+
+const str = ReactDOMServer.renderToString(<Foo />);
+console.log(str);
+```
+
+## LICENSE
+
+MIT
