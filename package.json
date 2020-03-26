@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "scripts": {
     "build": "rollup -c rollup.config.js",
+    "build:cli": "tsc src/cli.tsx --outDir out --module commonjs --moduleResolution node",
     "test": "ts-node -T -O '{\"module\":\"commonjs\"}' test/build-test.ts && node example/out/bundle.js",
+    "test2": "ts-node -T -O '{\"module\":\"commonjs\"}' src/cli.tsx test/example/index.tsx --file foo.js",
+    "test3": "ts-node -T -O '{\"module\":\"commonjs\"}' src/cli.tsx test/example/foo.mdx",
     "build-test": "yarn build && yarn test"
   },
   "dependencies": {
@@ -49,11 +52,13 @@
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@rollup/plugin-typescript": "^4.0.0",
+    "@rollup/plugin-virtual": "^2.0.1",
     "@types/babel__core": "^7.1.6",
     "@types/node": "^12.12.31",
     "@types/react": "^16.9.25",
     "@types/react-dom": "^16.9.5",
     "@types/rollup": "^0.54.0",
+    "minimist": "^1.2.5",
     "prettyjson": "^1.2.1",
     "react-dom": "^16.13.1",
     "rollup-plugin-node-builtins": "^2.1.2",

@@ -6,51 +6,53 @@ import camelCaseCSS from "camelcase-css";
 import { paramCase } from "@mdx-js/util";
 import styleToObject from "style-to-object";
 
+function convertStyleStringToObject(style: string): any {
+  let styleObject: { [key: string]: any } = {};
+  // @ts-ignore
+  styleToObject(style, (name: string, value: any) => {
+    styleObject[camelCaseCSS(name)] = value;
+  });
+  return styleObject;
+}
+
+const paramCaseRe = /^(aria[A-Z])|(data[A-Z])/;
+function toProps(props: any) {
+  if (typeof props.style === "string") {
+    props.style = convertStyleStringToObject(props.style);
+  }
+  if (props.class) {
+    props.className = props.class;
+    delete props.class;
+  }
+  return Object.entries(props).reduce((acc, [key, value]) => {
+    return { ...acc, [paramCaseRe.test(key) ? paramCase(key) : key]: value };
+  }, {});
+}
+
 export function compile(
   root: Node,
-  options: {
+  {
+    props = {},
+    h,
+    Fragment,
+    components
+  }: {
+    props?: any;
     h: typeof React.createElement;
     Fragment: typeof React.Fragment;
     components: { [key: string]: any };
   }
 ): React.ReactElement | string {
-  const { h, Fragment, components } = options;
   return _compile(root);
   function _compile(node: Node): React.ReactElement | string {
     // @ts-ignore
     if (node.properties != null) {
-      // Turn style strings into JSX-friendly style object
       // @ts-ignore
-      if (typeof node.properties.style === "string") {
-        let styleObject: { [key: string]: any } = {};
-        // @ts-ignore
-        styleToObject(node.properties.style, (name: string, value: any) => {
-          styleObject[camelCaseCSS(name)] = value;
-        });
-        // @ts-ignore
-        node.properties.style = styleObject;
-      }
+      node.properties = toProps(node.properties);
+    }
 
-      // Transform class property to JSX-friendly className
-      // @ts-ignore
-      if (node.properties.class) {
-        // @ts-ignore
-        node.properties.className = node.properties.class;
-        // @ts-ignore
-        delete node.properties.class;
-      }
-
-      // AriaProperty => aria-property
-      // dataProperty => data-property
-      const paramCaseRe = /^(aria[A-Z])|(data[A-Z])/;
-      // @ts-ignore
-      node.properties = Object.entries(node.properties).reduce(
-        (properties, [key, value]) =>
-          Object.assign({}, properties, {
-            [paramCaseRe.test(key) ? paramCase(key) : key]: value
-          }),
-        {}
-      ) as any;
+    function resolveComponent(tagName: string) {
+      return components[tagName] || tagName;
     }
 
     switch (node.type) {
@@ -65,8 +67,8 @@ export function compile(
         ): React.ReactElement | string {
           const { children, ...others } = props || {};
           return h(
-            options.components[tagName],
-            others,
+            resolveComponent(tagName),
+            toProps(others),
             ...(children ? children.map(c => _toNode(c.tagName, c.props)) : [])
           );
         }

@@ -1,25 +1,36 @@
-import fs from "fs";
 import { Plugin } from "rollup";
 import { parse } from "./parser";
 
-export const mdxx = (options: { jsxPragma?: string } = {}) => {
+export const mdxx = (
+  options: { intro?: string; jsxFactory?: string; Fragment?: string } = {}
+) => {
+  const intro = options.intro || `import React from "react"`;
+  const jsxFactory = options.jsxFactory || `React.createElement`;
+  const Fragment = options.Fragment || `React.Fragment`;
+
   return {
     async transform(code: string, id: string) {
       if (id.endsWith(".mdx")) {
-        console.log("[tranform]", id);
         const { ast, imports } = parse(code, {});
         const stringifiedAst = JSON.stringify(ast);
 
-        let output = "";
+        const names = [];
+        let importsCode = "";
         for (const i of imports) {
-          output += `import ${i.default} from "${i.importPath}";\n`;
+          const name = i.default as string;
+          importsCode += `import ${name} from "${i.importPath}";\n`;
+          names.push(name);
         }
-        output += `import React from "react"\n`;
-        output += `import { compile } from "mdxx-compiler"\n`;
-        output += `export default () => {
-          const options = { h: React.createElement, Fragment: React.Fragment, components: {}};
+        const componentsCode = "{ " + names.join(",") + " }";
+        const output = `
+        ${intro};
+        ${importsCode};
+        import { compile } from "mdxx-compiler";
+        export default (props) => {
+          const options = { props, h: ${jsxFactory}, Fragment: ${Fragment}, components: ${componentsCode}};
           return compile(${stringifiedAst}, options);
-        }`;
+        }
+        `;
         return output;
       }
     }
