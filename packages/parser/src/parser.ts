@@ -11,29 +11,19 @@ import breaks from "remark-breaks";
 // @ts-ignore
 import katex from "remark-html-katex";
 // @ts-ignore
-// import html from "remark-html";
 import toc from "remark-toc";
 // @ts-ignore
 import frontmatter from "remark-frontmatter";
-import stringify from "remark-stringify";
 // @ts-ignore
 import remarkMdx from "remark-mdx";
 // @ts-ignore
 import squeeze from "remark-squeeze-paragraphs";
 // @ts-ignore
 import raw from "hast-util-raw";
-// @ts-ignore
-import { isComment, getCommentContents } from "@mdx-js/util";
-import {
-  MDXOptions,
-  Creator,
-  MDXHast$ImportNode,
-  MDXHast$ExportNode,
-  MDXHast$Node
-} from "./types";
+import { Creator } from "./types";
 // @ts-ignore
 import toHAST from "mdast-util-to-hast";
-// @ts-ignore
+// import { parse as parseBabel } from "@babel/core";
 import { parse as parseBabel } from "@babel/core";
 
 const rawToElement: unified.Plugin = function(option: any) {

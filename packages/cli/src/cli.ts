@@ -8,7 +8,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import builtins from "rollup-plugin-node-builtins";
 // @ts-ignore
 import alias from "@rollup/plugin-alias";
-import { mdxx } from "./rollup-plugin-mdxx";
+// @ts-ignore
+import { mdxx } from "rollup-plugin-mdxx";
 // @ts-ignore
 import virtual from "@rollup/plugin-virtual";
 import mkdirp from "mkdirp";
@@ -16,14 +17,6 @@ import mkdirp from "mkdirp";
 const argv = require("minimist")(process.argv);
 
 const plugins = [
-  alias({
-    entries: [
-      {
-        find: "mdxx-compiler",
-        replacement: path.join(__dirname, "../dist/compiler.js")
-      }
-    ]
-  }),
   builtins(),
   typescript({
     tsconfigOverride: {
@@ -50,14 +43,15 @@ async function main() {
   if (outputMode === "run" && (ext === ".md" || ext === ".mdx")) {
     const bundle = await rollup({
       input: "__input.js",
-      onwarn(_message) {},
+      // onwarn(_message) {},
       plugins: [
         virtual({ "__input.js": DEFAULT_RUNNING_CODE(input) }),
         ...plugins
       ]
     });
     const out = await bundle.generate({ ...others });
-    eval(out.output[0].code);
+    console.log(out);
+    // eval(out.output[0].code);
     return;
   }
 
