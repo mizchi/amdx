@@ -1,5 +1,3 @@
-import * as MDAST from "mdast";
-
 export type Plugin = any;
 export type Compiler = {
   use: (fn: any, options?: MDXOptions) => any;

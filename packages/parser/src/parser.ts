@@ -11,11 +11,9 @@ import breaks from "remark-breaks";
 // @ts-ignore
 import katex from "remark-html-katex";
 // @ts-ignore
-// import html from "remark-html";
 import toc from "remark-toc";
 // @ts-ignore
 import frontmatter from "remark-frontmatter";
-import stringify from "remark-stringify";
 // @ts-ignore
 import remarkMdx from "remark-mdx";
 // @ts-ignore
@@ -23,31 +21,23 @@ import squeeze from "remark-squeeze-paragraphs";
 // @ts-ignore
 import raw from "hast-util-raw";
 // @ts-ignore
-import { isComment, getCommentContents } from "@mdx-js/util";
-import {
-  MDXOptions,
-  Creator,
-  MDXHast$ImportNode,
-  MDXHast$ExportNode,
-  MDXHast$Node
-} from "./types";
-// @ts-ignore
 import toHAST from "mdast-util-to-hast";
-// @ts-ignore
+// import { parse as parseBabel } from "@babel/core";
 import { parse as parseBabel } from "@babel/core";
+// import { parse as parseBabel } from "@babel/parser";
 
-const rawToElement: unified.Plugin = function(option: any) {
-  return function(tree: any, file: any) {
-    visit(tree, "raw" as any, (node: MDAST.Content) => {
-      const { children, tagName, properties } = raw(node);
-      // @ts-ignore
-      node.type = "element";
-      node.children = children;
-      node.tagName = tagName;
-      node.properties = properties;
-    });
-  };
-};
+// const rawToElement: unified.Plugin = function(option: any) {
+//   return function(tree: any, file: any) {
+//     visit(tree, "raw" as any, (node: MDAST.Content) => {
+//       const { children, tagName, properties } = raw(node);
+//       // @ts-ignore
+//       node.type = "element";
+//       node.children = children;
+//       node.tagName = tagName;
+//       node.properties = properties;
+//     });
+//   };
+// };
 
 type JSXNode = {
   tagName: string;
@@ -106,7 +96,6 @@ function _parseJSXNode(node: any): JSXNode | string {
 
 function parseJSX(code: string) {
   const parsed = parseBabel(code, {
-    configFile: false,
     babelrc: false,
     plugins: [
       require("@babel/plugin-syntax-jsx"),
@@ -122,7 +111,6 @@ function parseJSX(code: string) {
 // import
 function parseImport(code: string): ParsedImports {
   const parsed = parseBabel(code, {
-    configFile: false,
     babelrc: false,
     plugins: [require("@babel/plugin-syntax-object-rest-spread")]
   }) as any;
@@ -196,7 +184,7 @@ export function parse(
 
   const hast = toHAST(newAst, {
     handlers: {
-      inlineCode(h: Creator, node: MDXNode) {
+      inlineCode(h: any, node: MDXNode) {
         return {
           ...node,
           type: "element",
@@ -210,11 +198,11 @@ export function parse(
           ]
         };
       },
-      jsx(h: Creator, node: MDXNode) {
+      jsx(h: any, node: MDXNode) {
         const parsed = parseJSX(node.value);
         return { ...node, type: "jsx", value: parsed };
       },
-      comment(h: Creator, node: MDXNode) {
+      comment(h: any, node: MDXNode) {
         return { ...node, type: "commment" };
       }
     },

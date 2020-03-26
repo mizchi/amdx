@@ -36,11 +36,11 @@ console.log(str);
 
 ```bash
 # run with js
-$ mdxx foo.md # output html
+$ mdxx foo.md # output as html
 
 # Write js
 $ mdxx index.tsx --mode js --out out.js
-$ node out.js
+$ node out.js # dump js
 
 # Write with chunk
 $ mdxx index.tsx --mode js --outdir out

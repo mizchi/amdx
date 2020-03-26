@@ -1,0 +1,15 @@
+{
+  "name": "mdxx-compiler",
+  "version": "0.1.0",
+  "main": "dist/compiler.js",
+  "module": "dist/compiler.mjs",
+  "files": [
+    "tsconfig.json",
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "prepublishOnly": "yarn build"
+  }
+}
