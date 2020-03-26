@@ -6,7 +6,13 @@ import json from "@rollup/plugin-json";
 import { terser } from "rollup-plugin-terser";
 
 const plugins = [
-  typescript(),
+  typescript({
+    tsconfigOverride: {
+      compilerOptions: {
+        module: "ESNext"
+      }
+    }
+  }),
   nodeResolve({ preferBuiltins: true }),
   commonjs({
     include: ["src/**/*.ts", "node_modules/**/*.js"],

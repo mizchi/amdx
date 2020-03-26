@@ -10,7 +10,7 @@ export const mdxx = (
 
   return {
     async transform(code: string, id: string) {
-      if (id.endsWith(".mdx")) {
+      if (id.endsWith(".mdx") || id.endsWith(".md")) {
         const { ast, imports } = parse(code, {});
         const stringifiedAst = JSON.stringify(ast);
 

@@ -1,12 +1,16 @@
 {
-  "name": "doc-builder",
-  "version": "0.0.1",
+  "name": "mdxx-cli",
+  "version": "0.0.1-fixed.7",
+  "bin": {
+    "mdxx": "bin/mdxx"
+  },
   "scripts": {
+    "prepare": "yarn build",
     "build": "rollup -c rollup.config.js",
-    "build:cli": "tsc src/cli.tsx --outDir out --module commonjs --moduleResolution node",
-    "test": "ts-node -T -O '{\"module\":\"commonjs\"}' test/build-test.ts && node example/out/bundle.js",
-    "test2": "ts-node -T -O '{\"module\":\"commonjs\"}' src/cli.tsx test/example/index.tsx --file foo.js",
-    "test3": "ts-node -T -O '{\"module\":\"commonjs\"}' src/cli.tsx test/example/foo.mdx",
+    "build:cli": "tsc src/cli.ts --module commonjs --moduleResolution node",
+    "test": "ts-node -T test/build-test.ts && node example/out/bundle.js",
+    "test2": "ts-node -T src/cli.ts test/example/index.tsx --file foo.js",
+    "test3": "ts-node -T src/cli.ts test/example/foo.mdx",
     "build-test": "yarn build && yarn test"
   },
   "dependencies": {
@@ -16,6 +20,12 @@
     "@mdx-js/mdx": "^1.5.7",
     "@mdx-js/runtime": "^1.5.7",
     "@mdx-js/util": "^1.5.7",
+    "@rollup/plugin-alias": "^3.0.1",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-json": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-typescript": "^4.0.0",
+    "@rollup/plugin-virtual": "^2.0.1",
     "@types/mdast": "^3.0.3",
     "babel-plugin-apply-mdx-type-prop": "^1.5.7",
     "babel-plugin-extract-import-names": "^1.5.7",
@@ -25,9 +35,8 @@
     "loader-utils": "^1.4.0",
     "lodash.uniq": "^4.5.0",
     "mdast-util-to-hast": "^8.0.0",
-    "react": "^16.13.1",
-    "react-dom-esm": "^16.8.4-alpha.0",
-    "react-esm": "^16.8.4-alpha.0",
+    "minimist": "^1.2.5",
+    "mkdirp": "^1.0.3",
     "remark-breaks": "^1.0.5",
     "remark-frontmatter": "^1.3.3",
     "remark-highlight.js": "^6.0.0",
@@ -39,33 +48,34 @@
     "remark-stringify": "^7.0.4",
     "remark-toc": "^7.0.0",
     "rollup": "^2.2.0",
-    "rollup-plugin-typescript2": "^0.26.0",
-    "style-to-object": "^0.3.0",
-    "unified": "^8.4.2",
-    "unist-builder": "^2.0.3",
-    "unist-util-visit": "^2.0.2",
-    "vfile": "^4.0.3"
-  },
-  "devDependencies": {
-    "@rollup/plugin-alias": "^3.0.1",
-    "@rollup/plugin-commonjs": "^11.0.2",
-    "@rollup/plugin-json": "^4.0.2",
-    "@rollup/plugin-node-resolve": "^7.1.1",
-    "@rollup/plugin-typescript": "^4.0.0",
-    "@rollup/plugin-virtual": "^2.0.1",
-    "@types/babel__core": "^7.1.6",
-    "@types/node": "^12.12.31",
-    "@types/react": "^16.9.25",
-    "@types/react-dom": "^16.9.5",
-    "@types/rollup": "^0.54.0",
-    "minimist": "^1.2.5",
-    "prettyjson": "^1.2.1",
-    "react-dom": "^16.13.1",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.26.0",
+    "style-to-object": "^0.3.0",
     "ts-node": "^8.6.2",
-    "tslib": "^1.11.1",
-    "typescript": "^3.8.3"
-  }
+    "typescript": "^3.8.3",
+    "unified": "^8.4.2",
+    "unist-builder": "^2.0.3",
+    "unist-util-visit": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/babel__core": "^7.1.6",
+    "@types/mkdirp": "^1.0.0",
+    "@types/node": "^12.12.31",
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*"
+  },
+  "files": [
+    "src",
+    "bin",
+    "tsconfig.json",
+    "dist"
+  ]
 }

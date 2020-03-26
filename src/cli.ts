@@ -1,3 +1,4 @@
+import fs from "fs";
 import path from "path";
 import { rollup } from "rollup";
 import nodeResolve from "@rollup/plugin-node-resolve";
@@ -9,11 +10,10 @@ import builtins from "rollup-plugin-node-builtins";
 import alias from "@rollup/plugin-alias";
 import { mdxx } from "./rollup-plugin-mdxx";
 // @ts-ignore
-import Minimist from "minimist";
-// @ts-ignore
 import virtual from "@rollup/plugin-virtual";
+import mkdirp from "mkdirp";
 
-const argv = Minimist(process.argv);
+const argv = require("minimist")(process.argv);
 
 const plugins = [
   alias({
@@ -25,14 +25,20 @@ const plugins = [
     ]
   }),
   builtins(),
-  typescript(),
+  typescript({
+    tsconfigOverride: {
+      compilerOptions: {
+        module: "esnext"
+      }
+    }
+  }),
   nodeResolve(),
   commonjs(),
   mdxx()
 ];
 
 async function main() {
-  const { _: args, file, m, mode, ...others } = argv;
+  const { _: args, out, outdir, m, mode, ...others } = argv;
   const input = path.join(process.cwd(), argv._[2]);
   const outputMode = mode || m || "run";
   const ext = path.extname(input);
@@ -41,7 +47,7 @@ async function main() {
   }
 
   // Run with default
-  if ((outputMode === "run" && ext === ".md") || ext === ".mdx") {
+  if (outputMode === "run" && (ext === ".md" || ext === ".mdx")) {
     const bundle = await rollup({
       input: "__input.js",
       onwarn(_message) {},
@@ -60,14 +66,35 @@ async function main() {
     onwarn(_message) {},
     plugins
   });
-  const out = await bundle.generate({ ...others });
-  switch (mode || m || "run") {
+  const rollupOutput = await bundle.generate({ ...others });
+  switch (outputMode) {
     case "js": {
-      console.log(out.output[0].code);
+      if (outdir) {
+        const outdirPath = path.join(process.cwd(), outdir);
+        try {
+          mkdirp.sync(outdirPath);
+        } catch (err) {
+          // already exists
+        }
+        for (const o of rollupOutput.output) {
+          if (o.type === "chunk") {
+            const outpath = path.join(outdirPath, o.fileName);
+            fs.writeFileSync(outpath, o.code);
+            console.log("write >", outpath);
+          }
+        }
+      } else if (out) {
+        const code = rollupOutput.output[0].code;
+        const outpath = path.join(process.cwd(), out);
+        fs.writeFileSync(outpath, code);
+        console.log("write >", outpath);
+      } else {
+        console.log(rollupOutput.output[0].code);
+      }
       return;
     }
     case "run": {
-      eval(out.output[0].code);
+      eval(rollupOutput.output[0].code);
       return;
     }
   }
