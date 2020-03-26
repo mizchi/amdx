@@ -1,6 +1,6 @@
 import { Plugin } from "rollup";
 // @ts-ignore
-import { parse } from "mdxx-parser/src/parser";
+import { parse } from "mdxx-parser";
 
 export const mdxx = (
   options: { intro?: string; jsxFactory?: string; Fragment?: string } = {}

@@ -1,2 +1,2 @@
-#!/usr/bin/env node -r ts-node/register
-require("../src/cli.ts");
+#!/usr/bin/env node
+require("../lib/cli.js");

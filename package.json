@@ -1,15 +1,9 @@
 {
   "private": true,
-  "devDependencies": {
-    "@types/babel__core": "^7.1.6",
-    "@types/mkdirp": "^1.0.0",
-    "@types/node": "^12.12.31",
-    "@types/react": "^16.9.25",
-    "@types/react-dom": "^16.9.5",
-    "mdxx-compiler": "0.0.1-rc.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+  "scripts": {
+    "debug": "yarn ts-node -T -O '{\"module\":\"commonjs\"}' packages/cli/src/cli.ts example/index.tsx"
   },
+  "devDependencies": {},
   "workspaces": [
     "packages/*"
   ]

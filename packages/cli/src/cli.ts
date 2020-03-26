@@ -7,8 +7,6 @@ import commonjs from "@rollup/plugin-commonjs";
 // @ts-ignore
 import builtins from "rollup-plugin-node-builtins";
 // @ts-ignore
-import alias from "@rollup/plugin-alias";
-// @ts-ignore
 import { mdxx } from "rollup-plugin-mdxx";
 // @ts-ignore
 import virtual from "@rollup/plugin-virtual";
@@ -21,7 +19,9 @@ const plugins = [
   typescript({
     tsconfigOverride: {
       compilerOptions: {
-        module: "esnext"
+        target: "es2020",
+        module: "esnext",
+        jsx: "react"
       }
     }
   }),
