@@ -8,6 +8,8 @@ function main(mdx: string, options: MDXOptions = {}) {
   const { ast, imports, exports } = parse(mdx, options);
 
   const ret = compile(ast, {
+    h: React.createElement,
+    Fragment: React.Fragment,
     components: {
       Foo: () => <>Foo</>,
       X: () => <>X</>,

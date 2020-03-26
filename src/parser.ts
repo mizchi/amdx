@@ -56,7 +56,6 @@ type JSXNode = {
 
 function parseAttributes(attrs: any) {
   return attrs.reduce((acc: any, attr: any) => {
-    // console.log(attr);
     const name = attr.name.name;
     const value = attr.value;
 
@@ -130,7 +129,6 @@ function parseImport(code: string): ParsedImports {
 
   const body = parsed.program.body;
   return body.map((line: any) => {
-    console.log(line.specifiers);
     let _default;
     let names: Array<{ local: string; imported: string }> = [];
     line.specifiers.forEach((spec: any) => {
@@ -196,9 +194,6 @@ export function parse(
     children: nodes
   };
 
-  // const imports = ast
-  // console.log("ast", ast);
-  // return;
   const hast = toHAST(newAst, {
     handlers: {
       inlineCode(h: Creator, node: MDXNode) {

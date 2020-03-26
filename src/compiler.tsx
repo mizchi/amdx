@@ -8,8 +8,13 @@ import styleToObject from "style-to-object";
 
 export function compile(
   root: Node,
-  options: { components: { [key: string]: any } }
+  options: {
+    h: typeof React.createElement;
+    Fragment: typeof React.Fragment;
+    components: { [key: string]: any };
+  }
 ): React.ReactElement | string {
+  const { h, Fragment, components } = options;
   return _compile(root);
   function _compile(node: Node): React.ReactElement | string {
     // @ts-ignore
@@ -59,7 +64,7 @@ export function compile(
           }
         ): React.ReactElement | string {
           const { children, ...others } = props || {};
-          return React.createElement(
+          return h(
             options.components[tagName],
             others,
             ...(children ? children.map(c => _toNode(c.tagName, c.props)) : [])
@@ -70,11 +75,7 @@ export function compile(
         return node.value;
       }
       case "element": {
-        return React.createElement(
-          node.tagName,
-          node.properties,
-          ...node.children.map(_compile)
-        );
+        return h(node.tagName, node.properties, ...node.children.map(_compile));
       }
       case "root": {
         const importNodes: MDXHast$ImportNode[] = [];
@@ -95,14 +96,12 @@ export function compile(
           }
           nodes.push(child);
         }
-        return (
-          <div>
-            {nodes.map((child, key) => {
-              return (
-                <React.Fragment key={key}>{_compile(child)}</React.Fragment>
-              );
-            })}
-          </div>
+        return h(
+          "div",
+          {},
+          ...nodes.map((child, key) => {
+            return <Fragment key={key}>{_compile(child)}</Fragment>;
+          })
         );
       }
       default: {

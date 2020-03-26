@@ -1,6 +1,11 @@
 {
   "name": "doc-builder",
   "version": "0.0.1",
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "test": "ts-node -T -O '{\"module\":\"commonjs\"}' test/build-test.ts && node example/out/bundle.js",
+    "build-test": "yarn build && yarn test"
+  },
   "dependencies": {
     "@babel/core": "^7.8.4",
     "@babel/plugin-syntax-jsx": "^7.8.3",
@@ -39,6 +44,7 @@
     "vfile": "^4.0.3"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^3.0.1",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-json": "^4.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",

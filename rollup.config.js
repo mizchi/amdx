@@ -7,7 +7,7 @@ import { terser } from "rollup-plugin-terser";
 
 const plugins = [
   typescript(),
-  nodeResolve(),
+  nodeResolve({ preferBuiltins: true }),
   commonjs({
     include: ["src/**/*.ts", "node_modules/**/*.js"],
     namedExports: {
