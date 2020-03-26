@@ -1,6 +1,6 @@
 {
   "name": "mdxx-cli",
-  "version": "0.0.1-fixed.7",
+  "version": "0.0.2",
   "bin": {
     "mdxx": "bin/mdxx"
   },

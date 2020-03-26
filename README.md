@@ -38,9 +38,14 @@ console.log(str);
 # run with js
 $ mdxx foo.md # output html
 
-# run with js
-$ mdxx index.tsx -m js > foo.js
-$ node foo.js
+# Write js
+$ mdxx index.tsx --mode js --out out.js
+$ node out.js
+
+# Write with chunk
+$ mdxx index.tsx --mode js --outdir out
+$ node out/index.js
+
 ```
 
 ## LICENSE
