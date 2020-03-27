@@ -48,7 +48,16 @@ function withCodeBlock() {
 const x = 3
 \`\`\`
   `);
-  console.log("test with code", parsed.ast.children[0]);
+  // console.log("test with code", parsed.ast.children[0]);
+}
+
+function withCodeBlock2() {
+  // can parse
+  const parsed = parse(`\`\`\`
+const x = 3
+\`\`\`
+  `);
+  // console.log("test with code", parsed.ast.children[0]);
   // assert.equal(Object.values(parsed.highlights).length, 1);
   // assert.equal(Object.values(parsed.highlights)[0].nodes.length, 5);
 }
@@ -77,15 +86,12 @@ $$
   assert.ok(JSON.stringify(parsed.ast.children).includes("math-display"));
 }
 
-// [
-//   withMarkdown,
-//   withImport,
-//   withImportAndJsx,
-//   withCodeBlock,
-//   withYamlFrontmatter,
-//   withMath
-// ].forEach(fn => fn());
-withCodeBlock();
-
-// withMarkdown();
-// withCodeBlock();
+[
+  withMarkdown,
+  withImport,
+  withImportAndJsx,
+  withCodeBlock,
+  withCodeBlock2,
+  withYamlFrontmatter,
+  withMath
+].forEach(fn => fn());
