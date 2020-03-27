@@ -1,11 +1,8 @@
-import * as MDAST from "mdast";
+// import * as MDAST from "mdast";
 import unified from "unified";
-import visit from "unist-util-visit";
 import toMDAST from "remark-parse";
 // @ts-ignore
-import math from "remark-math";
-// @ts-ignore
-import hljs from "remark-highlight.js";
+import math from "remark-math/block";
 // @ts-ignore
 import breaks from "remark-breaks";
 // @ts-ignore
@@ -19,25 +16,11 @@ import remarkMdx from "remark-mdx";
 // @ts-ignore
 import squeeze from "remark-squeeze-paragraphs";
 // @ts-ignore
-import raw from "hast-util-raw";
-// @ts-ignore
 import toHAST from "mdast-util-to-hast";
 // import { parse as parseBabel } from "@babel/core";
 import { parse as parseBabel } from "@babel/core";
-// import { parse as parseBabel } from "@babel/parser";
-
-// const rawToElement: unified.Plugin = function(option: any) {
-//   return function(tree: any, file: any) {
-//     visit(tree, "raw" as any, (node: MDAST.Content) => {
-//       const { children, tagName, properties } = raw(node);
-//       // @ts-ignore
-//       node.type = "element";
-//       node.children = children;
-//       node.tagName = tagName;
-//       node.properties = properties;
-//     });
-//   };
-// };
+import { highlighter } from "./highlighter";
+import { ParseResult, ParsedImports } from "..";
 
 type JSXNode = {
   tagName: string;
@@ -137,35 +120,26 @@ function parseImport(code: string): ParsedImports {
   });
 }
 
-type ParsedImports = Array<{
-  importPath: string;
-  default: string | void;
-  names: Array<{ local: string; imported: string }>;
-}>;
-
-type ParsedExports = Array<any>;
-
 type MDXNode = any;
 
-export function parse(
-  code: string,
-  options: any
-): {
-  ast: any;
-  imports: ParsedImports;
-  exports: ParsedExports;
-} {
-  const parse = unified()
+const vfile = require("vfile");
+
+export function parse(code: string, options: any = {}): ParseResult {
+  const file = vfile();
+  const fn = unified()
     .use(toMDAST, { footnotes: true })
+    .use(math)
+    .use(katex)
+    // .use(frontmatter, [{ type: "yaml", marker: "-" }])
     .use(remarkMdx)
     .use(squeeze)
     .use(breaks)
-    .use(hljs)
-    .use(frontmatter, ["yaml"])
-    .use(katex).parse;
+    .use(highlighter);
 
-  const ast = parse(code) as any;
-  // do not handle yet
+  file.contents = code;
+  const parsed = fn.parse(file);
+  const ast = fn.runSync(parsed, file) as any;
+  // const ast = fn.parse(code) as any;
   const exports = ast.children.filter((c: any) => c.type === "export");
   const imports = ast.children.filter((c: any) => c.type === "import");
 
@@ -208,6 +182,8 @@ export function parse(
     },
     allowDangerousHTML: true
   });
+
+  // console.log("file", file);
   return {
     ast: hast,
     imports: parsedImports,

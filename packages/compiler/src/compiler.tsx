@@ -45,12 +45,6 @@ export function compile(
 ): React.ReactElement | string {
   return _compile(root);
   function _compile(node: Node): React.ReactElement | string {
-    // @ts-ignore
-    if (node.properties != null) {
-      // @ts-ignore
-      node.properties = toProps(node.properties);
-    }
-
     function resolveComponent(tagName: string) {
       // direct props
       if (components[tagName]) {
@@ -90,11 +84,15 @@ export function compile(
           );
         }
       }
+      case "element": {
+        return h(
+          resolveComponent(node.tagName),
+          toProps(node.properties),
+          ...(node.children ? node.children.map(_compile) : [])
+        );
+      }
       case "text": {
         return node.value;
-      }
-      case "element": {
-        return h(node.tagName, node.properties, ...node.children.map(_compile));
       }
       case "root": {
         const importNodes: ImportNode[] = [];

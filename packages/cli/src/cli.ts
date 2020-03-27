@@ -11,6 +11,16 @@ import { mdxx } from "rollup-plugin-mdxx";
 // @ts-ignore
 import virtual from "@rollup/plugin-virtual";
 import mkdirp from "mkdirp";
+// @ts-ignore
+import prettier from "prettier";
+
+function formatJs(code: string) {
+  return prettier.format(code, { parser: "babel" });
+}
+
+function formatHtml(code: string) {
+  return prettier.format(code, { parser: "html" });
+}
 
 const argv = require("minimist")(process.argv);
 
@@ -43,15 +53,15 @@ async function main() {
   if (outputMode === "run" && (ext === ".md" || ext === ".mdx")) {
     const bundle = await rollup({
       input: "__input.js",
-      // onwarn(_message) {},
+      onwarn(_message) {},
       plugins: [
         virtual({ "__input.js": DEFAULT_RUNNING_CODE(input) }),
         ...plugins
       ]
     });
     const out = await bundle.generate({ ...others });
-    console.log(out);
-    // eval(out.output[0].code);
+    // console.log(out);
+    eval(out.output[0].code);
     return;
   }
 
@@ -73,17 +83,17 @@ async function main() {
         for (const o of rollupOutput.output) {
           if (o.type === "chunk") {
             const outpath = path.join(outdirPath, o.fileName);
-            fs.writeFileSync(outpath, o.code);
+            fs.writeFileSync(outpath, formatJs(o.code));
             console.log("write >", outpath);
           }
         }
       } else if (out) {
         const code = rollupOutput.output[0].code;
         const outpath = path.join(process.cwd(), out);
-        fs.writeFileSync(outpath, code);
+        fs.writeFileSync(outpath, formatJs(code));
         console.log("write >", outpath);
       } else {
-        console.log(rollupOutput.output[0].code);
+        console.log(formatJs(rollupOutput.output[0].code));
       }
       return;
     }
@@ -102,4 +112,13 @@ const out = ReactDOMServer.renderToStaticMarkup(React.createElement(Entry));
 console.log(out);
 `;
 
-main();
+async function run() {
+  try {
+    main();
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+run();

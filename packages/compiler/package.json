@@ -1,9 +1,11 @@
 {
   "name": "mdxx-compiler",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "dist/compiler.js",
   "module": "dist/compiler.mjs",
+  "types": "index.d.ts",
   "files": [
+    "index.d.ts",
     "tsconfig.json",
     "dist",
     "src"
