@@ -45,12 +45,68 @@ $ node out.js # dump js
 # Write with chunk
 $ mdxx index.tsx --mode js --outdir out
 $ node out/index.js
-
 ```
+
+## API
+
+```js
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { compile } from "mdxx-compiler";
+import { parse } from "mdxx-parser";
+
+const ast = parse(`# hello`);
+
+function App(props) {
+  return const el = compile(ast, {
+    props,
+    components: {},
+    h: React.createElement,
+    Fragment: React.Fragment
+  });
+}
+
+ReactDOM.render(<App />, document.querySelector("#main"));
+```
+
+## As rollup plugin
+
+`rollup-mdxx-plugin` makes `.md` and `.mdx` loadable as react component.
+
+```js
+// rollup.config.js
+import { rollup } from "rollup";
+import { mdxx } from "rollup-plugin-mdxx";
+
+export default {
+  input: "index.mdx",
+  output: {
+    format: 'esm'
+    file: "out.js"
+  },
+  plugins: [
+    // your plugin...
+    mdxx()
+  ]
+};
+```
+
+index.mdx
+
+```md
+# Hello mdxx
+
+import Foo from "./foo.mdx" //
+
+<Foo />
+```
+
+`rollup -c rollup.config.js`
 
 ## TODO
 
-- [ ] Supoprt multiline
+- [ ] Support React.Context based component provider
 - [ ] Support preact
 
 ## LICENSE
