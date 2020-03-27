@@ -1,5 +1,5 @@
 import React from "react";
-import { MDXHast$ExportNode, MDXHast$ImportNode, Node } from "./types";
+import { Node, ImportNode, ExportNode } from "../index";
 // @ts-ignore
 import camelCaseCSS from "camelcase-css";
 // @ts-ignore
@@ -37,7 +37,7 @@ export function compile(
     Fragment,
     components
   }: {
-    props?: any;
+    props?: { components?: { [key: string]: any } };
     h: typeof React.createElement;
     Fragment: typeof React.Fragment;
     components: { [key: string]: any };
@@ -52,7 +52,17 @@ export function compile(
     }
 
     function resolveComponent(tagName: string) {
-      return components[tagName] || tagName;
+      // direct props
+      if (components[tagName]) {
+        return components[tagName];
+      }
+
+      // Base root props
+      if (props && props.components && props.components[tagName]) {
+        return props.components[tagName];
+      }
+      // default root
+      return tagName;
     }
 
     switch (node.type) {
@@ -69,7 +79,14 @@ export function compile(
           return h(
             resolveComponent(tagName),
             toProps(others),
-            ...(children ? children.map(c => _toNode(c.tagName, c.props)) : [])
+            ...(children
+              ? children.map(c => {
+                  if (typeof c === "string") {
+                    return c;
+                  }
+                  return _toNode(c.tagName, c.props);
+                })
+              : [])
           );
         }
       }
@@ -80,8 +97,8 @@ export function compile(
         return h(node.tagName, node.properties, ...node.children.map(_compile));
       }
       case "root": {
-        const importNodes: MDXHast$ImportNode[] = [];
-        const exportNodes: MDXHast$ExportNode[] = [];
+        const importNodes: ImportNode[] = [];
+        const exportNodes: ExportNode[] = [];
         const nodes = [];
         // let layout;
         for (const child of node.children) {
@@ -90,9 +107,9 @@ export function compile(
             continue;
           }
           if (child.type === "export") {
-            if (child.default) {
-              continue;
-            }
+            // if (child.default) {
+            //   continue;
+            // }
             exportNodes.push(child);
             continue;
           }
