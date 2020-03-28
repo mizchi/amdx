@@ -39,24 +39,13 @@ export const highlighter: unified.Plugin = (options: any = {}) => {
       const [lang, filename] = (node.lang || "").split(":");
       if (lang) {
         node.lang = lang;
+        if (!refractor.registered(lang)) {
+          return;
+        }
         if (node.data == null) {
           node.data = {};
         }
-        node.data.hName = "pre";
-        node.data.hProperties = { filename };
-        node.data.hChildren = [
-          {
-            type: "element",
-            tagName: "code",
-            properties: {
-              className: [
-                "language-" + lang,
-                filename ? "file-" + filename : "file"
-              ]
-            },
-            children: refractor.highlight(node.value, "javascript")
-          }
-        ];
+        node.data.hChildren = refractor.highlight(node.value, lang);
       }
     });
   };
