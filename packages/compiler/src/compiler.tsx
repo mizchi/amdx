@@ -24,6 +24,11 @@ function toProps(props: any) {
     props.className = props.class;
     delete props.class;
   }
+
+  // className array to string
+  if (props.className && props.className instanceof Array) {
+    props.className = props.className.join(" ");
+  }
   return Object.entries(props).reduce((acc, [key, value]) => {
     return { ...acc, [paramCaseRe.test(key) ? paramCase(key) : key]: value };
   }, {});

@@ -28,7 +28,7 @@ function case1() {
       props: {}
     } as CompilerOptions
   );
-  const out = ReactDOMServer.renderToStaticMarkup(el);
+  const out = ReactDOMServer.renderToStaticMarkup(el as any);
   // console.log(out);
   assert.equal(out, "<div><div>hello</div></div>");
 }
@@ -58,7 +58,7 @@ function case2() {
       props: {}
     } as CompilerOptions
   );
-  const out = ReactDOMServer.renderToStaticMarkup(el);
+  const out = ReactDOMServer.renderToStaticMarkup(el as any);
   assert.equal(out, "<div><div>foo: hello</div></div>");
 }
 
@@ -87,7 +87,7 @@ function withStyle() {
       props: {}
     } as CompilerOptions
   );
-  const out = ReactDOMServer.renderToStaticMarkup(el);
+  const out = ReactDOMServer.renderToStaticMarkup(el as any);
   assert.equal(out, `<div><div style="color:red"></div></div>`);
 }
 
@@ -116,7 +116,7 @@ function withClassName() {
       props: {}
     } as CompilerOptions
   );
-  const out = ReactDOMServer.renderToStaticMarkup(el);
+  const out = ReactDOMServer.renderToStaticMarkup(el as any);
   assert.equal(out, `<div><div class="hey"></div></div>`);
 }
 
@@ -143,8 +143,40 @@ function withAmpRewriter() {
       props: {}
     } as CompilerOptions
   );
-  const out = ReactDOMServer.renderToStaticMarkup(el);
+  const out = ReactDOMServer.renderToStaticMarkup(el as any);
   assert.equal(out, `<div><amp-img src="/foo.img" alt="foo"></amp-img></div>`);
 }
 
-[case1, case2, withStyle, withClassName, withAmpRewriter].forEach(fn => fn());
+function withClassName2() {
+  const el = compile(
+    {
+      type: "root",
+      children: [
+        {
+          type: "element",
+          tagName: "span",
+          properties: { className: ["token", "keyword"] },
+          children: [{ type: "text", value: "const" }]
+        }
+      ]
+    } as RootNode,
+    {
+      components: {},
+      h: React.createElement,
+      Fragment: React.Fragment,
+      props: {}
+    } as CompilerOptions
+  );
+  const out = ReactDOMServer.renderToStaticMarkup(el as any);
+  console.log(out);
+  // assert.equal(out, "<div><div>hello</div></div>");
+}
+
+[
+  case1,
+  case2,
+  withStyle,
+  withClassName,
+  withAmpRewriter,
+  withClassName2
+].forEach(fn => fn());
