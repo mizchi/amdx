@@ -119,7 +119,7 @@ export function compile(
           nodes.push(child);
         }
         return h(
-          "div",
+          Fragment,
           {},
           ...nodes.map((child, key) => {
             return <Fragment key={key}>{_compile(child)}</Fragment>;

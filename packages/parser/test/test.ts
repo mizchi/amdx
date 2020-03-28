@@ -48,7 +48,7 @@ function withCodeBlock() {
 const x = 3
 \`\`\`
   `);
-  // console.log("test with code", parsed.ast.children[0]);
+  console.log("test with code", parsed.ast.children[0].children[0].children[0]);
 }
 
 function withCodeBlock2() {
@@ -57,7 +57,7 @@ function withCodeBlock2() {
 const x = 3
 \`\`\`
   `);
-  console.log("test with code", parsed.ast.children[0]);
+  // console.log("test with code", parsed.ast.children[0].children[0]);
   // assert.equal(Object.values(parsed.highlights).length, 1);
   // assert.equal(Object.values(parsed.highlights)[0].nodes.length, 5);
 }

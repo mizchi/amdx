@@ -3,7 +3,10 @@ import assert from "assert";
 import ReactDOMServer from "react-dom/server";
 
 // @ts-ignore
-import { compile, RootNode, CompilerOptions } from "..";
+// import { compile, RootNode, CompilerOptions } from "..";
+
+// @ts-ignore
+import { compile, RootNode, CompilerOptions } from "../src/compiler";
 
 function case1() {
   const el = compile(
@@ -30,7 +33,7 @@ function case1() {
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
   // console.log(out);
-  assert.equal(out, "<div><div>hello</div></div>");
+  assert.equal(out, "<div>hello</div>");
 }
 
 function case2() {
@@ -59,7 +62,7 @@ function case2() {
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
-  assert.equal(out, "<div><div>foo: hello</div></div>");
+  assert.equal(out, "<div>foo: hello</div>");
 }
 
 function withStyle() {
@@ -88,7 +91,7 @@ function withStyle() {
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
-  assert.equal(out, `<div><div style="color:red"></div></div>`);
+  assert.equal(out, `<div style="color:red"></div>`);
 }
 
 function withClassName() {
@@ -117,7 +120,7 @@ function withClassName() {
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
-  assert.equal(out, `<div><div class="hey"></div></div>`);
+  assert.equal(out, `<div class="hey"></div>`);
 }
 
 function withAmpRewriter() {
@@ -144,7 +147,7 @@ function withAmpRewriter() {
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
-  assert.equal(out, `<div><amp-img src="/foo.img" alt="foo"></amp-img></div>`);
+  assert.equal(out, `<amp-img src="/foo.img" alt="foo"></amp-img>`);
 }
 
 function withClassName2() {
@@ -168,8 +171,7 @@ function withClassName2() {
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
-  console.log(out);
-  // assert.equal(out, "<div><div>hello</div></div>");
+  assert.equal(out, '<span class="token keyword">const</span>');
 }
 
 [
