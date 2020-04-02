@@ -3,7 +3,9 @@
   "scripts": {
     "debug": "yarn ts-node -T -O '{\"module\":\"commonjs\"}' packages/cli/src/cli.ts example/index.tsx"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "lerna": "^3.20.2"
+  },
   "workspaces": [
     "packages/*"
   ]
