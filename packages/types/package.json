@@ -1,0 +1,8 @@
+{
+  "name": "mdxx-types",
+  "version": "0.0.1",
+  "typings": "index.d.ts",
+  "files": [
+    "index.d.ts"
+  ]
+}

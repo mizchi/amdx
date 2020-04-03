@@ -7491,6 +7491,11 @@ unique-slug@^2.0.0:
   dependencies:
     imurmurhash "^0.1.4"
 
+uniroll@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/uniroll/-/uniroll-1.0.2.tgz#ccbbcca79585ea59497389dc12f2028a4191d11f"
+  integrity sha512-B38WVqPqy+2ewgaronCN30LdU2ShFLi11bAG7YXT5vKzoQBbM3WU16NUJkViACOoFI7EmyIhpwNrXIxwHn0WtQ==
+
 unist-builder@2.0.3, unist-builder@^2.0.0, unist-builder@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/unist-builder/-/unist-builder-2.0.3.tgz#77648711b5d86af0942f334397a33c5e91516436"

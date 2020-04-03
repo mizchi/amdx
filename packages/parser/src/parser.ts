@@ -20,7 +20,7 @@ import toHAST from "mdast-util-to-hast";
 // import { parse as parseBabel } from "@babel/core";
 import { parse as parseBabel } from "@babel/core";
 import { highlighter } from "./highlighter";
-import { ParseResult, ParsedImports } from "..";
+import { ParseResult, ParsedImports, ParseOptions } from "..";
 
 type JSXNode = {
   tagName: string;
@@ -124,7 +124,7 @@ type MDXNode = any;
 
 const vfile = require("vfile");
 
-export function parse(code: string, options: any = {}): ParseResult {
+export function parse(code: string, options: ParseOptions): ParseResult {
   const file = vfile();
   const fn = unified()
     .use(toMDAST, { footnotes: true })
