@@ -25,4 +25,5 @@ export type ParseResult = {
   frontmatter: object | null;
   imports: ParsedImports;
   exports: ParsedExports;
+  errors: string[];
 };
