@@ -2,11 +2,11 @@ import unified from "unified";
 export const markCursorLine: unified.Plugin = (options: any = {}) => {
   return (ast: any, vfile: any) => {
     const curLine = vfile.data && vfile.data.cursor && vfile.data.cursor.line;
-    const starts = ast.children.map((node: any) => node.position.start.line);
-    // console.log("cursor line", curLine, starts);
     ast.children.forEach((node: any) => {
-      const line = node.position.start.line;
-      if (line === curLine) {
+      const lineStart = node.position.start.line;
+      const lineEnd = node.position.end.line;
+      if (lineStart <= curLine && curLine <= lineEnd) {
+        // assign class
         if (node.data == null) {
           node.data = {};
         }
