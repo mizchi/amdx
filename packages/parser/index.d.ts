@@ -15,6 +15,7 @@ export type ParsedExports = Array<any>;
 
 export type ParseResult = {
   ast: types.RootNode;
+  frontmatter: object | null;
   imports: ParsedImports;
   exports: ParsedExports;
 };

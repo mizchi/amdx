@@ -10,7 +10,7 @@ import katex from "remark-html-katex";
 // @ts-ignore
 import toc from "remark-toc";
 // @ts-ignore
-import frontmatter from "remark-frontmatter";
+import frontmatterPlugin from "remark-frontmatter";
 // @ts-ignore
 import remarkMdx from "remark-mdx";
 // @ts-ignore
@@ -21,6 +21,9 @@ import toHAST from "mdast-util-to-hast";
 import { parse as parseBabel } from "@babel/core";
 import { highlighter } from "./highlighter";
 import { ParseResult, ParsedImports, ParseOptions } from "..";
+// @ts-ignore
+import yaml from "yaml";
+import { normalizeHeading } from "./normalizeHeading";
 
 type JSXNode = {
   tagName: string;
@@ -35,19 +38,19 @@ function parseAttributes(attrs: any) {
     if (value === null) {
       return {
         ...acc,
-        [name]: true
+        [name]: true,
       };
     }
 
     if (value.type === "JSXExpressionContainer") {
       return {
         ...acc,
-        [name]: value.expression.value
+        [name]: value.expression.value,
       };
     } else {
       return {
         ...acc,
-        [name]: value.value
+        [name]: value.value,
       };
     }
     throw new Error("Unsupported jsx property literal");
@@ -59,15 +62,15 @@ function _parseJSXNode(node: any): JSXNode | string {
     if (node.openingElement.selfClosing) {
       return {
         tagName: node.openingElement.name.name,
-        props: parseAttributes(node.openingElement.attributes)
+        props: parseAttributes(node.openingElement.attributes),
       };
     } else {
       return {
         tagName: node.openingElement.name.name,
         props: {
           ...parseAttributes(node.openingElement.attributes),
-          children: node.children.map((n: any) => _parseJSXNode(n))
-        }
+          children: node.children.map((n: any) => _parseJSXNode(n)),
+        },
       };
     }
   } else if (node.type === "JSXText") {
@@ -82,8 +85,8 @@ function parseJSX(code: string) {
     babelrc: false,
     plugins: [
       require("@babel/plugin-syntax-jsx"),
-      require("@babel/plugin-syntax-object-rest-spread")
-    ]
+      require("@babel/plugin-syntax-object-rest-spread"),
+    ],
   });
 
   // @ts-ignore
@@ -95,7 +98,7 @@ function parseJSX(code: string) {
 function parseImport(code: string): ParsedImports {
   const parsed = parseBabel(code, {
     babelrc: false,
-    plugins: [require("@babel/plugin-syntax-object-rest-spread")]
+    plugins: [require("@babel/plugin-syntax-object-rest-spread")],
   }) as any;
 
   const body = parsed.program.body;
@@ -108,14 +111,14 @@ function parseImport(code: string): ParsedImports {
       } else if (spec.type === "ImportSpecifier") {
         names.push({
           local: spec.local.name,
-          imported: spec.imported.name
+          imported: spec.imported.name,
         });
       }
     });
     return {
       default: _default,
       names,
-      importPath: line.source.value
+      importPath: line.source.value,
     };
   });
 }
@@ -124,13 +127,14 @@ type MDXNode = any;
 
 const vfile = require("vfile");
 
-export function parse(code: string, options: ParseOptions): ParseResult {
+export function parse(code: string, options?: ParseOptions): ParseResult {
   const file = vfile();
   const fn = unified()
     .use(toMDAST, { footnotes: true })
     .use(math)
     .use(katex)
-    // .use(frontmatter, [{ type: "yaml", marker: "-" }])
+    .use(normalizeHeading)
+    .use(frontmatterPlugin, [{ type: "yaml", marker: "-" }])
     .use(remarkMdx)
     .use(squeeze)
     .use(breaks)
@@ -139,7 +143,16 @@ export function parse(code: string, options: ParseOptions): ParseResult {
   file.contents = code;
   const parsed = fn.parse(file);
   const ast = fn.runSync(parsed, file) as any;
-  // const ast = fn.parse(code) as any;
+
+  let frontmatter = null;
+  const frontmatterNode = ast.children.find(
+    (child: any) => child.type === "yaml"
+  );
+  if (frontmatterNode) {
+    const yamlParsed = yaml.parse(frontmatterNode.value);
+    frontmatter = yamlParsed;
+  }
+
   const exports = ast.children.filter((c: any) => c.type === "export");
   const imports = ast.children.filter((c: any) => c.type === "import");
 
@@ -153,23 +166,24 @@ export function parse(code: string, options: ParseOptions): ParseResult {
 
   const newAst = {
     ...ast,
-    children: nodes
+    children: nodes,
   };
 
   const hast = toHAST(newAst, {
     handlers: {
+      // TODO: test
       inlineCode(h: any, node: MDXNode) {
         return {
           ...node,
           type: "element",
-          tagName: "inlineCode",
+          tagName: "code",
           properties: {},
           children: [
             {
               type: "text",
-              value: node.value
-            }
-          ]
+              value: node.value,
+            },
+          ],
         };
       },
       jsx(h: any, node: MDXNode) {
@@ -178,15 +192,16 @@ export function parse(code: string, options: ParseOptions): ParseResult {
       },
       comment(h: any, node: MDXNode) {
         return { ...node, type: "commment" };
-      }
+      },
     },
-    allowDangerousHTML: true
+    allowDangerousHTML: true,
   });
 
   // console.log("file", file);
   return {
     ast: hast,
     imports: parsedImports,
-    exports
+    exports,
+    frontmatter,
   };
 }

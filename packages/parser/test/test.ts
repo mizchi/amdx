@@ -5,12 +5,6 @@ import { parse } from "../src/parser";
 
 import assert from "assert";
 
-function withMarkdown() {
-  const parsed = parse(`# foo`);
-  assert.equal(parsed.ast.children[0].tagName, "h1");
-  // console.log(parsed.ast);
-}
-
 function withImport() {
   const parsed = parse(`
 import Foo from "./foo";
@@ -48,7 +42,10 @@ function withCodeBlock() {
 const x = 3
 \`\`\`
   `);
-  console.log("test with code", parsed.ast.children[0].children[0].children[0]);
+  // @ts-ignore
+  const codeNode = parsed.ast.children[0].children[0];
+  // assert.equal(codeNode.properties.tagName, "code");
+  assert.deepEqual(codeNode.properties.className, ["language-js"]);
 }
 
 function withCodeBlock2() {
@@ -62,15 +59,24 @@ const x = 3
   // assert.equal(Object.values(parsed.highlights)[0].nodes.length, 5);
 }
 
+// import vfile from "vfile";
 // do not pass yet
 function withYamlFrontmatter() {
   // can parse
-  const parsed = parse(`---
+  // const file = vfile();
+  const parsed = parse(
+    `---
 title: foo
+tags: [a, b, c]
 ---
 
 aaaa
-`);
+`
+  );
+  assert.deepEqual(parsed.frontmatter, {
+    title: "foo",
+    tags: ["a", "b", "c"],
+  });
 }
 
 // do not pass yet
@@ -86,12 +92,34 @@ $$
   assert.ok(JSON.stringify(parsed.ast.children).includes("math-display"));
 }
 
+function withNormalizeHeading1() {
+  const parsed = parse(`# foo\n## bar`);
+  // console.log(parsed.ast.children);
+  // @ts-ignore
+  assert.equal(parsed.ast.children[0].tagName, "h2");
+  // @ts-ignore
+  assert.equal(parsed.ast.children[2].tagName, "h3");
+}
+
+function withNormalizeHeading2() {
+  const parsed = parse(`## foo\n## bar`);
+  // @ts-ignore
+  assert.equal(parsed.ast.children[0].tagName, "h2");
+  // @ts-ignore
+  assert.equal(parsed.ast.children[2].tagName, "h2");
+}
+
+withNormalizeHeading1();
+
 [
-  withMarkdown,
+  withNormalizeHeading1,
+  withNormalizeHeading2,
   withImport,
   withImportAndJsx,
   withCodeBlock,
   withCodeBlock2,
   withYamlFrontmatter,
-  withMath
-].forEach(fn => fn());
+  withMath,
+].forEach((fn) => fn());
+
+// // withYamlFrontmatter();
