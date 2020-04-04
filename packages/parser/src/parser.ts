@@ -141,6 +141,7 @@ const fn = unified()
   .use(highlighter);
 
 export function parse(code: string, options: ParseOptions = {}): ParseResult {
+  const errors = [];
   const file = vfile();
   file.contents = code;
   if (options.cursor) {
@@ -155,8 +156,12 @@ export function parse(code: string, options: ParseOptions = {}): ParseResult {
     (child: any) => child.type === "yaml"
   );
   if (frontmatterNode) {
-    const yamlParsed = yaml.parse(frontmatterNode.value);
-    frontmatter = yamlParsed;
+    try {
+      const yamlParsed = yaml.parse(frontmatterNode.value);
+      frontmatter = yamlParsed;
+    } catch (err) {
+      errors.push(err.message);
+    }
   }
 
   const exports = ast.children.filter((c: any) => c.type === "export");
@@ -209,5 +214,6 @@ export function parse(code: string, options: ParseOptions = {}): ParseResult {
     imports: parsedImports,
     exports,
     frontmatter,
+    errors,
   };
 }
