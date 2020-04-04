@@ -109,7 +109,31 @@ function withNormalizeHeading2() {
   assert.equal(parsed.ast.children[2].tagName, "h2");
 }
 
-withNormalizeHeading1();
+function withCursor1() {
+  const parsed = parse(`## foo`, {
+    cursor: {
+      line: 1,
+    },
+  });
+  assert.equal(
+    // @ts-ignore
+    parsed.ast.children[0].properties.className[0],
+    "cursor-focused"
+  );
+}
+
+function withCursor2() {
+  const parsed = parse(`# a\nb\n\nc`, {
+    cursor: {
+      line: 2,
+    },
+  });
+  assert.equal(
+    // @ts-ignore
+    parsed.ast.children[2].properties.className[0],
+    "cursor-focused"
+  );
+}
 
 [
   withNormalizeHeading1,
@@ -120,6 +144,6 @@ withNormalizeHeading1();
   withCodeBlock2,
   withYamlFrontmatter,
   withMath,
+  withCursor1,
+  withCursor2,
 ].forEach((fn) => fn());
-
-// // withYamlFrontmatter();

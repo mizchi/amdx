@@ -24,6 +24,7 @@ import { ParseResult, ParsedImports, ParseOptions } from "..";
 // @ts-ignore
 import yaml from "yaml";
 import { normalizeHeading } from "./normalizeHeading";
+import { markCursorLine } from "./markCursorLine";
 
 type JSXNode = {
   tagName: string;
@@ -127,20 +128,25 @@ type MDXNode = any;
 
 const vfile = require("vfile");
 
-export function parse(code: string, options?: ParseOptions): ParseResult {
-  const file = vfile();
-  const fn = unified()
-    .use(toMDAST, { footnotes: true })
-    .use(math)
-    .use(katex)
-    .use(normalizeHeading)
-    .use(frontmatterPlugin, [{ type: "yaml", marker: "-" }])
-    .use(remarkMdx)
-    .use(squeeze)
-    .use(breaks)
-    .use(highlighter);
+const fn = unified()
+  .use(toMDAST, { footnotes: true })
+  .use(markCursorLine)
+  .use(math)
+  .use(katex)
+  .use(normalizeHeading)
+  .use(frontmatterPlugin, [{ type: "yaml", marker: "-" }])
+  .use(remarkMdx)
+  .use(squeeze)
+  .use(breaks)
+  .use(highlighter);
 
+export function parse(code: string, options: ParseOptions = {}): ParseResult {
+  const file = vfile();
   file.contents = code;
+  if (options.cursor) {
+    file.data.cursor = options.cursor;
+  }
+
   const parsed = fn.parse(file);
   const ast = fn.runSync(parsed, file) as any;
 
