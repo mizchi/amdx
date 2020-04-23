@@ -9,8 +9,13 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx|mdx)$/,
-        use: [path.resolve(__dirname, "dist/loader.js"), "ts-loader"],
+        test: /\.(mdx)$/,
+        use: [path.resolve(__dirname, "dist/loader.js")],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(tsx)$/,
+        use: ["ts-loader"],
         exclude: /node_modules/,
       },
     ],
