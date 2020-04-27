@@ -1,5 +1,4 @@
 const parser = require("mdxx-parser");
-const compiler = require("mdxx-compiler");
 
 module.exports = function (source: string) {
   const intro = `import React from "react"`;
