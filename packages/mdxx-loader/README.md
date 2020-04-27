@@ -4,6 +4,6 @@
 # loader build
 yarn build
 
-# example build
-yarn webpack --config ./webpack.config.example.js
+# example build, then open dist/index.html
+yarn build:example
 ```

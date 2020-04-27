@@ -1,11 +1,10 @@
-const parser = require("mdxx-parser"); // module.exportsとimport文は混ぜて使えない
+const parser = require("mdxx-parser");
 const compiler = require("mdxx-compiler");
 
 module.exports = function (source: string) {
   const intro = `import React from "react"`;
   const jsxFactory = `React.createElement`;
   const Fragment = `React.Fragment`;
-  console.log(source);
   const { ast, imports } = parser.parse(source, {});
   const stringifiedAst = JSON.stringify(ast);
 
