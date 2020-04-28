@@ -1,0 +1,24 @@
+{
+  "name": "mdxx-loader",
+  "version": "0.0.1",
+  "main": "dist/loader.js",
+  "scripts": {
+    "build": "webpack",
+    "build:example": "webpack --config ./webpack.config.example.js",
+    "prepublishOnly": "yarn build",
+    "test": "ts-node -T -O '{\"module\":\"commonjs\"}' test/test.ts"
+  },
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
+  "types": "index.d.ts",
+  "license": "MIT",
+  "dependencies": {
+    "mdxx-compiler": "^0.3.2",
+    "mdxx-parser": "^0.3.4"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}
