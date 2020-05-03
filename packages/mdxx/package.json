@@ -6,5 +6,6 @@
   "dependencies": {
     "mdxx-types": "^0.3.6",
     "uniroll": "^1.0.2"
-  }
+  },
+  "gitHead": "4bc4c42c801cb8aecc4fc53e0604c816589967a0"
 }

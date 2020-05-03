@@ -1,0 +1,227 @@
+---
+title: なぜ仮想DOMという概念が俺達の魂を震えさせるのか
+tags: VirtualDom AdventCalendar JavaScript React
+author: mizchi
+slide: false
+---
+
+この記事は [VirtualDOM Advent Calendar 2014 - Qiita](http://qiita.com/advent-calendar/2014/virtual-dom "VirtualDOM Advent Calendar 2014 - Qiita") の初日です。
+
+初日ということで、基調講演風に、Virtual DOM とはなにか、なぜ僕はこんな興奮しているのか！という話から。
+
+## Virtual DOM とはなにか
+
+既存の概念で当てはめると、JavaScript の MVC, MVW(Whatever)フレームワークの View に位置します。が、その程度では終わりません。仮想 DOM とは世界を革命する力であり、この jQuery の DOM 操作で汚れきったフロントエンドを救う救世主なのです。
+
+現時点で自分が知っている限りは、以下の実装を指します。
+
+- [facebook/react](https://github.com/facebook/react "facebook/react")
+  - 最も使われてる Facebook の実装
+- [Matt-Esch/virtual-dom](https://github.com/Matt-Esch/virtual-dom "Matt-Esch/virtual-dom")
+  - Altenative な virtual dom の実装
+- [segmentio/deku](https://github.com/segmentio/deku "segmentio/deku")
+  - 現時点で wip と銘打たれているが、node.js のコアコミッタが多数在籍する segment.io 社の仮想 DOM 実装
+
+## なぜ Virtual DOM か
+
+結論から言うと、「設計と速度が両立する」から。以下その理由。
+
+HTML とはツリー構造であり、2 つのツリー構造の diff を算出して、それを DOM に patch するアクションを作れば、常に最小のコストで状態遷移を表現できるよね、ってのが Virtual DOM という発想のスタート地点となります。
+
+- State A : `<div class='foo'>aaa</div>`
+- State B : `<div class='foo'>bbb</div>`
+- 作られる diff: foo の text の`-aaa+bbb`
+- 差を埋める patch: `node.querySelector('.foo').innerHTML = 'bbb'`
+
+(これは雑な表現)
+
+この HTML の生成する元となるツリー構造は、生の DOM(HTML のインスタンス)である必要はなく、DOM と 1 対 1 に対応する単純な構造体で表現し、それを仮想 DOM と呼びます。
+
+Virtual DOM 実装といった場合、仮想 DOM の構造体表現と、それを用いた diff/patch アルゴリズムを指します。
+
+単純な JS の構造体なので、基本的に仮想 DOM 実装はブラウザ環境である必要がなく、node.js やピュアな V8 でも仮想 DOM の構築と diff 生成までは可能です。
+
+なので、実際の話、Virtual DOM のアルゴリズムは JavaScript 以外でも書くことができます。patch 処理の適用はブラウザ環境である必要がありますけどね。
+
+実際に中で用いられるアルゴリズムに関しては、以下の資料を参考にしてください。
+
+- [Performance Calendar » React’s diff algorithm](http://calendar.perfplanet.com/2013/diff/ "Performance Calendar » React’s diff algorithm")
+- [Reconciliation | React](http://facebook.github.io/react/docs/reconciliation.html "Reconciliation | React")
+- [Virtual DOM のアルゴリズムが知りたくて virtual-dom のコードを読んだ話 - snyk_s log](http://saneyukis.hatenablog.com/entry/2014/09/03/134858 "Virtual DOMのアルゴリズムが知りたくてvirtual-domのコードを読んだ話 - snyk_s log")
+
+とはいえ、ユーザーは基本的に中で行われるアルゴリズムを知る必要がないのですが、一点だけパフォーマンス上の理由で知らないといけないものがあります。それは、仮想 DOM が前後の同意性を比定しやすくするためにユニークな key 属性を与えるということです。
+
+```html
+<ul class="list-container">
+  <li key="list-item-1">1</li>
+  <li key="list-item-2">2</li>
+  <li key="list-item-3">3</li>
+</ul>
+```
+
+出来る限りユニークな key を全ての node に与えるのが推奨されます。React では同一性を担保するのに key が使われます。(このキーは描画される DOM には出現しません)
+
+とはいえ、なくても diff が低速化するだけで動くことには動きます。
+
+ユーザーは、key 属性を指定する以外を除いて、内部で行われる操作を知る必要はありません。基本的に、ユーザーが取りうる行動は、「常に完成品の仮想 DOM を Push し続ける」ということになります。
+
+## Virtual DOM がもたらす、「古くて新しい」考え方
+
+「常に完成品の仮想 DOM を Push し続ける」というのは、結果として物事を単純化します。
+
+ここでよく考えてみてください。
+
+「状態遷移に応じて、完成品の HTML をプッシュする」
+
+これって見覚えがありませんか？
+
+そうです、サーバーサイドで、HTTP リクエストに応えて HTML を返却する操作そのものです。
+
+Virtual DOM に基づいたフレームワークを使えば、この「古くて新しい考え方」でアプリケーションを記述することが可能になるのです。多くのサーバーサイドエンジニアが慣れ親しんだそれです。しかも、パフォーマンスは最適化された上でね！
+
+これが最初に述べた、「設計と速度が両立する」という言葉の意味するところです。
+
+現時点での各種クライアントサイド MVC 実装は、正直僕でも学習コストが高過ぎると思っているのですが、Virtual DOM が惜しみなく使える時代が来ればパラダイムの変化が小さくなるので将来的には Virtual DOM の方が学習コストは下がると思っています。
+
+考えても見てください、今の jQuery って、Virtual DOM の発行するプリミティブな patch 処理を人間がやってるわけですよ！大抵の人間は時系列データをパッチできるぐらいには頭が良くないので、難しい部分は頭がいい人が書いたフレームワーク側に押し付けたいじゃないですか！！！
+
+Virtual DOM なら、それができる！
+
+本当にパフォーマンスでるの、っていうのは僕が書いた React で svg のパーティクルを物理演算する奴でもどうぞ
+
+http://mizchi-sandbox.github.io/react-svg-particle/
+
+## Flux アーキテクチャ
+
+Virtual DOM は、アーキテクチャそのものを変化させます。
+
+[Facebook の決断：MVC はスケールしない。ならば Flux だ。](http://www.infoq.com/jp/news/2014/05/facebook-mvc-flux "Facebook の決断：MVCはスケールしない。ならば Flux だ。")
+
+この資料は「そもそも MVC を誤解している」という批判も多いのですが、大事なのは「常に一方向にデータが流れる」という点にあります。
+
+今までの Backbone や Angular のクライアントサイド MVC/MVVM では、次のような構成にならざるを得ませんでした。
+
+`C -> (M <-> V)`
+
+C によって生成された M と V が、双方向にイベントを交換しています。(あえて物事を単純にしてます。実際のモダンなクライアントサイド MVW は、M と V の間に Mediator か ViewController か ViewModel と呼ばれる中間層がいるでしょう)
+
+これを Flux では、Event が常に一方向に流れるように規定します。
+
+`C -> M -> V -> C -> ...`
+
+イベントが常に一方向に循環しています。これを UniDirectional Data Flow と呼んだりします。各層では、自分が受け取るイベントと発行するイベントに対し実装を行い、In と Out に対してだけテストを書けばよくなります。
+
+こうなると各層が元々の MVC とは意味がズレてくるので、 Flux では Store View Dispatcher と呼称します。
+
+Store はアプリケーションドメインのビジネスロジックを知っており、そこから仮想 DOM を push します。生成された View は Dispatcher を経由して Action を発行します。Action はルーティングやポーリングによっても発行されます。
+
+古典的なサーバサイドの発想に当てはめると、ルーティングが最初に発行されるアクションに相当します。
+
+これ以上詳しくは、日本語資料なら saneyuki さんの解説を読んでください。
+
+[Flux アーキテクチャの覚え書きを書いた - snyk_s log](http://saneyukis.hatenablog.com/entry/2014/09/26/174750 "Fluxアーキテクチャの覚え書きを書いた - snyk_s log")
+
+## なぜ今 Flux のような話が出てきたか
+
+Virtual DOM によって「パフォーマンス面で問題を出さずに」常にゼロから状態を構築する、ということが可能になったからです。
+
+データバインドだとパフォーマンスとイベントハンドラの都合で前の HTML を捨てることはできませんでした。ゼロから構築して普通に HTML を push すると、画面が一度消えてしまい、イベントハンドラをデリゲートする処理をもう一度発行しないといけなくなります。
+
+仮想 DOM ではイベントハンドラも同時に適用して patch する対象なので、この心配はなくなります。
+
+## Flux 実装
+
+なんか妙にたくさんあるんだけど…
+
+- [Fluxxor - Home](http://fluxxor.com/ "Fluxxor - Home")
+- [DeLorean.js](http://deloreanjs.com/ "DeLorean.js")
+- [spoike/refluxjs](https://github.com/spoike/refluxjs "spoike/refluxjs")
+
+ここらへんが比較的熱そう。
+
+Flux、概念であり実装は簡単なので、皆自前で作る傾向があります。
+
+(あとで自分が作ってる実装も公開したいなァ…結構 Store 層が分厚い設計だけど)
+
+## FRP
+
+このアーキテクチャ、副作用のない Immutable オブジェクト(ここでは仮想 DOM)を時系列ストリームで表現する、と言い変えると、関数型言語と Functional Reactive Programming と相性がよく、Virtual DOM は FRP を行うためのパーツとして振る舞えるようになります。
+
+どうです、その筋の人は興奮してきませんか。
+
+実際、このアーキテクチャを Clojure の Immutlablity を使って実現した、ClojureScript の Om というフレームワークがあります。
+
+[swannodette/om](https://github.com/swannodette/om "swannodette/om")
+
+また、FRP に特化した AltJS の一種である [Elm - functional web programming](http://elm-lang.org/ "Elm - functional web programming") は、中で virtul-dom(仮想 DOM 実装の一つ)を使っています。
+
+一部の Haskeller が好きな purescript にも、もちろんバインディングがあります [purescript-contrib/purescript-react](https://github.com/purescript-contrib/purescript-react "purescript-contrib/purescript-react")
+
+## Isomorphic
+
+node.js だと、DOM に描画するギリギリまで React で表現することで、サーバーサイドとクライアントサイドを同じコードで記述する、Isomorphic というパラダイムが適用できたりします。
+
+最近だと webpack や browserify でストレージ以外はだいたいビルドできるし、ストレージもこの前紹介した [mWater/minimongo](https://github.com/mWater/minimongo "mWater/minimongo") 等を使えば抽象化できます。(とはいっても mongodb 限定ですが…node 環境だと mongo 使うこと多いですし…)
+
+[JavaScript - minimongo で Isomorphic Storage - Qiita](http://qiita.com/mizchi/items/e42cdf9eb0707fe86974 "JavaScript - minimongoでIsomorphic Storage - Qiita")
+
+つまりユニットテストを走らせるときは node で、みたいなのができます。不安定な phantomjs を使う必要がないの最高ですね。
+
+## 現状の問題点
+
+### 既存ライブラリとの相性の悪さ
+
+Virtual DOM の基本アプローチは仮想 DOM -> 生の DOM 変換であり、この手続に依存する限り生 DOM を触ることは推奨されません。patch に巻き込まれると、知らないうちにイベントハンドラごと吹き飛ぶ可能性があります。しかも内部のアルゴリズムに依存するので非常にデバッグ困難です。
+
+つまりは jQuery は読み取りにしか使えません。副作用を起こすと仮想 DOM と生 DOM の対応関係がずれます。
+
+こういうケースは現状どうやって対処するかというと、絶対に patch が走らない空の DOM を用意してその中に DOM を展開したりしています。親に巻き込まれると消えます。
+
+### エコシステム
+
+仮想 DOM に対応しているテンプレートエンジンがまだ少ししかありません。僕が知ってる中で React の仮想 DOM を吐けるのは次の 2 つです。
+
+- jsx
+- react-jade
+
+[jadejs/react-jade](https://github.com/jadejs/react-jade "jadejs/react-jade")
+
+テンプレートエンジンの多くはツリーごとの処理ではなくてフラットな文字列操作なので、仮想 DOM を生成するのはそもそも難しかったりします。
+
+とはいえ、生で生成してもよいのです。こんな風に。
+
+```js
+React.createElement("ul", { className: "foo" }, [
+  React.createElement("li", { key: 1 }, "item1"),
+  React.createElement("li", { key: 2 }, "item2"),
+  React.createElement("li", { key: 3 }, "item3"),
+]);
+```
+
+結局 jsx も react-jade もプレコンパイルすると ↑ のコードを生成しているだけです。ということはこれをテンプレートエンジンから吐けば良い。
+
+React の惜しいところは仮想 DOM が JSON で表現できないところですね。探せばあるかもしれないんで、誰かわかったら教えて下さい。
+
+## 学習資料
+
+[enaqx/awesome-react](https://github.com/enaqx/awesome-react "enaqx/awesome-react")が一番まとまってる。
+
+## Virtual DOM こそ未来
+
+Angular2.0 ではデータバインドを仮想 DOM 的な何かで経由するっていう話も出てきていますし、とにかくエッジな界隈ではみんな仮想 DOM をみてる印象。なのに日本で注目度低くてヤバイってのが僕の中の危機感としてあって、騒いだりしてました。
+
+お前それ Vue.js のときにも言ってたじゃんってのはナシで。
+
+## 最後に
+
+どの実装が生き残るか、さらにもう一段階パラダイムシフトがあるのか？っていう懸念はありますが、僕は間違いなく仮想 DOM が次世代のフロントエンド環境のスタンダードになると思っています。
+
+とはいえプリミティブなレイヤーなので、ユーザーの目に見える場所から隠される可能性はありますが、それはそういうものなので隠れたっていいですよね。簡単な方がいい。まともに使えるようにするには各種 WAF と一体化し、テンプレートエンジンが多く選べるようになったほうが便利なのは間違いありません。
+
+たとえば僕は今 Ruby で jade テンプレートエンジンを仮想 DOM として render するような実験してて、次のようなことができるのもわかってます。
+
+[reactjs - React でサーバーサイドで生成した HTML に対して DOM を初期化せずに ReactComponent として状態を更新する - Qiita](http://qiita.com/mizchi/items/dca6b82349e811a24158 "reactjs - Reactでサーバーサイドで生成したHTMLに対してDOMを初期化せずにReactComponentとして状態を更新する - Qiita")
+
+この世界、既存実装はまだ少なく、すべては可能性の中にのみあります。時代を切り開きたい人は是非、[VirtualDOM Advent Calendar 2014 - Qiita](http://qiita.com/advent-calendar/2014/virtual-dom "VirtualDOM Advent Calendar 2014 - Qiita") に参加しましょう！埋まらなかった日は、僕がベンチマーク貼ったりポエム書いたりします。
+
+@koba04 先生の [一人 React.js Advent Calendar 2014 - Qiita](http://qiita.com/advent-calendar/2014/reactjs "一人React.js Advent Calendar 2014 - Qiita") にも期待。

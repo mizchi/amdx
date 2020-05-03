@@ -1,4 +1,3 @@
 export default () => {
-  console.log("hello");
-  return <div>hello</div>;
+  return <div className="markdown-body">hello</div>;
 };

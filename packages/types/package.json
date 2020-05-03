@@ -4,5 +4,6 @@
   "typings": "index.d.ts",
   "files": [
     "index.d.ts"
-  ]
+  ],
+  "gitHead": "4bc4c42c801cb8aecc4fc53e0604c816589967a0"
 }

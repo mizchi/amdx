@@ -1,8 +1,9 @@
 module.exports = {
-  // Public, build-time env vars.
-  // https://nextjs.org/docs#build-time-configuration
   webpack(config) {
-    config.module.loaders.push({
+    // console.log(config);
+
+    config.resolve.extensions.push(".mdx");
+    config.module.rules.push({
       test: /\.mdx?/,
       loader: "mdxx-loader",
     });
