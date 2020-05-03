@@ -106,6 +106,12 @@ import Foo from "./foo.mdx" //
 
 ## TODO
 
+- [ ] title 対応
+- [ ] amp-img 対応
+- [ ] Social Share button
+- [ ] なんらかの CLI ツールで scaffold する
+- [ ] `pages/*.mdx` を直接 render できるようにする
+- [ ] amp-script 対応
 - [ ] Support React.Context based component provider
 - [ ] Support preact
 

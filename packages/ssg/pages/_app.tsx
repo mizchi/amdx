@@ -10,7 +10,7 @@ export default function MyApp({ Component, pageProps }) {
           width: "100%",
           paddingLeft: 10,
           paddingRight: 10,
-          paddingTop: 10,
+          paddingTop: 15,
           maxWidth: "100%",
         }}
       >
@@ -31,6 +31,12 @@ const CustomCss = () => {
   return (
     <Head>
       <style global jsx>{`
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+          width: 100%;
+        }
         .markdown-body pre {
           color: white;
           background: #333;
