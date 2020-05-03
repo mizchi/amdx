@@ -1,6 +1,6 @@
 {
   "name": "mdxx-parser",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "main": "dist/parser.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -28,7 +28,7 @@
     "@types/node": "^12.12.31",
     "hast-util-raw": "^5.0.1",
     "mdast-util-to-hast": "^8.0.0",
-    "mdxx-types": "^0.3.2",
+    "mdxx-types": "^0.3.6",
     "refractor": "^2.10.1",
     "remark-breaks": "^1.0.5",
     "remark-frontmatter": "^1.3.3",

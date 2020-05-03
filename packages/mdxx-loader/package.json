@@ -1,6 +1,6 @@
 {
   "name": "mdxx-loader",
-  "version": "0.0.1",
+  "version": "0.3.6",
   "main": "dist/loader.js",
   "scripts": {
     "build": "webpack",
@@ -15,8 +15,8 @@
   "types": "index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "mdxx-compiler": "^0.3.2",
-    "mdxx-parser": "^0.3.4"
+    "mdxx-compiler": "^0.3.6",
+    "mdxx-parser": "^0.3.6"
   },
   "devDependencies": {
     "typescript": "^3.8.3"
