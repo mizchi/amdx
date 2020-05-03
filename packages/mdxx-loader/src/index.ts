@@ -1,10 +1,12 @@
-const parser = require("mdxx-parser");
+// const parser = require("mdxx-parser");
+import { parse } from "mdxx-parser";
 
 module.exports = function (source: string) {
   const intro = `import React from "react"`;
   const jsxFactory = `React.createElement`;
   const Fragment = `React.Fragment`;
-  const { ast, imports } = parser.parse(source, {});
+  const { ast, imports, frontmatter } = parse(source, {});
+
   const stringifiedAst = JSON.stringify(ast);
 
   const names = [];
@@ -16,13 +18,19 @@ module.exports = function (source: string) {
   }
   const componentsCode = "{ " + names.join(",") + " }";
   const output = `
-        ${intro};
-        ${importsCode};
-        import { compile } from "mdxx-compiler";
-        export default (props) => {
-          const options = { props, h: ${jsxFactory}, Fragment: ${Fragment}, components: ${componentsCode}};
-          return compile(${stringifiedAst}, options);
-        }
-        `;
+    ${intro};
+    ${importsCode};
+    import { compile } from "mdxx-compiler";
+    export const frontmatter = ${JSON.stringify(frontmatter)};
+    export default (props) => {
+      const options = {
+        props,
+        h: ${jsxFactory},
+        Fragment: ${Fragment},
+        components: ${componentsCode}
+      };
+      return compile(${stringifiedAst}, options);
+    }
+    `;
   return output;
 };

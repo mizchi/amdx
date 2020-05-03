@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   mode: "none",
-  entry: "./example/main.tsx",
+  entry: path.join(__dirname, "./main.tsx"),
   output: {
     filename: "bundle.js",
   },
@@ -10,13 +10,18 @@ module.exports = {
     rules: [
       {
         test: /\.(mdx)$/,
-        use: [path.resolve(__dirname, "dist/loader.js")],
-        exclude: /node_modules/,
+        use: [path.resolve(__dirname, "../lib/index.js")],
       },
       {
         test: /\.(tsx)$/,
-        use: ["ts-loader"],
-        exclude: /node_modules/,
+        use: [
+          {
+            loader: "ts-loader",
+            options: {
+              transpileOnly: true,
+            },
+          },
+        ],
       },
     ],
   },
