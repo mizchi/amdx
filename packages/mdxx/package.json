@@ -1,10 +1,10 @@
 {
   "name": "mdxx",
-  "version": "0.3.9",
+  "version": "0.4.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "mdxx-types": "^0.3.9",
+    "mdxx-types": "^0.4.0",
     "uniroll": "^1.0.2"
   },
   "scripts": {

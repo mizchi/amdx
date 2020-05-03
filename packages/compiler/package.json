@@ -1,6 +1,6 @@
 {
   "name": "mdxx-compiler",
-  "version": "0.3.9",
+  "version": "0.4.0",
   "main": "dist/compiler.js",
   "module": "dist/compiler.mjs",
   "types": "index.d.ts",
@@ -16,7 +16,7 @@
     "test": "ts-node -T -O '{\"module\":\"commonjs\"}' test/compiler.test.tsx"
   },
   "dependencies": {
-    "mdxx-types": "^0.3.9"
+    "mdxx-types": "^0.4.0"
   },
   "devDependencies": {
     "ts-node": "^8.8.1"
