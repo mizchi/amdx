@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { AmpIncludeAmpSocialShare } from "./amp";
+import { GitHubStyle } from "./Style";
+import { PrismStyle } from "./PrismStyle";
 
 export const config = {
   amp: true,
@@ -14,6 +16,8 @@ export function Layout(props: {
     <>
       <Head>
         <title>{props.title}</title>
+        <GitHubStyle />
+        <PrismStyle />
         <AmpIncludeAmpSocialShare />
       </Head>
       <div style={{ paddingBottom: 10 }}>

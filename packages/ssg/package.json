@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "create-item": "node scripts/create-item.js",
-    "build": "next build && next export",
+    "build": "node scripts/create-index && next build && next export",
     "dev": "next"
   },
   "dependencies": {
