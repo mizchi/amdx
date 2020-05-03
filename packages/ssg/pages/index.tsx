@@ -1,3 +1,3 @@
 export default () => {
-  return <div className="markdown-body">hello</div>;
+  return <div className="markdown-body">mdxx</div>;
 };

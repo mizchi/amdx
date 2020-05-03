@@ -1,5 +1,5 @@
 // @ts-ignore
-import Bar from "../components/bar.mdx";
+import Bar from "../docs/bar.mdx";
 
 export const config = {
   amp: true,
