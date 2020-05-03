@@ -1,5 +1,73 @@
 # MDXX
 
+MDX eXtended
+
+## Spec
+
+- Parse to JSON for WebWorker
+- Compile to react component (TODO: support other compiler like preact or vue)
+
+## packages
+
+- `mdxx-loader`: webpack-loader
+- `rollup-plugin-mdxx`: rollup plugin
+- `mdxx-parser`: parser by remark
+- `mdxx-compiler`: runner for parsed json
+- `mdxx-cli`: `mdxx` cli tools
+- `mdxx-ssg`: static site generator by mdxx on minimum next.js
+
+## CLI
+
+```bash
+# install
+$ npm install mdxx-cli -g
+```
+
+## webpack loader
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      // add this rule
+      {
+        test: /\.mdx?/,
+        loader: "mdxx-loader",
+      },
+    ],
+  },
+};
+```
+
+for AMP (transform `img` to `amp-img`)
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      // add this rule
+      {
+        test: /\.mdx?/,
+        loader: "mdxx-loader/lib/amp",
+      },
+    ],
+  },
+};
+```
+
+## rollup
+
+```js
+// rollup.config.js
+import { mdxx } from "rollup-plugin-mdxx";
+export default {
+  // ...
+  plugins: [mdxx()],
+};
+```
+
+## SSG
+
 ```bash
 # install
 $ npm install mdxx-cli -g
@@ -106,14 +174,13 @@ import Foo from "./foo.mdx" //
 
 ## TODO
 
-- [x] title 対応
-- [x] amp-img 対応
+- [x] title
+- [x] amp-img
 - [x] Social Share button
-- [ ] amp-img fixed height 対応
-- [ ] なんらかの CLI ツールで scaffold する
-- [ ] `pages/*.mdx` を直接 render できるようにする
-- [ ] amp-script 対応
-- [ ] Support React.Context based component provider
+- [ ] amp-img fixed height
+- [x] CLI Scaffolding
+- [ ] Render mdx on `pages/*.mdx`
+- [ ] amp-script
 - [ ] Support preact
 
 ## LICENSE

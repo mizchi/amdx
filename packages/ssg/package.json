@@ -4,12 +4,14 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "create-item": "node scripts/create-item.js",
+    "new-page": "node scripts/new-page.js",
+    "create-index": "node scripts/create-index.js",
     "build": "node scripts/create-index && next build && next export",
-    "dev": "next"
+    "dev": "npm run create-index && next"
   },
   "dependencies": {
     "date-fns": "^2.12.0",
+    "mdxx-parser": "0.4.0",
     "next": "^9.3.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"

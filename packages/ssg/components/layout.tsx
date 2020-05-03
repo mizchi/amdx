@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { AmpIncludeAmpSocialShare } from "./amp";
-import { GitHubStyle } from "./Style";
+import { GitHubStyle } from "./GithubStyle";
 import { PrismStyle } from "./PrismStyle";
 
 export const config = {
@@ -10,6 +10,7 @@ export const config = {
 export function Layout(props: {
   title: string;
   author: string;
+  authorLink: string;
   children: React.ReactNode;
 }) {
   return (
@@ -25,7 +26,9 @@ export function Layout(props: {
       </div>
       <main className="markdown-body">
         <h1>{props.title}</h1>
-        <p>by {props.author}</p>
+        <p>
+          by <a href={props.authorLink}>{props.author}</a>
+        </p>
         {props.children}
       </main>
       <div>

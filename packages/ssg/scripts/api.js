@@ -1,5 +1,11 @@
 const fs = require("fs");
+const parser = require("mdxx-parser");
 const path = require("path");
+
+function parseFrontmatter(mdx) {
+  const { frontmatter } = parser.parse(mdx);
+  return frontmatter;
+}
 
 function loadConfig() {
   const data = fs.readFileSync(
@@ -10,43 +16,27 @@ function loadConfig() {
 }
 
 function getPaths() {
-  const stats = fs.readdirSync(path.join(__dirname, "../pages"), "utf-8");
+  const stats = fs.readdirSync(path.join(__dirname, "../docs"), "utf-8");
   const paths = stats
-    .map((s) => s.replace(".tsx", ""))
-    .filter((s) => !s.startsWith("_"))
-    .filter((s) => s !== "index");
+    .filter((f) => f.endsWith(".mdx"))
+    .map((s) => {
+      const fullpath = path.join(path.join(__dirname, "../docs"), s);
+      const mdx = fs.readFileSync(fullpath, "utf-8");
+      const frontmatter = parseFrontmatter(mdx);
+      return { ...frontmatter, slug: s.replace(".mdx", "") };
+    });
+  // paths.sort((a, b) => {
+  //   return a.created > b.created ? -1 : +1;
+  // });
   return paths;
 }
 
-function createIndex(paths, config) {
+function createIndex(paths) {
   // TODO: parse frontmatter title
-  const siteName = config.siteName || "mdxx-ssg";
-  const indexFile = `// created by create-index
-import Head from "next/head";
-export const config = { amp: true };
-export default () => {
-  return (
-    <>
-      <Head>
-        <title>${siteName}</title>
-      </Head>
-      <div>
-        <h1>${siteName}</h1>
-        {${JSON.stringify(paths)}.map((fpath, index) => {
-          return (
-            <div key={index}>
-              <a href={"/" + fpath}>{fpath}</a>
-            </div>
-          );
-        })}
-      </div>
-    </>
-  );
-}
-`;
-  const indexPath = path.join(__dirname, "../pages/index.tsx");
-  fs.writeFileSync(indexPath, indexFile);
-  console.log("update >", indexPath.replace(process.cwd(), ""));
+  const pages = JSON.stringify(paths, null, 2);
+  const pagesPath = path.join(__dirname, "../gen/pages.json");
+  fs.writeFileSync(pagesPath, pages);
+  console.log("update >", pagesPath.replace(process.cwd(), ""));
 }
 
 module.exports = {
