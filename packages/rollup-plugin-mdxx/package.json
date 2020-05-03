@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-mdxx",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "scripts": {
     "prepare": "yarn build",
     "build": "tsc -p .",
@@ -8,7 +8,7 @@
   },
   "main": "lib/rollup-plugin-mdxx.js",
   "dependencies": {
-    "mdxx-parser": "^0.3.6"
+    "mdxx-parser": "^0.3.7"
   },
   "peerDependencies": {
     "mdxx-compiler": "*",

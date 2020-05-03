@@ -1,10 +1,10 @@
 {
   "name": "mdxx",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "mdxx-types": "^0.3.6",
+    "mdxx-types": "^0.3.7",
     "uniroll": "^1.0.2"
   },
   "gitHead": "4bc4c42c801cb8aecc4fc53e0604c816589967a0"

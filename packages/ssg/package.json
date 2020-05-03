@@ -1,6 +1,6 @@
 {
   "name": "mdxx-ssg",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "private": true,
   "license": "MIT",
   "dependencies": {
@@ -9,8 +9,8 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "mdxx-compiler": "^0.3.6",
-    "mdxx-loader": "^0.3.6",
+    "mdxx-compiler": "^0.3.7",
+    "mdxx-loader": "^0.3.7",
     "typescript": "^3.8.3"
   }
 }
