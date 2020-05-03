@@ -13,9 +13,12 @@ export function Layout(props: {
   return (
     <>
       <Head>
-        <title>{props.title} </title>
+        <title>{props.title}</title>
         <AmpIncludeAmpSocialShare />
       </Head>
+      <div style={{ paddingBottom: 10 }}>
+        <a href="/">&lt;&nbsp;index</a>
+      </div>
       <main className="markdown-body">
         <h1>{props.title}</h1>
         <p>by {props.author}</p>

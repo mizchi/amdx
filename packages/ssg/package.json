@@ -4,10 +4,12 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "create-item": "node scripts/create-item.js",
     "build": "next build && next export",
     "dev": "next"
   },
   "dependencies": {
+    "date-fns": "^2.12.0",
     "next": "^9.3.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
