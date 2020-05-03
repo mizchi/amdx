@@ -108,7 +108,7 @@ import Foo from "./foo.mdx" //
 
 - [x] title 対応
 - [x] amp-img 対応
-- [ ] Social Share button
+- [x] Social Share button
 - [ ] amp-img fixed height 対応
 - [ ] なんらかの CLI ツールで scaffold する
 - [ ] `pages/*.mdx` を直接 render できるようにする
