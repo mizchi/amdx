@@ -8,8 +8,6 @@ export const config = {
 export default () => {
   return (
     <div className="markdown-body">
-      <p>p tag</p>
-      <hr />
       <Bar />
     </div>
   );
