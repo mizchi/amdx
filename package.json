@@ -4,6 +4,7 @@
     "debug": "yarn ts-node -T -O '{\"module\":\"commonjs\"}' packages/cli/src/cli.ts example/index.tsx"
   },
   "devDependencies": {
+    "@types/node": "^12.12.31",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.7",
     "lerna": "^3.20.2"
