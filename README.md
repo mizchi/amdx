@@ -177,8 +177,10 @@ import Foo from "./foo.mdx" //
 - [x] title
 - [x] amp-img
 - [x] Social Share button
-- [ ] amp-img fixed height
 - [x] CLI Scaffolding
+- [ ] Service Worker
+- [ ] Gen git history
+- [ ] amp-img fixed height
 - [ ] Render mdx on `pages/*.mdx`
 - [ ] amp-script
 - [ ] Support preact

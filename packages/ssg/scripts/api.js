@@ -7,15 +7,7 @@ function parseFrontmatter(mdx) {
   return frontmatter;
 }
 
-function loadConfig() {
-  const data = fs.readFileSync(
-    path.join(__dirname, "../mdxx-ssg.json"),
-    "utf-8"
-  );
-  return JSON.parse(data);
-}
-
-function getPaths() {
+function getPages() {
   const stats = fs.readdirSync(path.join(__dirname, "../docs"), "utf-8");
   const paths = stats
     .filter((f) => f.endsWith(".mdx"))
@@ -25,9 +17,6 @@ function getPaths() {
       const frontmatter = parseFrontmatter(mdx);
       return { ...frontmatter, slug: s.replace(".mdx", "") };
     });
-  // paths.sort((a, b) => {
-  //   return a.created > b.created ? -1 : +1;
-  // });
   return paths;
 }
 
@@ -36,11 +25,10 @@ function createIndex(paths) {
   const pages = JSON.stringify(paths, null, 2);
   const pagesPath = path.join(__dirname, "../gen/pages.json");
   fs.writeFileSync(pagesPath, pages);
-  console.log("update >", pagesPath.replace(process.cwd(), ""));
+  console.log("[ssg:create-index]", pagesPath.replace(process.cwd(), ""));
 }
 
 module.exports = {
-  getPaths,
+  getPages,
   createIndex,
-  loadConfig,
 };

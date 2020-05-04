@@ -34,7 +34,7 @@ export function Layout(props: {
       </div>
       <hr />
       <footer style={{ paddingBottom: 20 }}>
-        created by <a href="https://github.com/mizchi/mdxx">@mizchi/mdxx-ssg</a>
+        created by <a href="https://github.com/mizchi/mdxx">mdxx-ssg</a>
       </footer>
     </>
   );

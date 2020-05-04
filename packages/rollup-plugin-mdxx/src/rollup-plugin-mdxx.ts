@@ -12,7 +12,7 @@ export const mdxx = (
   return {
     async transform(code: string, id: string) {
       if (id.endsWith(".mdx") || id.endsWith(".md")) {
-        const { ast, imports } = parse(code, {});
+        const { ast, imports, frontmatter } = parse(code, {});
         const stringifiedAst = JSON.stringify(ast);
 
         const names = [];
@@ -27,6 +27,7 @@ export const mdxx = (
         ${intro};
         ${importsCode};
         import { compile } from "mdxx-compiler";
+        export const frontmatter = ${JSON.stringify(frontmatter)};
         export default (props) => {
           const options = { props, h: ${jsxFactory}, Fragment: ${Fragment}, components: ${componentsCode}};
           return compile(${stringifiedAst}, options);
@@ -34,6 +35,6 @@ export const mdxx = (
         `;
         return output;
       }
-    }
+    },
   } as Plugin;
 };

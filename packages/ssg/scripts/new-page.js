@@ -1,18 +1,26 @@
 const fs = require("fs");
 const path = require("path");
+
 const [, , inputName] = process.argv;
 const format = require("date-fns/format");
 
 const now = Date.now();
 const current = format(now, "yyyyMMddHHmm");
-// let name = inputName ? `${current}-${inputName}` : current;
 let name = inputName ? inputName : current;
 
 const mdxPath = path.join(path.join(__dirname, "../docs", name + ".mdx"));
 
 const title = inputName ? inputName : name;
-fs.writeFileSync(mdxPath, `---\ntitle: ${title}\ncreated: ${now}\n---\n`);
-const { getPaths, loadConfig, createIndex } = require("./api");
+fs.writeFileSync(
+  mdxPath,
+  `---
+title: ${title}
+created: ${now}
+amp: true
+---
+`
+);
+const { getPages, createIndex } = require("./api");
 
 const pagePath = path.join(path.join(__dirname, "../pages", `${name}.tsx`));
 
@@ -38,13 +46,9 @@ export default () => (
 `
 );
 
-console.log("gen >", mdxPath.replace(process.cwd(), ""));
-console.log("gen >", pagePath.replace(process.cwd(), ""));
+console.log("[ssg:gen]", mdxPath.replace(process.cwd(), ""));
+console.log("[ssg:gen]", pagePath.replace(process.cwd(), ""));
 
 // re-create-index
-const config = loadConfig();
-const paths = getPaths();
-
-// console.log("create index", paths);
-
-createIndex(paths, config);
+const pages = getPages();
+createIndex(pages);

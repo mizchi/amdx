@@ -1,6 +1,4 @@
-const { getPaths, loadConfig, createIndex } = require("./api");
+const { getPages, createIndex } = require("./api");
 
-const config = loadConfig();
-const paths = getPaths();
-
-createIndex(paths, config);
+const pages = getPages();
+createIndex(pages);
