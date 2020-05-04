@@ -1,7 +1,12 @@
+import { AmpIncludeAmpInstallServiceworker } from "./amp";
+
 export function Layout(props: { children: React.ReactNode }) {
   return (
     <>
       <Header />
+      <AmpIncludeAmpInstallServiceworker />
+      <AmpInstallSW />
+
       <div
         style={{
           width: "100%",
@@ -58,5 +63,16 @@ function Footer() {
         <p>This site uses Google Analytics.</p>
       </footer>
     </>
+  );
+}
+
+function AmpInstallSW() {
+  return (
+    // @ts-ignore
+    <amp-install-serviceworker
+      src="/sw.js"
+      data-iframe-src="/install-sw.html"
+      layout="nodisplay"
+    />
   );
 }
