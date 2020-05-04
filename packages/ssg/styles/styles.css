@@ -1,0 +1,23 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.markdown-body {
+  min-height: 50vh;
+}
+
+.markdown-body pre {
+  background: #333;
+  color: white;
+}
+
+html {
+  background: #333;
+}
+
+body {
+  background: #eee;
+}
