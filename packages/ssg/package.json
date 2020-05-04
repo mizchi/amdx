@@ -19,6 +19,7 @@
   "devDependencies": {
     "mdxx-compiler": "^0.4.0",
     "mdxx-loader": "^0.4.0",
+    "raw-loader": "^4.0.1",
     "typescript": "^3.8.3"
   }
 }

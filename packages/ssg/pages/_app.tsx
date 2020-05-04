@@ -1,8 +1,11 @@
+import "../styles/github-markdown.css";
+import "../styles/prism.css";
+
 import Head from "next/head";
 export default function MyApp({ Component, pageProps }) {
   return (
     <>
-      <GithubMardownStyle />
+      {/* <GithubMardownStyle /> */}
       <PrismjsHighlighter />
       <CustomCss />
       <div

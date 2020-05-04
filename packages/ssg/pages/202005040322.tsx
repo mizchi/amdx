@@ -2,8 +2,12 @@
 // @ts-ignore
 import Doc, { frontmatter } from "../docs/202005040322.mdx";
 import { Layout } from "../components/layout";
-import config from "../mdxx-ssg.json";
-const newProps = { ...config, ...frontmatter };
+import ssgConfig from "../mdxx-ssg.json";
+const newProps = { ...ssgConfig, ...frontmatter };
+
+export const config = {
+  amp: true,
+};
 
 export default () => (
   <Layout {...(newProps as any)}>
