@@ -34,6 +34,26 @@ function toProps(props: any) {
   }, {});
 }
 
+const ampComponents = {
+  img(props: any) {
+    const [_alt, wxh] = props.alt.split(":");
+    const [width, height] = wxh ? wxh.split("x") : [];
+
+    const newProps = Object.assign(
+      {},
+      props,
+      {
+        alt: _alt,
+        // layout: "responsive", // TODO: broken
+        width: width,
+        height: height,
+        style: { display: "inline-block" }
+      }
+    );
+    return React.createElement("amp-img", newProps);
+  }
+}
+
 export function compile(
   root: Node,
   {
@@ -42,12 +62,13 @@ export function compile(
     Fragment,
     components
   }: {
-    props?: { components?: { [key: string]: any } };
+    props?: { amp?: boolean, components?: { [key: string]: any } };
     h: typeof React.createElement;
     Fragment: typeof React.Fragment;
     components: { [key: string]: any };
   }
 ): React.ReactElement | string {
+  components = props.amp === true ? { ...ampComponents, ...components } : components;
   return _compile(root);
   function _compile(node: Node): React.ReactElement | string {
     function resolveComponent(tagName: string) {
@@ -80,11 +101,11 @@ export function compile(
             toProps(others),
             ...(children
               ? children.map(c => {
-                  if (typeof c === "string") {
-                    return c;
-                  }
-                  return _toNode(c.tagName, c.props);
-                })
+                if (typeof c === "string") {
+                  return c;
+                }
+                return _toNode(c.tagName, c.props);
+              })
               : [])
           );
         }

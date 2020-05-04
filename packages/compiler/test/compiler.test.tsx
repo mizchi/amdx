@@ -150,6 +150,31 @@ function withAmpRewriter() {
   assert.equal(out, `<amp-img src="/foo.img" alt="foo"></amp-img>`);
 }
 
+function withAmpRewriter2() {
+  const el = compile(
+    {
+      type: "root",
+      children: [
+        {
+          type: "element",
+          tagName: "img",
+          properties: { src: "/foo.img", alt: "foo" }
+        }
+      ]
+    } as RootNode,
+    {
+      components: {},
+      h: React.createElement,
+      Fragment: React.Fragment,
+      props: { amp: true }
+    } as CompilerOptions
+  );
+  const out = ReactDOMServer.renderToStaticMarkup(el as any);
+  // console.log(out);
+  assert.equal(out, `<amp-img src="/foo.img" alt="foo" style="display:inline-block"></amp-img>`);
+}
+
+
 function withClassName2() {
   const el = compile(
     {
@@ -180,5 +205,7 @@ function withClassName2() {
   withStyle,
   withClassName,
   withAmpRewriter,
+  withAmpRewriter2,
   withClassName2
 ].forEach(fn => fn());
+
