@@ -205,7 +205,7 @@ export function parse(code: string, options: ParseOptions = {}): ParseResult {
         return { ...node, type: "commment" };
       },
     },
-    allowDangerousHTML: true,
+    allowDangerousHtml: true,
   });
 
   // console.log("file", file);
