@@ -41,8 +41,8 @@ function Header() {
 function Footer() {
   return (
     <>
-      <_FooterContainer>
-        <_FooterContent>
+      <FooterContainer>
+        <FooterContent>
           <p>
             created by{" "}
             <a href="https://github.com/mizchi/mdxx" style={{ color: "white" }}>
@@ -50,8 +50,8 @@ function Footer() {
             </a>
           </p>
           <p>This site uses Google Analytics.</p>
-        </_FooterContent>
-      </_FooterContainer>
+        </FooterContent>
+      </FooterContainer>
     </>
   );
 }
@@ -67,7 +67,7 @@ function AmpInstallSW() {
   );
 }
 
-const _FooterContainer = styled.footer`
+const FooterContainer = styled.footer`
   padding-left: 10px;
   padding-top: 10px;
   background: #333;
@@ -76,7 +76,7 @@ const _FooterContainer = styled.footer`
   justify-content: center;
 `;
 
-const _FooterContent = styled.div`
+const FooterContent = styled.div`
   min-width: 480px;
   max-width: 960px;
 `;
