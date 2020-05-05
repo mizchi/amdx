@@ -41,14 +41,17 @@ function Header() {
 function Footer() {
   return (
     <>
-      <hr />
-
-      <footer style={{ paddingBottom: 20, paddingLeft: 10 }}>
-        <p>
-          created by <a href="https://github.com/mizchi/mdxx">mdxx-ssg</a>
-        </p>
-        <p>This site uses Google Analytics.</p>
-      </footer>
+      <_FooterContainer>
+        <_FooterContent>
+          <p>
+            created by{" "}
+            <a href="https://github.com/mizchi/mdxx" style={{ color: "white" }}>
+              mdxx-ssg
+            </a>
+          </p>
+          <p>This site uses Google Analytics.</p>
+        </_FooterContent>
+      </_FooterContainer>
     </>
   );
 }
@@ -64,14 +67,31 @@ function AmpInstallSW() {
   );
 }
 
+const _FooterContainer = styled.footer`
+  padding-left: 10px;
+  padding-top: 10px;
+  background: #333;
+  color: white;
+  display: flex;
+  justify-content: center;
+`;
+
+const _FooterContent = styled.div`
+  min-width: 480px;
+  max-width: 960px;
+`;
+
 const HeaderContainer = styled.header`
   height: 48px;
   width: 100%;
   background: #333;
+  display: flex;
+  justify-content: center;
 `;
 
 const HeaderInner = styled.div`
-  width: 180px;
+  min-width: 480px;
+  max-height: 960px;
   padding-left: 1px;
   padding-top: 8px;
   display: flex;
@@ -90,5 +110,5 @@ const MainContainer = styled.div`
 const MainContent = styled.div`
   margin: 0 auto;
   max-width: 960px;
-  min-height: 50vh;
+  min-height: 80vh;
 `;

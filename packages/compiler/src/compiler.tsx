@@ -36,23 +36,23 @@ function toProps(props: any) {
 
 const ampComponents = {
   img(props: any) {
-    const [_alt, wxh] = props.alt.split(":");
-    const [width, height] = wxh ? wxh.split("x") : [];
+    // expect ![alttext:500](https://...)
+    let [newAlt, height] = props.alt?.split(":") ?? ["", ""];
+    const ampImgProps = { src: props.src, alt: newAlt, layout: "fill" };
 
-    const newProps = Object.assign(
-      {},
-      props,
-      {
-        alt: _alt,
-        // layout: "responsive", // TODO: broken
-        width: width,
-        height: height,
-        style: { display: "inline-block" }
-      }
+    height = height || "480px";
+
+    if (!String(height).endsWith("px")) {
+      height = `${height}px`;
+    }
+
+    return React.createElement(
+      "div",
+      { className: "amp-img-container", style: { height } },
+      React.createElement("amp-img", ampImgProps)
     );
-    return React.createElement("amp-img", newProps);
-  }
-}
+  },
+};
 
 export function compile(
   root: Node,
@@ -60,15 +60,16 @@ export function compile(
     props = {},
     h,
     Fragment,
-    components
+    components,
   }: {
-    props?: { amp?: boolean, components?: { [key: string]: any } };
+    props?: { amp?: boolean; components?: { [key: string]: any } };
     h: typeof React.createElement;
     Fragment: typeof React.Fragment;
     components: { [key: string]: any };
   }
 ): React.ReactElement | string {
-  components = props.amp === true ? { ...ampComponents, ...components } : components;
+  components =
+    props.amp === true ? { ...ampComponents, ...components } : components;
   return _compile(root);
   function _compile(node: Node): React.ReactElement | string {
     function resolveComponent(tagName: string) {
@@ -100,12 +101,12 @@ export function compile(
             resolveComponent(tagName),
             toProps(others),
             ...(children
-              ? children.map(c => {
-                if (typeof c === "string") {
-                  return c;
-                }
-                return _toNode(c.tagName, c.props);
-              })
+              ? children.map((c) => {
+                  if (typeof c === "string") {
+                    return c;
+                  }
+                  return _toNode(c.tagName, c.props);
+                })
               : [])
           );
         }
