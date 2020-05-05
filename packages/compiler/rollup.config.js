@@ -11,26 +11,27 @@ export default [
       typescript({
         tsconfigOverride: {
           compilerOptions: {
-            module: "ESNext"
-          }
-        }
+            target: "es2019",
+            module: "ESNext",
+          },
+        },
       }),
       nodeResolve({ preferBuiltins: true }),
       commonjs({
-        include: ["src/**/*.ts", "node_modules/**", "../../node_modules/**"]
+        include: ["src/**/*.ts", "node_modules/**", "../../node_modules/**"],
       }),
       json(),
-      terser()
+      terser(),
     ],
     output: [
       {
         file: "dist/compiler.mjs",
-        format: "esm"
+        format: "esm",
       },
       {
         file: "dist/compiler.js",
-        format: "cjs"
-      }
-    ]
-  }
+        format: "cjs",
+      },
+    ],
+  },
 ];

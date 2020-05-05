@@ -182,12 +182,16 @@ import Foo from "./foo.mdx" //
 - [x] Header
 - [x] Fix css on export
 - [x] mdxx-compiler: amp option
-- [ ] ssg:Service Worker
-- [ ] ssg:Gen git history
-- [ ] ssg:amp-img fixed height
-- [ ] ssg:Link to GitHub PR
-- [ ] ssg:Render mdx on `pages/*.mdx`
-- [ ] ssg:amp-script
+- [x] ssg: Support `styled-components`
+- [x] ssg: AMP Install Service Worker
+- [x] ssg: Refactor layout css
+- [x] ssg: `amp-img` fixed height
+- [ ] compiler: Support slug
+- [ ] compiler: toc
+- [ ] ssg: Gen git history
+- [ ] ssg: Link to GitHub PR
+- [ ] ssg: Render mdx on `pages/*.mdx`
+- [ ] ssg: amp-script
 
 ## LICENSE
 

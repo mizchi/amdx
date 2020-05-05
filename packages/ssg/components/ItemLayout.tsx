@@ -27,7 +27,7 @@ export function ItemLayout(props: {
           {props.children}
         </div>
 
-        <div>
+        <div style={{ paddingTop: 15 }}>
           <TwitterShare />
           <FacebookShare />
           {/* <LineShare /> */}
