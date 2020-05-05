@@ -13,13 +13,12 @@ export default () => {
         <title>{ssgConfig.siteName}</title>
       </Head>
       <Layout>
-        <h1>{ssgConfig.siteName}</h1>
         {pages.map((page, index) => {
           // @ts-ignore
           const formatted = format(page.created as number, "yyyy/MM/dd/HH:mm");
           return (
             <div key={index}>
-              <span>{formatted}</span>:
+              <span>{formatted}</span>: &nbsp;
               <a href={"/" + page.slug}>{page.title}</a>
             </div>
           );

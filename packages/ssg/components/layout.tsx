@@ -4,61 +4,37 @@ import styled from "styled-components";
 export function Layout(props: { children: React.ReactNode }) {
   return (
     <>
-      <Header />
       <AmpIncludeAmpInstallServiceworker />
       <AmpInstallSW />
-
-      <div
-        style={{
-          width: "100%",
-          paddingLeft: 10,
-          paddingRight: 10,
-          paddingTop: 15,
-          maxWidth: "100%",
-        }}
-      >
-        <div
-          style={{
-            margin: "0 auto",
-            maxWidth: "960px",
-          }}
-        >
-          <main style={{ minHeight: "50vh" }}>{props.children}</main>
-        </div>
-      </div>
+      <Header />
+      <Main>{props.children}</Main>
       <Footer />
     </>
   );
 }
 
-const _Header = styled.header`
-  height: 48px;
-  width: 100%;
-  background: #333;
-`;
+function Main(props: { children: React.ReactNode }) {
+  return (
+    <MainContainer>
+      <MainContent>
+        <main>{props.children}</main>
+      </MainContent>
+    </MainContainer>
+  );
+}
 
 function Header() {
   return (
-    <_Header>
-      <div
-        style={{
-          width: 180,
-          paddingLeft: 10,
-          paddingTop: 8,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+    <HeaderContainer>
+      <HeaderInner>
         <a
           href="/"
           style={{ textDecoration: "none", color: "white", fontSize: "1.2em" }}
         >
           ⚡ mizchi.dev
         </a>
-      </div>
-      {/* </header> */}
-    </_Header>
+      </HeaderInner>
+    </HeaderContainer>
   );
 }
 
@@ -87,3 +63,32 @@ function AmpInstallSW() {
     />
   );
 }
+
+const HeaderContainer = styled.header`
+  height: 48px;
+  width: 100%;
+  background: #333;
+`;
+
+const HeaderInner = styled.div`
+  width: 180px;
+  padding-left: 1px;
+  padding-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MainContainer = styled.div`
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 15px;
+  max-width: 100%;
+`;
+
+const MainContent = styled.div`
+  margin: 0 auto;
+  max-width: 960px;
+  min-height: 50vh;
+`;
