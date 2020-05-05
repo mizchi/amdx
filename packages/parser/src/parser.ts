@@ -8,7 +8,7 @@ import breaks from "remark-breaks";
 // @ts-ignore
 import katex from "remark-html-katex";
 // @ts-ignore
-import toc from "remark-toc";
+// import toc from "remark-toc";
 // @ts-ignore
 import frontmatterPlugin from "remark-frontmatter";
 // @ts-ignore
@@ -149,6 +149,8 @@ export function parse(code: string, options: ParseOptions = {}): ParseResult {
   }
 
   const parsed = fn.parse(file);
+
+  // console.log("vfile", file);
   const ast = fn.runSync(parsed, file) as any;
 
   let frontmatter = null;
@@ -208,9 +210,9 @@ export function parse(code: string, options: ParseOptions = {}): ParseResult {
     allowDangerousHtml: true,
   });
 
-  // console.log("file", file);
   return {
     ast: hast,
+    toc: file.data.toc,
     imports: parsedImports,
     exports,
     frontmatter,

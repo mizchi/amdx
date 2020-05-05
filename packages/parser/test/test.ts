@@ -135,6 +135,19 @@ function withCursor2() {
   );
 }
 
+function withToc() {
+  const parsed = parse(`text
+# a
+## b
+### c
+`);
+  assert.deepEqual(parsed.toc, [
+    { id: "a", depth: 2 },
+    { id: "b", depth: 3 },
+    { id: "c", depth: 4 },
+  ]);
+}
+
 [
   withNormalizeHeading1,
   withNormalizeHeading2,
@@ -146,4 +159,5 @@ function withCursor2() {
   withMath,
   withCursor1,
   withCursor2,
+  withToc,
 ].forEach((fn) => fn());

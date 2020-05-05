@@ -22,6 +22,7 @@ export type ParsedExports = Array<any>;
 
 export type ParseResult = {
   ast: types.RootNode;
+  toc: Array<{ id: string; depth: number }>;
   frontmatter: object | null;
   imports: ParsedImports;
   exports: ParsedExports;
