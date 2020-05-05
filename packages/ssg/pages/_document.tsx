@@ -5,27 +5,37 @@ import css from "!!raw-loader!../styles/github-markdown.css";
 import prismCss from "!!raw-loader!../styles/prism.css";
 // @ts-ignore
 import custom from "!!raw-loader!../styles/styles.css";
+import { ServerStyleSheet } from "styled-components";
+import ssgConfig from "../mdxx-ssg.json";
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return {
-      ...initialProps,
-      styles: (
-        <>
-          {initialProps.styles}
+  static async getInitialProps(ctx: any) {
+    const sheet = new ServerStyleSheet();
+    try {
+      const page = ctx.renderPage((App) => (props) =>
+        sheet.collectStyles(<App {...props} />)
+      );
+      const initialProps: any = await Document.getInitialProps(ctx);
+      return {
+        ...page,
+        styles: [
+          ...initialProps.styles,
           <style
             dangerouslySetInnerHTML={{
               __html: `${css}\n${prismCss}\n${custom}`,
             }}
-          />
-        </>
-      ),
-    };
+          />,
+          ...sheet.getStyleElement(),
+        ],
+      };
+    } finally {
+      sheet.seal();
+    }
   }
+
   render() {
     return (
-      <Html>
+      <Html lang={ssgConfig.lang || "en-US"}>
         <Head />
         <body>
           <Main />

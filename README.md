@@ -180,15 +180,14 @@ import Foo from "./foo.mdx" //
 - [x] CLI Scaffolding
 - [x] Google Analytics
 - [x] Header
-- [ ] Fix css on export
-- [ ] mdxx-loader: amp option
-- [ ] Service Worker
-- [ ] Gen git history
-- [ ] amp-img fixed height
-- [ ] Link to GitHub PR
-- [ ] Render mdx on `pages/*.mdx`
-- [ ] amp-script
-- [ ] Support preact
+- [x] Fix css on export
+- [x] mdxx-compiler: amp option
+- [ ] ssg:Service Worker
+- [ ] ssg:Gen git history
+- [ ] ssg:amp-img fixed height
+- [ ] ssg:Link to GitHub PR
+- [ ] ssg:Render mdx on `pages/*.mdx`
+- [ ] ssg:amp-script
 
 ## LICENSE
 

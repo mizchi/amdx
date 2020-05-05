@@ -14,9 +14,11 @@
     "mdxx-parser": "^0.4.1",
     "next": "^9.3.6",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.0",
     "mdxx-compiler": "^0.4.1",
     "mdxx-loader": "^0.4.1",
     "raw-loader": "^4.0.1",

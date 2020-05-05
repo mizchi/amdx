@@ -1,4 +1,5 @@
 import { AmpIncludeAmpInstallServiceworker } from "./amp";
+import styled from "styled-components";
 
 export function Layout(props: { children: React.ReactNode }) {
   return (
@@ -30,24 +31,34 @@ export function Layout(props: { children: React.ReactNode }) {
   );
 }
 
+const _Header = styled.header`
+  height: 48px;
+  width: 100%;
+  background: #333;
+`;
+
 function Header() {
   return (
-    <header style={{ height: 30, width: "100%", background: "#333" }}>
+    <_Header>
       <div
         style={{
           width: 180,
           paddingLeft: 10,
-          paddingTop: 2,
+          paddingTop: 8,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        <a href="/" style={{ textDecoration: "none", color: "white" }}>
+        <a
+          href="/"
+          style={{ textDecoration: "none", color: "white", fontSize: "1.2em" }}
+        >
           ⚡ mizchi.dev
         </a>
       </div>
-    </header>
+      {/* </header> */}
+    </_Header>
   );
 }
 

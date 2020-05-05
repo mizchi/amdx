@@ -1,8 +1,10 @@
 import Head from "next/head";
-export const config = { amp: true };
 import pages from "../gen/pages.json";
 import ssgConfig from "../mdxx-ssg.json";
 import format from "date-fns/format";
+import { Layout } from "../components/Layout";
+
+export const config = { amp: true };
 
 export default () => {
   return (
@@ -10,7 +12,7 @@ export default () => {
       <Head>
         <title>{ssgConfig.siteName}</title>
       </Head>
-      <div>
+      <Layout>
         <h1>{ssgConfig.siteName}</h1>
         {pages.map((page, index) => {
           // @ts-ignore
@@ -22,7 +24,7 @@ export default () => {
             </div>
           );
         })}
-      </div>
+      </Layout>
     </>
   );
 };
