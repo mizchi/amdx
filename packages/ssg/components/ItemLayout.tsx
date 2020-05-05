@@ -55,9 +55,9 @@ function LineShare() {
 function Analytics() {
   const json = JSON.stringify({
     vars: {
-      gtag_id: "UA-165420141-1",
+      gtag_id: "[GAUA]",
       config: {
-        "UA-165420141-1": { groups: "default" },
+        "[GAUA]": { groups: "default" },
       },
     },
   });
