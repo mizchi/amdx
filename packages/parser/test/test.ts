@@ -136,16 +136,20 @@ function withCursor2() {
 }
 
 function withToc() {
-  const parsed = parse(`text
+  const parsed = parse(`
 # a
 ## b
 ### c
+## a
 `);
   assert.deepEqual(parsed.toc, [
-    { id: "a", depth: 2 },
-    { id: "b", depth: 3 },
-    { id: "c", depth: 4 },
+    // base64
+    { id: "yq", depth: 2 },
+    { id: "yg", depth: 3 },
+    { id: "yw", depth: 4 },
+    { id: "yq-1", depth: 3 },
   ]);
+  // TODO: check generated id properties
 }
 
 [

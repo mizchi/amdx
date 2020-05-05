@@ -5,7 +5,7 @@ module.exports = function (source: string) {
   const intro = `import React from "react"`;
   const jsxFactory = `React.createElement`;
   const Fragment = `React.Fragment`;
-  const { ast, imports, frontmatter } = parse(source, {});
+  const { ast, imports, frontmatter, toc } = parse(source, {});
 
   const stringifiedAst = JSON.stringify(ast);
 
@@ -22,6 +22,8 @@ module.exports = function (source: string) {
     ${importsCode};
     import { compile } from "mdxx-compiler";
     export const frontmatter = ${JSON.stringify(frontmatter)};
+    export const toc = ${JSON.stringify(toc)};
+
     export default (props) => {
       const options = {
         props,

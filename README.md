@@ -186,8 +186,9 @@ import Foo from "./foo.mdx" //
 - [x] ssg: AMP Install Service Worker
 - [x] ssg: Refactor layout css
 - [x] ssg: `amp-img` fixed height
-- [ ] compiler: Support slug
+- [ ] compiler: heading slug
 - [ ] compiler: toc
+- [ ] compiler: Support amp-mathml
 - [ ] ssg: Gen git history
 - [ ] ssg: Link to GitHub PR
 - [ ] ssg: Render mdx on `pages/*.mdx`

@@ -1,5 +1,6 @@
 import unified from "unified";
-import visit from "unist-util-visit";
+// @ts-ignore
+import Slugger from "github-slugger";
 
 export const normalizeHeading: unified.Plugin = () => {
   return (tree: any, vfile: any) => {
@@ -10,12 +11,21 @@ export const normalizeHeading: unified.Plugin = () => {
         node.depth = node.depth + 1;
       });
     }
+    const slugger = new Slugger();
 
     const toc = headings.map((h: any) => {
+      const title = h.children[0].value;
+      const encoded = Buffer.from(title).toString("base64");
       return {
         depth: h.depth,
-        id: h.children[0].value,
+        id: slugger.slug(encoded),
+        title,
       };
+    });
+    headings.forEach((h: any, index: number) => {
+      h.data = { ...h.data };
+      h.data.hProperties = { ...h.data.hProperties };
+      h.data.hProperties.id = toc[index].id;
     });
     vfile.data.toc = toc;
   };
