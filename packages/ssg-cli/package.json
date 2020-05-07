@@ -2,7 +2,7 @@
   "name": "mdxx-ssg-cli",
   "version": "0.4.5",
   "bin": {
-    "mdxx-ssg": "bin/mdxx-ssg"
+    "mdxx-ssg": "bin/mdxx-ssg.js"
   },
   "dependencies": {
     "fs-extra": "^9.0.0",
@@ -13,5 +13,9 @@
     "@types/fs-extra": "^8.1.0",
     "@types/meow": "^5.0.0",
     "ts-node": "^8.10.1"
-  }
+  },
+  "files": [
+    "lib",
+    "bin"
+  ]
 }
