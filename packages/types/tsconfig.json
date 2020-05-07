@@ -1,7 +1,7 @@
 {
+  "include": ["."],
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "skipLibCheck": true,
-    "module": "esnext"
+    "skipLibCheck": true
   }
 }

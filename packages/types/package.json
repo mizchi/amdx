@@ -5,5 +5,8 @@
   "files": [
     "index.d.ts"
   ],
+  "scripts": {
+    "test": "echo wip"
+  },
   "gitHead": "59f9b26bd88aa9cc2067843bb99b5516b8d9cc1f"
 }

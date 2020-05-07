@@ -20,10 +20,6 @@ export default () => {
 function MathmlExample() {
   return (
     // @ts-ignore
-    <amp-mathml
-      layout="container"
-      // data-formula="\[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\]"
-      data-formula="\[y = x^2\]"
-    />
+    <amp-mathml layout="container" data-formula="\[y = x^2\]" />
   );
 }

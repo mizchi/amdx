@@ -192,6 +192,7 @@ import Foo from "./foo.mdx" //
 - [x] ssg: Support amp-social-share
 - [x] ssg: mdxx-ssg-cli
 - [x] parser: Support amp-mathml
+- [ ] CI
 - [ ] ssg: clickable anchor
 - [ ] ssg: Gen git history
 - [ ] ssg: Link to GitHub PR

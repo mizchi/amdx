@@ -1,9 +1,11 @@
 {
   "include": ["src"],
+  "exclude": ["node_modules"],
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
+    "strict": false,
     "skipLibCheck": true,
     "module": "commonjs"
   }

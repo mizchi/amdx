@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc -p .",
     "build:example": "webpack --config ./example/webpack.config.example.js",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "test": "echo wip"
   },
   "files": [
     "lib"
