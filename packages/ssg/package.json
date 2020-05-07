@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "test": "echo wip",
     "new-page": "node scripts/new-page.js",
     "create-index": "node scripts/create-index.js",
     "build": "node scripts/create-index && next build && next export",

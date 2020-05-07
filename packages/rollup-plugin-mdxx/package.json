@@ -6,6 +6,7 @@
     "build": "tsc -p .",
     "test": "echo wip"
   },
+  "license": "MIT",
   "main": "lib/rollup-plugin-mdxx.js",
   "dependencies": {
     "mdxx-parser": "^0.4.7"

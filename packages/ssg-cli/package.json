@@ -4,6 +4,9 @@
   "bin": {
     "mdxx-ssg": "bin/mdxx-ssg.js"
   },
+  "scripts": {
+    "test": "echo wip"
+  },
   "dependencies": {
     "fs-extra": "^9.0.0",
     "meow": "^7.0.0",

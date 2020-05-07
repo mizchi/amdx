@@ -1,6 +1,8 @@
 {
   "private": true,
   "scripts": {
+    "typecheck": "yarn workspaces run tsc -p . --noEmit",
+    "test": "yarn workspaces run test",
     "debug": "yarn ts-node -T -O '{\"module\":\"commonjs\"}' packages/cli/src/cli.ts example/index.tsx"
   },
   "devDependencies": {

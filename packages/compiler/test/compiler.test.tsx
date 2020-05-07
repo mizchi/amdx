@@ -18,17 +18,17 @@ function case1() {
           value: {
             tagName: "div",
             props: {
-              children: ["hello"]
-            }
-          }
-        }
-      ]
+              children: ["hello"],
+            },
+          },
+        },
+      ],
     } as RootNode,
     {
       components: {},
       h: React.createElement,
       Fragment: React.Fragment,
-      props: {}
+      props: {},
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
@@ -46,19 +46,19 @@ function case2() {
           value: {
             tagName: "Foo",
             props: {
-              children: ["hello"]
-            }
-          }
-        }
-      ]
+              children: ["hello"],
+            },
+          },
+        },
+      ],
     } as RootNode,
     {
       components: {
-        Foo: ({ children }: { children: any }) => <div>foo: {children}</div>
+        Foo: ({ children }: { children: any }) => <div>foo: {children}</div>,
       },
       h: React.createElement,
       Fragment: React.Fragment,
-      props: {}
+      props: {},
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
@@ -75,19 +75,19 @@ function withStyle() {
           value: {
             tagName: "div",
             props: {
-              style: "color: red;"
-            }
-          }
-        }
-      ]
+              style: "color: red;",
+            },
+          },
+        },
+      ],
     } as RootNode,
     {
       components: {
-        Foo: ({ children }: { children: any }) => <div>foo: {children}</div>
+        Foo: ({ children }: { children: any }) => <div>foo: {children}</div>,
       },
       h: React.createElement,
       Fragment: React.Fragment,
-      props: {}
+      props: {},
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
@@ -104,19 +104,19 @@ function withClassName() {
           value: {
             tagName: "div",
             props: {
-              class: "hey"
-            }
-          }
-        }
-      ]
+              class: "hey",
+            },
+          },
+        },
+      ],
     } as RootNode,
     {
       components: {
-        Foo: ({ children }: { children: any }) => <div>foo: {children}</div>
+        Foo: ({ children }: { children: any }) => <div>foo: {children}</div>,
       },
       h: React.createElement,
       Fragment: React.Fragment,
-      props: {}
+      props: {},
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
@@ -131,19 +131,21 @@ function withAmpRewriter() {
         {
           type: "element",
           tagName: "img",
-          properties: { src: "/foo.img", alt: "foo" }
-        }
-      ]
+          properties: { src: "/foo.img", alt: "foo" },
+        },
+      ],
     } as RootNode,
     {
       components: {
         // @ts-ignore
-        img: (props: any) => React.createElement("amp-img", props)
+        img: (props: any) => React.createElement("amp-img", props),
         // Foo: ({ children }: { children: any }) => <div>foo: {children}</div>
       },
       h: React.createElement,
       Fragment: React.Fragment,
-      props: {}
+      props: {
+        amp: true,
+      },
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
@@ -158,22 +160,23 @@ function withAmpRewriter2() {
         {
           type: "element",
           tagName: "img",
-          properties: { src: "/foo.img", alt: "foo" }
-        }
-      ]
+          properties: { src: "/foo.img", alt: "foo" },
+        },
+      ],
     } as RootNode,
     {
       components: {},
       h: React.createElement,
       Fragment: React.Fragment,
-      props: { amp: true }
+      props: { amp: true },
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
-  // console.log(out);
-  assert.equal(out, `<amp-img src="/foo.img" alt="foo" style="display:inline-block"></amp-img>`);
+  assert.equal(
+    out,
+    `<div class="amp-img-container" style="height:480px"><amp-img src="/foo.img" alt="foo" layout="fill"></amp-img></div>`
+  );
 }
-
 
 function withClassName2() {
   const el = compile(
@@ -184,15 +187,15 @@ function withClassName2() {
           type: "element",
           tagName: "span",
           properties: { className: ["token", "keyword"] },
-          children: [{ type: "text", value: "const" }]
-        }
-      ]
+          children: [{ type: "text", value: "const" }],
+        },
+      ],
     } as RootNode,
     {
       components: {},
       h: React.createElement,
       Fragment: React.Fragment,
-      props: {}
+      props: {},
     } as CompilerOptions
   );
   const out = ReactDOMServer.renderToStaticMarkup(el as any);
@@ -206,6 +209,5 @@ function withClassName2() {
   withClassName,
   withAmpRewriter,
   withAmpRewriter2,
-  withClassName2
-].forEach(fn => fn());
-
+  withClassName2,
+].forEach((fn) => fn());
