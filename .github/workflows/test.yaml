@@ -17,6 +17,9 @@ jobs:
       - name: yarn install
         run: |
           yarn install
+      - name: yarn install
+        run: |
+          cp packages/ssg/mdxx-ssg.json.example packages/ssg/mdxx-ssg.json
       - name: yarn typecheck
         run: |
           yarn typecheck
