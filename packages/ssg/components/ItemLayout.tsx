@@ -1,4 +1,4 @@
-import { Layout } from "./_Layout";
+import { Layout } from "./Layout";
 import Head from "next/head";
 import ssgConfig from "../mdxx-ssg.json";
 import { AmpIncludeAmpAnalytics, AmpIncludeAmpSocialShare } from "./amp";
