@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/_Layout";
 import { AmpIncludeAmpMathml } from "../components/amp";
 
 export const config = { amp: true };

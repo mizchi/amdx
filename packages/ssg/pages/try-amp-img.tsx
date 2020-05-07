@@ -1,4 +1,4 @@
-import { Layout } from "../components/Layout";
+import { Layout } from "../components/_Layout";
 
 export const config = { amp: true };
 
