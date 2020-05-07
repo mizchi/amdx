@@ -1,6 +1,6 @@
 {
   "name": "mdxx-types",
-  "version": "0.4.0",
+  "version": "0.4.5",
   "typings": "index.d.ts",
   "files": [
     "index.d.ts"

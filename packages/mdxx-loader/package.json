@@ -1,6 +1,6 @@
 {
   "name": "mdxx-loader",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc -p .",
@@ -13,8 +13,8 @@
   "types": "index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "mdxx-compiler": "^0.4.4",
-    "mdxx-parser": "^0.4.4"
+    "mdxx-compiler": "^0.4.5",
+    "mdxx-parser": "^0.4.5"
   },
   "gitHead": "0a9e846199d1cc13b6281d4e158c627f43306df8"
 }
