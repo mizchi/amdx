@@ -144,12 +144,28 @@ function withToc() {
 `);
   assert.deepEqual(parsed.toc, [
     // base64
-    { id: "yq", depth: 2 },
-    { id: "yg", depth: 3 },
-    { id: "yw", depth: 4 },
-    { id: "yq-1", depth: 3 },
+    { id: "yq", depth: 2, title: "a" },
+    { id: "yg", depth: 3, title: "b" },
+    { id: "yw", depth: 4, title: "c" },
+    { id: "yq-1", depth: 3, title: "a" },
   ]);
   // TODO: check generated id properties
+}
+
+function withAmpMathml() {
+  const parsed = parse(
+    `$$
+y = x^2
+$$
+`,
+    {}
+  );
+  console.log(parsed.ast);
+  // assert.equal(
+  //   // @ts-ignore
+  //   parsed.ast.children[2].properties.className[0],
+  //   "cursor-focused"
+  // );
 }
 
 [
