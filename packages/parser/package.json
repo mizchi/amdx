@@ -1,6 +1,6 @@
 {
   "name": "mdxx-parser",
-  "version": "0.4.5",
+  "version": "0.4.7",
   "main": "dist/parser.js",
   "scripts": {
     "build": "webpack --mode production",
