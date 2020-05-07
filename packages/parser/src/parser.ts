@@ -148,10 +148,28 @@ export function parse(code: string, options: ParseOptions = {}): ParseResult {
     file.data.cursor = options.cursor;
   }
 
+  const amp = !!options.amp;
+
   const parsed = fn.parse(file);
 
   // console.log("vfile", file);
   const ast = fn.runSync(parsed, file) as any;
+
+  // console.log(ast.children[1]);
+  // const amp = true; // TODO
+  ast.children.forEach((n: any, index: number) => {
+    if (amp && n.type === "math") {
+      const newNode = {
+        type: "jsx",
+        value: `<amp-mathml
+          layout="container"
+          data-formula="\\[${n.value}\\]"
+        />`,
+        position: n.position,
+      };
+      ast.children[index] = newNode;
+    }
+  });
 
   let frontmatter = null;
   const frontmatterNode = ast.children.find(

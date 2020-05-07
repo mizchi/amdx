@@ -82,13 +82,11 @@ aaaa
 // do not pass yet
 function withMath() {
   const parsed = parse(`
-# MathTest
-
-$$
-L = \\frac{1}{2} \\rho v^2 S C_L
-$$
-
-`);
+  # MathTest
+  $$
+  L = \\frac{1}{2} \\rho v^2 S C_L
+  $$
+  `);
   assert.ok(JSON.stringify(parsed.ast.children).includes("math-display"));
 }
 
@@ -158,14 +156,25 @@ function withAmpMathml() {
 y = x^2
 $$
 `,
-    {}
+    { amp: true }
   );
-  console.log(parsed.ast);
-  // assert.equal(
-  //   // @ts-ignore
-  //   parsed.ast.children[2].properties.className[0],
-  //   "cursor-focused"
-  // );
+  const mathNode = parsed.ast.children[0] as any;
+  assert.deepEqual(
+    // @ts-ignore
+    mathNode.type,
+    "jsx"
+  );
+  assert.deepEqual(
+    // @ts-ignore
+    mathNode.value,
+    {
+      tagName: "amp-mathml",
+      props: {
+        layout: "container",
+        "data-formula": "\\[y = x^2\\]",
+      },
+    }
+  );
 }
 
 [
@@ -180,4 +189,7 @@ $$
   withCursor1,
   withCursor2,
   withToc,
+  withAmpMathml,
 ].forEach((fn) => fn());
+
+// withAmpMathml();

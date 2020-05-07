@@ -191,13 +191,14 @@ import Foo from "./foo.mdx" //
 - [x] ssg: Fix css
 - [x] ssg: Support amp-social-share
 - [x] ssg: mdxx-ssg-cli
-- [ ] compiler: Support amp-mathml
+- [x] parser: Support amp-mathml
 - [ ] ssg: clickable anchor
 - [ ] ssg: Gen git history
 - [ ] ssg: Link to GitHub PR
 - [ ] ssg: Render mdx on `pages/*.mdx`
 - [ ] ssg: amp-script
 - [ ] ssg: Gen RSS
+- [ ] mdxx-ssg-components: create
 
 ## LICENSE
 

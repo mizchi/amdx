@@ -8,6 +8,7 @@ export type Cursor = {
 // TODO
 export type ParseOptions = {
   cursor?: Cursor;
+  amp?: boolean;
 };
 
 export function parse(mdx: string, options?: ParseOptions): ParseResult;

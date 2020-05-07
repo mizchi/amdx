@@ -1,11 +1,15 @@
 // const parser = require("mdxx-parser");
 import { parse } from "mdxx-parser";
+import { getOptions } from "loader-utils";
 
 module.exports = function (source: string) {
+  const options = getOptions(this as any) || {};
   const intro = `import React from "react"`;
   const jsxFactory = `React.createElement`;
   const Fragment = `React.Fragment`;
-  const { ast, imports, frontmatter, toc } = parse(source, {});
+  const { ast, imports, frontmatter, toc } = parse(source, {
+    amp: !!options.amp,
+  });
 
   const stringifiedAst = JSON.stringify(ast);
 
