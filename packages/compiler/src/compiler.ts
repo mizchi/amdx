@@ -132,9 +132,6 @@ export function compile(
             continue;
           }
           if (child.type === "export") {
-            // if (child.default) {
-            //   continue;
-            // }
             exportNodes.push(child);
             continue;
           }
@@ -144,7 +141,7 @@ export function compile(
           Fragment,
           {},
           ...nodes.map((child, key) => {
-            return <Fragment key={key}>{_compile(child)}</Fragment>;
+            return h(Fragment, { key }, _compile(child));
           })
         );
       }

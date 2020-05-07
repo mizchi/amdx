@@ -6,7 +6,7 @@ import { terser } from "rollup-plugin-terser";
 
 export default [
   {
-    input: "src/compiler.tsx",
+    input: "src/compiler.ts",
     plugins: [
       typescript({
         tsconfigOverride: {
