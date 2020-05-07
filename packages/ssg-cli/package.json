@@ -1,0 +1,17 @@
+{
+  "name": "mdxx-ssg-cli",
+  "version": "0.0.1",
+  "bin": {
+    "mdxx-ssg": "bin/mdxx-ssg"
+  },
+  "dependencies": {
+    "fs-extra": "^9.0.0",
+    "meow": "^7.0.0",
+    "tish": "^0.0.8"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "@types/meow": "^5.0.0",
+    "ts-node": "^8.10.1"
+  }
+}

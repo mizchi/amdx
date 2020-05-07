@@ -1,0 +1,41 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* markdown cotatainer */
+.markdown-body {
+  min-height: 50vh;
+  font-size: 1.15em;
+}
+
+.markdown-body pre {
+  background: #333;
+  color: white;
+}
+
+.amp-img-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+}
+
+.markdown-body .amp-img-container amp-img img {
+  object-fit: contain;
+  background: #eee;
+}
+
+/* layout */
+html {
+  background: #333;
+}
+
+body {
+  background: #eee;
+}
