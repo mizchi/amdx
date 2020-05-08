@@ -1,3 +1,5 @@
+import React from "react";
+
 export function ToC(props: {
   toc: Array<{ id: string; depth: number; title: string }>;
 }) {

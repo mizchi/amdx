@@ -1,6 +1,5 @@
 import Head from "next/head";
-import { Layout } from "../components/Layout";
-import { AmpIncludeAmpMathml } from "../components/amp";
+import { Layout, AmpIncludeAmpMathml } from "mdxx-ssg-components";
 import ssgConfig from "../mdxx-ssg.json";
 
 export const config = { amp: true };

@@ -1,10 +1,10 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 // @ts-ignore
-import css from "!!raw-loader!../styles/github-markdown.css";
+import css from "!!raw-loader!mdxx-ssg-components/css/github-markdown.css";
 // @ts-ignore
-import prismCss from "!!raw-loader!../styles/prism.css";
+import prismCss from "!!raw-loader!mdxx-ssg-components/css/prism.css";
 // @ts-ignore
-import custom from "!!raw-loader!../styles/styles.css";
+import custom from "!!raw-loader!mdxx-ssg-components/css/styles.css";
 import { ServerStyleSheet } from "styled-components";
 import ssgConfig from "../mdxx-ssg.json";
 
@@ -21,6 +21,7 @@ export default class MyDocument extends Document {
         styles: [
           ...initialProps.styles,
           <style
+            key="custom"
             dangerouslySetInnerHTML={{
               __html: `${css}\n${prismCss}\n${custom}`,
             }}

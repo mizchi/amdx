@@ -1,3 +1,4 @@
+import React from "react";
 import { AmpIncludeAmpInstallServiceworker } from "./amp";
 import styled from "styled-components";
 import { GoogleAnalytics } from "./GoogleAnalytics";

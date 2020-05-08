@@ -35,7 +35,7 @@ function AmpScriptTag(props: any) {
   );
 }
 
-function generateInlineScript(script) {
+function generateInlineScript(script: any) {
   if (typeof script === "function") {
     return `${script.toString()}()`;
   }

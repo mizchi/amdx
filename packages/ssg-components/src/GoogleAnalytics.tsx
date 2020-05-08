@@ -1,3 +1,4 @@
+import React from "react";
 import { AmpIncludeAmpAnalytics } from "./amp";
 
 export function GoogleAnalytics(props: { gtag: string }) {

@@ -5,7 +5,7 @@
 import React from "react";
 import Head from "next/head";
 
-export function AmpIncludeCustomElement(props) {
+export function AmpIncludeCustomElement(props: any) {
   return (
     <Head>
       <script
@@ -24,7 +24,7 @@ export function AmpIncludeCustomElement(props) {
   );
 }
 
-export function AmpIncludeCustomTemplate(props) {
+export function AmpIncludeCustomTemplate(props: any) {
   return (
     <Head>
       <script

@@ -1,5 +1,4 @@
-import { Layout } from "../components/Layout";
-import { AmpScript } from "../components/AmpScript";
+import { AmpScript, Layout } from "mdxx-ssg-components";
 import ssgConfig from "../mdxx-ssg.json";
 
 export const config = {

@@ -1,3 +1,4 @@
+import React from "react";
 import { Layout } from "./Layout";
 import Head from "next/head";
 // import ssgConfig from "../mdxx-ssg.json";

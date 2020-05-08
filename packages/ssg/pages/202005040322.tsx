@@ -2,7 +2,7 @@
 // @ts-ignore
 import Doc, { frontmatter, toc } from "../docs/202005040322.mdx";
 import history from "../gen/202005040322.history.json";
-import { ItemLayout } from "../components/ItemLayout";
+import { ItemLayout } from "mdxx-ssg-components";
 import ssgConfig from "../mdxx-ssg.json";
 
 export const config = {

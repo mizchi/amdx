@@ -1,3 +1,4 @@
+import React from "react";
 import { AmpIncludeAmpSocialShare } from "./amp";
 
 export function SocialShare(props: {

@@ -3,7 +3,7 @@
 import Doc, { frontmatter, toc } from "../docs/foo.mdx";
 import history from "../gen/foo.history.json";
 import ssgConfig from "../mdxx-ssg.json";
-import { ItemLayout } from "../components/ItemLayout";
+import { ItemLayout } from "mdxx-ssg-components";
 
 export const config = { amp: true };
 
