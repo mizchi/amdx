@@ -1,6 +1,6 @@
 {
   "name": "mdxx-ssg-components",
-  "version": "0.4.5",
+  "version": "0.4.8",
   "main": "lib/index.js",
   "license": "MIT",
   "typings": "lib/index.d.ts",
@@ -12,9 +12,9 @@
     "test": "echo wip"
   },
   "peerDependencies": {
+    "next": "*",
     "react": "*",
     "react-dom": "*",
-    "next": "*",
     "styled-components": "*"
   },
   "gitHead": "59f9b26bd88aa9cc2067843bb99b5516b8d9cc1f"
