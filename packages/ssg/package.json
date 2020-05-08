@@ -1,6 +1,6 @@
 {
   "name": "mdxx-ssg",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -11,7 +11,7 @@
   "dependencies": {
     "date-fns": "^2.12.0",
     "mdxx-parser": "^0.4.8",
-    "mdxx-ssg-components": "^0.4.12",
+    "mdxx-ssg-components": "^0.4.13",
     "next": "^9.3.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
