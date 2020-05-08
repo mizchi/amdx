@@ -1,6 +1,6 @@
 {
   "name": "mdxx-ssg-components",
-  "version": "0.4.8",
+  "version": "0.4.12",
   "main": "lib/index.js",
   "license": "MIT",
   "typings": "lib/index.d.ts",
