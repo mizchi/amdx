@@ -146,6 +146,7 @@ created: ${now}
 import { ItemLayout } from "mdxx-ssg-components";
 // @ts-ignore
 import Doc, { frontmatter, toc } from "../docs/${name}.mdx";
+import history from "../gen/${name}.history.json";
 import ssgConfig from "../mdxx-ssg.json";
 
 export const config = {
@@ -153,7 +154,7 @@ export const config = {
 };
 
 export default () => (
-  <ItemLayout ssgConfig={ssgConfig} title={frontmatter.title}>
+  <ItemLayout ssgConfig={ssgConfig} toc={toc} history={history} title={frontmatter.title}>
     <Doc amp />
   </ItemLayout>
 );
@@ -192,9 +193,8 @@ function main(cmd: string, flags: any) {
       return;
     }
 
-    case "new-page": {
+    case "new:page": {
       newPage(flags);
-      console.log("wip");
       return;
     }
     case "start": {
