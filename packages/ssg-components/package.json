@@ -13,6 +13,9 @@
     "build": "tsc -p .",
     "test": "echo wip"
   },
+  "devDependencies": {
+    "typescript": "3.8.3"
+  },
   "peerDependencies": {
     "next": "*",
     "react": "*",
