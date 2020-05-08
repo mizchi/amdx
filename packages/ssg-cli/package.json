@@ -5,6 +5,7 @@
     "mdxx-ssg": "bin/mdxx-ssg.js"
   },
   "scripts": {
+    "build": "tsc -p .",
     "test": "echo wip"
   },
   "dependencies": {

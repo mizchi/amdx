@@ -3982,7 +3982,7 @@ debug@^3.1.0:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.1.0, debug@^4.1.1:
+debug@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   integrity sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
@@ -9782,13 +9782,6 @@ tiny-emitter@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/tiny-emitter/-/tiny-emitter-2.1.0.tgz#1d1a56edfc51c43e863cbb5382a72330e3555423"
   integrity sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==
-
-tish@^0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/tish/-/tish-0.0.8.tgz#0ff8051b0a0cb7782bee9b99fcff4081a1feea7c"
-  integrity sha512-egKS6fnwBUidelVAK8OWzytBbGNViWJgZ0brW+QaNUwR+Dvbs+adMpk85zaMwGfxvOGJl50otQ3EKhUWvRHGLg==
-  dependencies:
-    debug "^4.1.1"
 
 tmp@^0.0.33:
   version "0.0.33"

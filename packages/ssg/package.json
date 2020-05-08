@@ -5,10 +5,9 @@
   "license": "MIT",
   "scripts": {
     "test": "echo wip",
-    "new-page": "node scripts/new-page.js",
-    "create-index": "node scripts/create-index.js",
-    "build": "node scripts/create-index && next build && next export",
-    "dev": "npm run create-index && next"
+    "new-page": "mdxx-ssg new-page",
+    "build": "mdxx-ssg build && next build && next export",
+    "dev": "mdxx-ssg build && next"
   },
   "dependencies": {
     "date-fns": "^2.12.0",
@@ -21,6 +20,7 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.0",
+    "mdxx-ssg-cli": "^0.4.8",
     "mdxx-compiler": "^0.4.8",
     "mdxx-loader": "^0.4.8",
     "raw-loader": "^4.0.1",
