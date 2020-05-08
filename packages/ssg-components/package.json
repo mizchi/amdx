@@ -9,6 +9,8 @@
     "css"
   ],
   "scripts": {
+    "prepublishOnly": "tsc -p .",
+    "build": "tsc -p .",
     "test": "echo wip"
   },
   "peerDependencies": {

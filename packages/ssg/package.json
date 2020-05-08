@@ -5,7 +5,6 @@
   "license": "MIT",
   "scripts": {
     "test": "echo wip",
-    "new-page": "mdxx-ssg new-page",
     "build": "mdxx-ssg build && next build && next export",
     "dev": "mdxx-ssg build && next"
   },

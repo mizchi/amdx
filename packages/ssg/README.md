@@ -13,14 +13,12 @@ npx degit mizchi/mdxx/packages/ssg blog
 cd blog
 npm install
 cp mdxx-ssg.json.example mdxx-ssg.json
-# edit mdxx-ssg.json for you
 
 # create new page
-npm run new-page
-# edit docs/[current-date].mdx
+mdxx-ssg new:page
 
-# create new page with slug
-npm run new-page foo
+# with slug
+mdxx-ssg new:page foo
 # edit docs/foo.mdx
 
 # Preview
@@ -28,5 +26,12 @@ npm run dev
 
 # Deploy
 npm run build
-npm run deploy
+```
+
+## deploy to netlify
+
+Create your account for netlify
+
+```
+netlify deploy -d out --prod
 ```
