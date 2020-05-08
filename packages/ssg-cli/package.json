@@ -1,6 +1,6 @@
 {
   "name": "mdxx-ssg-cli",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "bin": {
     "mdxx-ssg": "bin/mdxx-ssg.js"
   },
