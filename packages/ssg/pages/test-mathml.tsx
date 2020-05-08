@@ -5,8 +5,6 @@ import { ItemLayout } from "../components/ItemLayout";
 import ssgConfig from "../mdxx-ssg.json";
 import { AmpIncludeAmpMathml } from "../components/amp";
 
-const newProps = { ...ssgConfig, ...frontmatter, toc } as any;
-
 export const config = {
   amp: true,
 };
@@ -14,7 +12,7 @@ export const config = {
 export default () => (
   <>
     <AmpIncludeAmpMathml />
-    <ItemLayout {...newProps}>
+    <ItemLayout ssgConfig={ssgConfig} title={frontmatter.title}>
       <Doc amp />
     </ItemLayout>
   </>

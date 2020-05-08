@@ -12,7 +12,7 @@ export default () => {
       <Head>
         <title>{ssgConfig.siteName}</title>
       </Head>
-      <Layout>
+      <Layout ssgConfig={ssgConfig}>
         {pages.map((page, index) => {
           // @ts-ignore
           const formatted = format(page.created as number, "yyyy/MM/dd/HH:mm");

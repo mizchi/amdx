@@ -1,5 +1,6 @@
 import { Layout } from "../components/Layout";
 import { AmpScript } from "../components/AmpScript";
+import ssgConfig from "../mdxx-ssg.json";
 
 export const config = {
   amp: true,
@@ -11,7 +12,7 @@ export default () => {
       ? "https://mdxx-ssg-demo.netlify.app/"
       : "http://localhost:3000/";
   return (
-    <Layout>
+    <Layout ssgConfig={ssgConfig}>
       {/* <AmpScript /> */}
       <AmpScript layout="container" src={`${host}static/amp-script/hello.js`}>
         <button>Hello amp-script!</button>

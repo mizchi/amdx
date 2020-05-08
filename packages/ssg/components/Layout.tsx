@@ -1,13 +1,23 @@
 import { AmpIncludeAmpInstallServiceworker } from "./amp";
 import styled from "styled-components";
+import { GoogleAnalytics } from "./GoogleAnalytics";
+import { SsgConfig } from "./types";
 
-export function Layout(props: { children: React.ReactNode }) {
+export function Layout(props: {
+  ssgConfig: SsgConfig;
+  children: React.ReactNode;
+}) {
   return (
     <>
-      <AmpIncludeAmpInstallServiceworker />
-      <AmpInstallSW />
-      <Header />
-      <Main>{props.children}</Main>
+      <Header siteName={props.ssgConfig.siteName} />
+      <Main>
+        <AmpIncludeAmpInstallServiceworker />
+        <AmpInstallSW />
+        {props.ssgConfig.gtag && (
+          <GoogleAnalytics gtag={props.ssgConfig.gtag} />
+        )}
+        {props.children}
+      </Main>
       <Footer />
     </>
   );
@@ -23,7 +33,7 @@ function Main(props: { children: React.ReactNode }) {
   );
 }
 
-function Header() {
+function Header(props: { siteName: string }) {
   return (
     <HeaderContainer>
       <HeaderInner>
@@ -31,7 +41,7 @@ function Header() {
           href="/"
           style={{ textDecoration: "none", color: "white", fontSize: "1.2em" }}
         >
-          ⚡ mizchi.dev
+          ⚡ {props.siteName}
         </a>
       </HeaderInner>
     </HeaderContainer>
@@ -44,7 +54,7 @@ function Footer() {
       <FooterContainer>
         <FooterContent>
           <p>
-            created by{" "}
+            created by&nbps;
             <a href="https://github.com/mizchi/mdxx" style={{ color: "white" }}>
               mdxx-ssg
             </a>
@@ -86,17 +96,20 @@ const HeaderContainer = styled.header`
   width: 100%;
   background: #333;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  /* justify-content: start; */
 `;
 
 const HeaderInner = styled.div`
-  min-width: 480px;
-  max-height: 960px;
-  padding-left: 1px;
-  padding-top: 8px;
+  /* min-width: 400px; */
+  width: 400px;
+  padding-left: 80px;
+  /* max-height: 960px; */
+  /* padding-left: 1px; */
+  /* padding-top: 8px; */
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 `;
 
 const MainContainer = styled.div`

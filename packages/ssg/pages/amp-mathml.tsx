@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Layout } from "../components/Layout";
 import { AmpIncludeAmpMathml } from "../components/amp";
+import ssgConfig from "../mdxx-ssg.json";
 
 export const config = { amp: true };
 
@@ -10,7 +11,7 @@ export default () => {
       <Head>
         <AmpIncludeAmpMathml />
       </Head>
-      <Layout>
+      <Layout ssgConfig={ssgConfig}>
         <MathmlExample />
       </Layout>
     </>
