@@ -55,12 +55,3 @@ export function buildSitemapXML(
     { compact: true }
   );
 }
-
-// function escape(string: string): string {
-//   return string
-//     .replace("&", "&amp")
-//     .replace("'", "&apos")
-//     .replace('"', "&quot")
-//     .replace(">", "&gt")
-//     .replace("<", "&lt");
-// }

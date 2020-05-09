@@ -45,7 +45,7 @@ function buildRSS(flags: {}) {
   const feed = `<?xml version="1.0" ?>
   <rss version="2.0">
     <channel>
-      <title>${ssgConfig.siteName}</title>
+      <title>${escape(ssgConfig.siteName)}</title>
       <link>${ssgConfig.host}</link>
       <description></description>
       <language>${ssgConfig.lang}</language>
@@ -54,7 +54,7 @@ function buildRSS(flags: {}) {
         .map((p: any) => {
           return `
             <item>
-              <title>${p.title}</title>
+              <title>${escape(p.title)}</title>
               <link>
                 ${path.join(ssgConfig.host, p.slug)}
               </link>
@@ -223,4 +223,13 @@ function main(cmd: string, flags: any) {
       return;
     }
   }
+}
+
+function escape(string: string): string {
+  return string
+    .replace("&", "&amp")
+    .replace("'", "&apos")
+    .replace('"', "&quot")
+    .replace(">", "&gt")
+    .replace("<", "&lt");
 }
