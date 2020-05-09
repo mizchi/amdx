@@ -5,6 +5,7 @@ import { parse } from "mdxx-parser";
 import { execSync } from "child_process";
 // @ts-ignore
 import sortBy from "lodash.sortby";
+import { buildSitemapXML } from "./helper/buildSitemapXML";
 
 const cmd = `git --no-pager log --no-color --pretty=format:'{"date":"%ad","hash":"%h","author":"%an","message": "%s"}'`;
 
@@ -22,6 +23,18 @@ main(cli.input[0], cli.flags);
 // cmds
 async function init(flags: any) {
   console.log("wip", flags);
+}
+
+function _loadConfig() {
+  return require(path.join(process.cwd(), "mdxx-ssg.json"));
+}
+
+function buildSitemap(flags: {}) {
+  const ssgConfig = _loadConfig();
+  const pages = genPages(process.cwd());
+
+  const sitemap = buildSitemapXML(ssgConfig.host, pages);
+  fs.writeFileSync(path.join(process.cwd(), "out/sitemap.xml"), sitemap);
 }
 
 function genPages(cwd: string) {
@@ -129,6 +142,7 @@ function main(cmd: string, flags: any) {
       console.log("wip");
       return;
     }
+
     case "build:index": {
       buildIndex(flags);
       return;
@@ -146,7 +160,19 @@ function main(cmd: string, flags: any) {
       buildHistory(flags);
       return;
     }
+    case "postbuild": {
+      buildSitemap(flags);
+      return;
+    }
 
+    case "postbuild:sitemap": {
+      buildSitemap(flags);
+      return;
+    }
+    case "postbuild:rss": {
+      // buildSitemap(flags);
+      return;
+    }
     case "new:page": {
       newPage(flags);
       buildIndex(flags);
