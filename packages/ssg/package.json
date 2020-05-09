@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "echo wip",
-    "build": "mdxx-ssg build && next build && next export",
+    "build": "mdxx-ssg build && next build && next export && mdxx-ssg postbuild",
     "dev": "mdxx-ssg build && next"
   },
   "dependencies": {

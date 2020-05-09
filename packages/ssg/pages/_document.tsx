@@ -37,7 +37,20 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang={ssgConfig.lang || "en-US"}>
-        <Head />
+        <Head>
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title={ssgConfig.siteName}
+            href="/rss.xml"
+          />
+          <link
+            rel="alternate"
+            type="application/rss+xml"
+            title={ssgConfig.siteName}
+            href="sitemap.xml"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

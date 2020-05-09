@@ -32,9 +32,44 @@ function _loadConfig() {
 function buildSitemap(flags: {}) {
   const ssgConfig = _loadConfig();
   const pages = genPages(process.cwd());
-
   const sitemap = buildSitemapXML(ssgConfig.host, pages);
   fs.writeFileSync(path.join(process.cwd(), "out/sitemap.xml"), sitemap);
+  console.log("[ssg:postbuild:sitemap] out/sitemap.xml");
+}
+
+function buildRSS(flags: {}) {
+  const ssgConfig = _loadConfig();
+  const pages = genPages(process.cwd());
+
+  const recent = Math.max(...pages.map((p) => p.created));
+  const feed = `<?xml version="1.0" ?>
+  <rss version="2.0">
+    <channel>
+      <title>${ssgConfig.siteName}</title>
+      <link>${ssgConfig.host}</link>
+      <description></description>
+      <language>${ssgConfig.lang}</language>
+      <lastBuildDate>${new Date(recent).toISOString()}</lastBuildDate>
+      ${pages
+        .map((p: any) => {
+          return `
+            <item>
+              <title>${p.title}</title>
+              <link>
+                ${path.join(ssgConfig.host, p.slug)}
+              </link>
+              <pubDate>${new Date(p.created).toISOString()}</pubDate>
+              <description>
+              <![CDATA[]]>
+              </description>
+            </item>
+        `;
+        })
+        .join("")}
+    </channel>
+  </rss>`;
+  fs.writeFileSync(path.join(process.cwd(), "out/rss.xml"), feed);
+  console.log("[ssg:postbuild:rss] out/rss.xml");
 }
 
 function genPages(cwd: string) {
@@ -162,14 +197,15 @@ function main(cmd: string, flags: any) {
     }
     case "postbuild": {
       buildSitemap(flags);
+      buildRSS(flags);
       return;
     }
-
     case "postbuild:sitemap": {
       buildSitemap(flags);
       return;
     }
     case "postbuild:rss": {
+      buildRSS(flags);
       // buildSitemap(flags);
       return;
     }

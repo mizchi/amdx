@@ -12,7 +12,8 @@
   "dependencies": {
     "fs-extra": "^9.0.0",
     "lodash.sortby": "^4.7.0",
-    "meow": "^7.0.0"
+    "meow": "^7.0.0",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",
