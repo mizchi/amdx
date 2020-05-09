@@ -55,7 +55,7 @@ function Footer() {
       <FooterContainer>
         <FooterContent>
           <p>
-            created by&nbps;
+            created by&nbsp;
             <a href="https://github.com/mizchi/mdxx" style={{ color: "white" }}>
               mdxx-ssg
             </a>
