@@ -54,7 +54,7 @@ function buildRSS(flags: {}) {
         .map((p: any) => {
           return `
             <item>
-              <title>${escape(p.title)}</title>
+              <title>${escape(p.title}</title>
               <link>
                 ${path.join(ssgConfig.host, p.slug)}
               </link>
@@ -227,9 +227,9 @@ function main(cmd: string, flags: any) {
 
 function escape(string: string): string {
   return string
-    .replace("&", "&amp")
-    .replace("'", "&apos")
-    .replace('"', "&quot")
-    .replace(">", "&gt")
-    .replace("<", "&lt");
+    .replace("&", "&amp;")
+    .replace("'", "&apos;")
+    .replace('"', "&quot;")
+    .replace(">", "&gt;")
+    .replace("<", "&lt;");
 }
