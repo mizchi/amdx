@@ -54,7 +54,7 @@ function buildRSS(flags: {}) {
         .map((p: any) => {
           return `
             <item>
-              <title>${escape(p.title}</title>
+              <title>${escape(p.title)}</title>
               <link>
                 ${path.join(ssgConfig.host, p.slug)}
               </link>
