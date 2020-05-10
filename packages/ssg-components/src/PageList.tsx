@@ -10,7 +10,12 @@ export function PageList(props: { pages: Page[] }) {
         return (
           <div key={index}>
             <span>{formatted}</span>: &nbsp;
-            <a href={"/" + page.slug}>{page.title}</a>
+            <a
+              className="text-blue-500 hover:text-blue-800"
+              href={"/" + page.slug}
+            >
+              {page.title}
+            </a>
           </div>
         );
       })}
