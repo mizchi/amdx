@@ -9,14 +9,10 @@ export function Layout(props: {
 }) {
   return (
     <>
-      <Header siteName={props.ssgConfig.siteName} />
-      <Main>
-        <AmpInstallSW />
-        {props.ssgConfig.gtag && (
-          <GoogleAnalytics gtag={props.ssgConfig.gtag} />
-        )}
-        {props.children}
-      </Main>
+      <AmpInstallSW />
+      {props.ssgConfig.gtag && <GoogleAnalytics gtag={props.ssgConfig.gtag} />}
+      <Header ssgConfig={props.ssgConfig} />
+      <Main>{props.children}</Main>
       <Footer />
     </>
   );
@@ -32,36 +28,35 @@ function Main(props: { children: React.ReactNode }) {
   );
 }
 
-function Header(props: { siteName: string }) {
+export function Header(props: { ssgConfig: SsgConfig }) {
   return (
-    <HeaderContainer>
-      <HeaderInner>
+    <nav className="flex items-center justify-between flex-wrap bg-gray-800 p-3">
+      <div className="flex items-center flex-shrink-0 text-white mr-6">
         <a
           href="/"
-          style={{ textDecoration: "none", color: "white", fontSize: "1.2em" }}
+          className="font-semibold text-xl tracking-tight text-gray-200"
         >
-          ⚡ {props.siteName}
+          ⚡{props.ssgConfig.siteName}
         </a>
-      </HeaderInner>
-    </HeaderContainer>
+      </div>
+    </nav>
   );
 }
 
-function Footer() {
+export function Footer() {
   return (
-    <>
-      <FooterContainer>
-        <FooterContent>
-          <p>
-            created by&nbsp;
-            <a href="https://github.com/mizchi/mdxx" style={{ color: "white" }}>
-              mdxx-ssg
-            </a>
-          </p>
-          <p>This site uses Google Analytics.</p>
-        </FooterContent>
-      </FooterContainer>
-    </>
+    <footer className="flex items-center justify-between flex-wrap bg-gray-800 p-6 text-gray-200">
+      <p>
+        created by&nbsp;
+        <a
+          href="https://github.com/mizchi/mdxx"
+          className="text-blue-500 hover:text-blue-800"
+        >
+          mdxx-ssg
+        </a>
+        &nbsp;|&nbsp;<span>This site uses Google Analytics.</span>
+      </p>
+    </footer>
   );
 }
 
@@ -75,35 +70,6 @@ function AmpInstallSW() {
     />
   );
 }
-
-const FooterContainer = styled.footer`
-  padding-left: 10px;
-  padding-top: 10px;
-  background: #333;
-  color: white;
-  display: flex;
-  justify-content: center;
-`;
-
-const FooterContent = styled.div`
-  min-width: 480px;
-  max-width: 960px;
-`;
-
-const HeaderContainer = styled.header`
-  height: 48px;
-  width: 100%;
-  background: #333;
-  display: flex;
-  align-items: center;
-`;
-
-const HeaderInner = styled.div`
-  width: 400px;
-  padding-left: 80px;
-  display: flex;
-  align-items: center;
-`;
 
 const MainContainer = styled.div`
   width: 100%;

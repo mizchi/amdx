@@ -24,24 +24,30 @@ export function Article(props: {
           {props.title} - {props.ssgConfig.siteName}
         </title>
       </Head>
-      <div className="markdown-body">
-        <h1>{props.title}</h1>
-        <p>
-          by <a href={props.ssgConfig.authorLink}>{props.ssgConfig.author}</a>
-        </p>
-        {props.toc && <ToC toc={props.toc} />}
-
-        {props.children}
-        {props.history && (
-          <History
-            repository={props.ssgConfig.repository}
-            history={props.history}
-          />
+      <div className="rounded shadow-lg antialiased">
+        <div className="markdown-body px-6">
+          <div className="">
+            <h1>{props.title}</h1>
+            <p>
+              by{" "}
+              <a href={props.ssgConfig.authorLink}>{props.ssgConfig.author}</a>
+            </p>
+            {props.toc && <ToC toc={props.toc} />}
+          </div>
+          {props.children}
+          <div className="py-4">
+            {props.history && (
+              <History
+                repository={props.ssgConfig.repository}
+                history={props.history}
+              />
+            )}
+          </div>
+        </div>
+        {props.ssgConfig.socialShare && (
+          <SocialShare {...props.ssgConfig.socialShare} />
         )}
       </div>
-      {props.ssgConfig.socialShare && (
-        <SocialShare {...props.ssgConfig.socialShare} />
-      )}
     </>
   );
 }
