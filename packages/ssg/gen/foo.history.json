@@ -1,5 +1,11 @@
 [
   {
+    "date": "Sun May 10 19:22:23 2020 +0900",
+    "hash": "de93054",
+    "author": "mizchi",
+    "message": "Use tailwind on header and footer"
+  },
+  {
     "date": "Fri May 8 20:19:32 2020 +0900",
     "hash": "ddbdd40",
     "author": "mizchi",

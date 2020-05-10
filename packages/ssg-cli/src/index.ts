@@ -9,6 +9,13 @@ import { buildSitemapXML } from "./helper/buildSitemapXML";
 
 const cmd = `git --no-pager log --no-color --pretty=format:'{"date":"%ad","hash":"%h","author":"%an","message": "%s"}'`;
 
+type Page = {
+  slug: string;
+  title: string;
+  created: number;
+  tags?: Array<string>;
+};
+
 function parseFrontmatter(mdx: string) {
   const { frontmatter } = parse(mdx);
   return frontmatter;
@@ -35,6 +42,47 @@ function buildSitemap(flags: {}) {
   const sitemap = buildSitemapXML(ssgConfig.host, pages);
   fs.writeFileSync(path.join(process.cwd(), "out/sitemap.xml"), sitemap);
   console.log("[ssg:postbuild:sitemap] out/sitemap.xml");
+}
+
+function _buildTagMap(frontmatters: Array<Page>): { [key: string]: string[] } {
+  const tagMap = {};
+
+  for (const frontmatter of frontmatters) {
+    let { tags, title, slug } = frontmatter;
+    if (tags == null) {
+      continue;
+    }
+
+    if (typeof tags === "string") {
+      tags = [tags];
+    }
+
+    for (const tagName of tags) {
+      const mapped = tagMap[tagName];
+
+      const item = {
+        title,
+        slug,
+      };
+
+      if (mapped) {
+        mapped.push(item);
+      } else {
+        tagMap[tagName] = [item];
+      }
+    }
+  }
+  return tagMap;
+}
+
+function buildTags(flags: {}) {
+  const pages = genPages(process.cwd());
+  const tagMap = _buildTagMap(pages);
+  fs.writeFileSync(
+    path.join(process.cwd(), "gen/tagmap.json"),
+    JSON.stringify(tagMap)
+  );
+  console.log("[ssg:tags]", "gen/tagmap.json");
 }
 
 function buildRSS(flags: {}) {
@@ -72,7 +120,7 @@ function buildRSS(flags: {}) {
   console.log("[ssg:postbuild:rss] out/rss.xml");
 }
 
-function genPages(cwd: string) {
+function genPages(cwd: string): Array<Page> {
   const pageDir = path.join(cwd, "docs");
   const stats = fs.readdirSync(pageDir, "utf-8");
 
@@ -177,7 +225,10 @@ function main(cmd: string, flags: any) {
       console.log("wip");
       return;
     }
-
+    case "build:tags": {
+      buildTags(flags);
+      return;
+    }
     case "build:index": {
       buildIndex(flags);
       return;
@@ -193,6 +244,7 @@ function main(cmd: string, flags: any) {
     case "build": {
       buildIndex(flags);
       buildHistory(flags);
+      buildTags(flags);
       return;
     }
     case "postbuild": {
