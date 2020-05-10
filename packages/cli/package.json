@@ -1,6 +1,6 @@
 {
   "name": "mdxx-cli",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "scripts": {
     "build": "tsc -p .",
     "test": "echo wip"
@@ -13,14 +13,14 @@
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@rollup/plugin-virtual": "^2.0.1",
-    "mdxx-compiler": "^0.5.0",
+    "mdxx-compiler": "^0.6.0",
     "minimist": "^1.2.5",
     "mkdirp": "^1.0.3",
     "prettier": "^2.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "rollup": "^2.2.0",
-    "rollup-plugin-mdxx": "^0.5.0",
+    "rollup-plugin-mdxx": "^0.6.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-terser": "^5.3.0",
