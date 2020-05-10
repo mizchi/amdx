@@ -1,5 +1,4 @@
 import React from "react";
-import { AmpIncludeAmpInstallServiceworker } from "./amp";
 import styled from "styled-components";
 import { GoogleAnalytics } from "./GoogleAnalytics";
 import { SsgConfig } from "./types";
@@ -12,7 +11,6 @@ export function Layout(props: {
     <>
       <Header siteName={props.ssgConfig.siteName} />
       <Main>
-        <AmpIncludeAmpInstallServiceworker />
         <AmpInstallSW />
         {props.ssgConfig.gtag && (
           <GoogleAnalytics gtag={props.ssgConfig.gtag} />

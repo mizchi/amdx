@@ -1,5 +1,4 @@
 import React from "react";
-import { AmpIncludeAmpScript } from "./amp";
 
 /**
  * Embeds an AMP Script by either linking to a JS `src` file or embedding inline
@@ -11,7 +10,6 @@ import { AmpIncludeAmpScript } from "./amp";
 export function AmpScript(props: any) {
   return (
     <>
-      <AmpIncludeAmpScript />
       <AmpScriptTag {...props} />
       {props.script && (
         <script

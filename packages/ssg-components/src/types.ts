@@ -12,11 +12,17 @@ export type SsgConfig = {
   };
 };
 
-export type History = Array<{
+export type Page = {
+  slug: string;
+  title: string;
+  created: number;
+};
+
+export type HistoryData = Array<{
   hash: string;
   author: string;
   message: string;
   date: string;
 }>;
 
-export type ToC = Array<{ id: string; depth: number; title: string }>;
+export type ToCData = Array<{ id: string; depth: number; title: string }>;

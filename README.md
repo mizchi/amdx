@@ -15,6 +15,7 @@ MDX eXtended
 - `mdxx-compiler`: runner for parsed json
 - `mdxx-cli`: `mdxx` cli tools
 - `mdxx-ssg`: static site generator by mdxx on minimum next.js
+- `mdxx-ssg-components`: ssg components
 
 ## CLI
 
@@ -192,14 +193,14 @@ import Foo from "./foo.mdx" //
 - [x] ssg: Support amp-social-share
 - [x] ssg: mdxx-ssg-cli
 - [x] parser: Support amp-mathml
-- [ ] CI
+- [x] CI
+- [x] ssg: Gen git history
+- [x] ssg: Link to GitHub PR
+- [x] mdxx-ssg-components: create
 - [ ] ssg: clickable anchor
-- [ ] ssg: Gen git history
-- [ ] ssg: Link to GitHub PR
 - [ ] ssg: Render mdx on `pages/*.mdx`
 - [ ] ssg: amp-script
 - [ ] ssg: Gen RSS
-- [ ] mdxx-ssg-components: create
 
 ## LICENSE
 

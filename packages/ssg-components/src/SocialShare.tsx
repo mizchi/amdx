@@ -1,5 +1,4 @@
 import React from "react";
-import { AmpIncludeAmpSocialShare } from "./amp";
 
 export function SocialShare(props: {
   twitter?: boolean;
@@ -9,7 +8,6 @@ export function SocialShare(props: {
 }) {
   return (
     <>
-      <AmpIncludeAmpSocialShare />
       <div style={{ paddingTop: 15 }}>
         {props.twitter && <TwitterShare />}
         {props.hatena && <HatenaBookmarkShare />}
