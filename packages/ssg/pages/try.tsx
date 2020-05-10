@@ -12,7 +12,6 @@ export default () => {
       : "http://localhost:3000/";
   return (
     <Layout ssgConfig={ssgConfig}>
-      {/* <AmpScript /> */}
       <AmpScript layout="container" src={`${host}static/amp-script/hello.js`}>
         <button>Hello amp-script!</button>
       </AmpScript>

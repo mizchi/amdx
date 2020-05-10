@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Layout } from "mdxx-ssg-components";
+import { Layout, TagPage } from "mdxx-ssg-components";
 import { GetStaticProps } from "next";
 import ssgConfig from "../../mdxx-ssg.json";
 import tagmap from "../../gen/tagmap.json";
@@ -32,7 +32,6 @@ export const getStaticProps: GetStaticProps = async (props) => {
 };
 
 export default (props: Props) => {
-  // console.log(props);
   return (
     <>
       <Head>
@@ -41,16 +40,7 @@ export default (props: Props) => {
         </title>
       </Head>
       <Layout ssgConfig={ssgConfig}>
-        <h1>tag: {props.tagName}</h1>
-        <div style={{ paddingTop: 10 }}>
-          {props.pages.map((page) => {
-            return (
-              <div key={page.slug}>
-                <a href={`/${page.slug}`}>{page.title}</a>
-              </div>
-            );
-          })}
-        </div>
+        <TagPage tagName={props.tagName} pages={props.pages} />
       </Layout>
     </>
   );

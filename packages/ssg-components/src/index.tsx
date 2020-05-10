@@ -7,3 +7,5 @@ export * from "./ToC";
 export * from "./GoogleAnalytics";
 export * from "./SocialShare";
 export * from "./PageList";
+export * from "./TagList";
+export * from "./TagPage";

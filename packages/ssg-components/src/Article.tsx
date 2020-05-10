@@ -4,6 +4,7 @@ import { ToC } from "./ToC";
 import { History } from "./History";
 import { SocialShare } from "./SocialShare";
 import { SsgConfig } from "./types";
+import { TagList } from "./TagList";
 
 export function Article(props: {
   ssgConfig: SsgConfig;
@@ -16,19 +17,16 @@ export function Article(props: {
     message: string;
     date: string;
   }>;
+  tags?: string[];
 }) {
   return (
     <>
-      <Head>
-        <title>
-          {props.title} - {props.ssgConfig.siteName}
-        </title>
-      </Head>
       <div className="rounded shadow-lg antialiased">
         <div className="markdown-body px-6">
           <div className="">
             <h1>{props.title}</h1>
             <p>
+              {props.tags && <TagList tags={props.tags} />}
               by{" "}
               <a href={props.ssgConfig.authorLink}>{props.ssgConfig.author}</a>
             </p>
