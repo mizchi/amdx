@@ -1,6 +1,6 @@
 {
   "name": "mdxx-ssg",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -23,7 +23,7 @@
     "@types/styled-components": "^5.1.0",
     "mdxx-compiler": "^0.6.0",
     "mdxx-loader": "^0.6.0",
-    "mdxx-ssg-cli": "^0.6.2",
+    "mdxx-ssg-cli": "^0.6.3",
     "raw-loader": "^4.0.1",
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
