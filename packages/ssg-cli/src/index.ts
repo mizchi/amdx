@@ -158,7 +158,7 @@ export default () => (
     <Article ssgConfig={ssgConfig} toc={toc} history={history} title={frontmatter.title}>
       <Doc amp />
     </Article>
-  <Layout>
+  </Layout>
 );
 `
   );
