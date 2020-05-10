@@ -1,6 +1,6 @@
 {
   "name": "mdxx-ssg",
-  "version": "0.6.3",
+  "version": "0.7.0",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "date-fns": "^2.12.0",
-    "mdxx-parser": "^0.6.0",
-    "mdxx-ssg-components": "^0.6.1",
+    "mdxx-parser": "^0.7.0",
+    "mdxx-ssg-components": "^0.7.0",
     "next": "^9.3.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -21,9 +21,9 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.0",
-    "mdxx-compiler": "^0.6.0",
-    "mdxx-loader": "^0.6.0",
-    "mdxx-ssg-cli": "^0.6.3",
+    "mdxx-compiler": "^0.7.0",
+    "mdxx-loader": "^0.7.0",
+    "mdxx-ssg-cli": "^0.7.0",
     "raw-loader": "^4.0.1",
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
