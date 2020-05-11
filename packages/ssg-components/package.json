@@ -9,7 +9,7 @@
     "css"
   ],
   "scripts": {
-    "prepublishOnly": "tsc -p .",
+    "prepublishOnly": "yarn build",
     "build": "tsc -p . && postcss style/index.css -o css/bundle.css",
     "test": "echo wip",
     "dev": "run-p dev:*",
