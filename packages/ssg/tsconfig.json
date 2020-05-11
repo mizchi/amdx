@@ -20,6 +20,7 @@
     "**/*.ts",
     "**/*.tsx",
     "decls.d.ts",
-    "scripts/create-item.js"
+    "scripts/create-item.js",
+    "scratch.js"
   ]
 }
