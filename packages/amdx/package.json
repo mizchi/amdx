@@ -1,6 +1,6 @@
 {
   "name": "amdx",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "main": "dist/parser.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -26,10 +26,10 @@
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@types/babel__core": "^7.1.6",
     "@types/node": "^12.12.31",
+    "amdx-types": "^0.8.0",
     "github-slugger": "^1.3.0",
     "hast-util-raw": "^5.0.1",
     "mdast-util-to-hast": "^8.0.0",
-    "amdx-types": "^0.7.0",
     "refractor": "^2.10.1",
     "remark-breaks": "^1.0.5",
     "remark-frontmatter": "^1.3.3",
