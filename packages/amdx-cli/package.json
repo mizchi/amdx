@@ -1,6 +1,6 @@
 {
   "name": "amdx-cli",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "scripts": {
     "build": "tsc -p .",
     "test": "echo wip"
