@@ -1,24 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 import { GoogleAnalytics } from "./GoogleAnalytics";
-import { SsgConfig } from "./types";
+import { AmdxgConfig } from "./types";
 
 export function Layout(props: {
-  ssgConfig: SsgConfig;
+  config: AmdxgConfig;
   children: React.ReactNode;
 }) {
   return (
     <>
-      <AmpInstallSW />
-      {props.ssgConfig.gtag && <GoogleAnalytics gtag={props.ssgConfig.gtag} />}
-      <Header ssgConfig={props.ssgConfig} />
+      <DefaultPlugins config={props.config} />
+      <Header config={props.config} />
       <Main>{props.children}</Main>
       <Footer />
     </>
   );
 }
 
-function Main(props: { children: React.ReactNode }) {
+export function DefaultPlugins(props: { config: AmdxgConfig }) {
+  return (
+    <>
+      <AmpInstallServiceWorker />
+      {props.config.gtag && <GoogleAnalytics gtag={props.config.gtag} />}
+    </>
+  );
+}
+
+export function Main(props: { children: React.ReactNode }) {
   return (
     <MainContainer>
       <MainContent>
@@ -28,7 +36,7 @@ function Main(props: { children: React.ReactNode }) {
   );
 }
 
-export function Header(props: { ssgConfig: SsgConfig }) {
+export function Header(props: { config: AmdxgConfig }) {
   return (
     <nav className="flex items-center justify-between flex-wrap bg-gray-800 p-3">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
@@ -36,7 +44,7 @@ export function Header(props: { ssgConfig: SsgConfig }) {
           href="/"
           className="font-semibold text-xl tracking-tight text-gray-200"
         >
-          ⚡{props.ssgConfig.siteName}
+          ⚡{props.config.siteName}
         </a>
       </div>
     </nav>
@@ -60,14 +68,16 @@ export function Footer() {
   );
 }
 
-function AmpInstallSW() {
+export function AmpInstallServiceWorker(props: any) {
+  const newProps = {
+    src: "/sw.js",
+    "data-iframe-src": "/install-sw.html",
+    layout: "nodisplay",
+    ...props,
+  };
   return (
     // @ts-ignore
-    <amp-install-serviceworker
-      src="/sw.js"
-      data-iframe-src="/install-sw.html"
-      layout="nodisplay"
-    />
+    <amp-install-serviceworker {...newProps} />
   );
 }
 

@@ -18,7 +18,7 @@ type Props = {
   html: string;
 };
 
-export const config = { amp: true };
+export const config = { amp: "hybrid" };
 
 export function getStaticPaths() {
   const paths = pages.map((page) => {

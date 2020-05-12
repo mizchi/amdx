@@ -1,4 +1,4 @@
-export type SsgConfig = {
+export type AmdxgConfig = {
   siteName: string;
   authorLink: string;
   author: string;
