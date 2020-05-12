@@ -1,10 +1,10 @@
 module.exports = {
   host: "https://mizchi.dev",
-  siteName: "mizchi.dev",
+  siteName: "amdx docs",
   author: "mizchi",
   authorLink: "https://twitter.com/mizchi",
-  lang: "ja",
-  repository: "mizchi/mdxx",
+  lang: "en",
+  repository: "mizchi/amdx",
   socialShare: {
     twitter: true,
     hatena: true,

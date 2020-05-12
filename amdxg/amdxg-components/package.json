@@ -10,10 +10,10 @@
   ],
   "scripts": {
     "prepublishOnly": "yarn build",
-    "build": "tsc -p . && postcss style/index.css -o css/bundle.css",
+    "build": "tsc -p . && NODE_ENV=production postcss style/index.css -o css/bundle.css",
     "test": "echo wip",
     "dev": "run-p dev:*",
-    "dev:css": "postcss style/index.css -o css/bundle.css -w",
+    "dev:css": "NODE_ENV=production postcss style/index.css -o css/bundle.css -w",
     "dev:tsc": "tsc -p . --watch"
   },
   "devDependencies": {
