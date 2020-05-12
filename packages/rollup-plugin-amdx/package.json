@@ -1,0 +1,22 @@
+{
+  "name": "rollup-plugin-amdx",
+  "version": "0.7.0",
+  "scripts": {
+    "prepare": "yarn build",
+    "build": "tsc -p .",
+    "test": "echo wip"
+  },
+  "license": "MIT",
+  "main": "lib/rollup-plugin-amdx.js",
+  "dependencies": {
+    "amdx": "^0.7.0"
+  },
+  "peerDependencies": {
+    "amdx-runner": "*",
+    "rollup": "*"
+  },
+  "files": [
+    "lib"
+  ],
+  "gitHead": "0a9e846199d1cc13b6281d4e158c627f43306df8"
+}

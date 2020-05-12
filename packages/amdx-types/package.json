@@ -1,0 +1,13 @@
+{
+  "name": "amdx-types",
+  "version": "0.7.0",
+  "typings": "index.d.ts",
+  "files": [
+    "index.d.ts"
+  ],
+  "scripts": {
+    "build": "echo wip",
+    "test": "echo wip"
+  },
+  "gitHead": "59f9b26bd88aa9cc2067843bb99b5516b8d9cc1f"
+}

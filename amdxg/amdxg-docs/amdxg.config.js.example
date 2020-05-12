@@ -1,0 +1,11 @@
+module.exports = {
+  "siteName": "amdxg-example",
+  "author": "anonymous",
+  "repository": "mizchi/amdx",
+  "authorLink": "https://example.com",
+  "lang": "en-US",
+  "lang": "ja",
+  "socialShare": {
+    "twitter": true
+  }
+}

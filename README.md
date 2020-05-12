@@ -1,27 +1,36 @@
-# MDXX
+# AMDXG
 
-MDX eXtended
+Accelarated MDX
 
-## Spec
+## Features
 
-- Parse to JSON for WebWorker
-- Compile to react component (TODO: support other compiler like preact or vue)
+- AMP Friendly Output
+- Opinionated remark settings
+  - Highlight with `refract`
+  - frontmatter
+  - Gen `amp-img` from `img` with `{amp: true}` config
+- Rich parser and thin runner to preprocess
+- Worker Friendy: Compile to pure JSON to postMessage
 
 ## packages
 
-- `mdxx-loader`: webpack-loader
-- `rollup-plugin-mdxx`: rollup plugin
-- `mdxx-parser`: parser by remark
-- `mdxx-compiler`: runner for parsed json
-- `mdxx-cli`: `mdxx` cli tools
-- `mdxx-ssg`: static site generator by mdxx on minimum next.js
-- `mdxx-ssg-components`: ssg components
+- `amdx-loader`: webpack-loader
+- `amdx`: parser by remark
+- `amdx-runner`: runner for parsed json
+- `amdx-cli`: `amdx` cli tools
+- `rollup-plugin-amdx`: rollup plugin
+
+## AMDXG
+
+- `amdxg`: static site generator by amdx on minimum next.js
+- `amdxg-components`: ssg components
+- `amdxg-cli`: ssg components
 
 ## CLI
 
 ```bash
 # install
-$ npm install mdxx-cli -g
+$ npm install amdx-cli -g
 ```
 
 ## webpack loader
@@ -33,7 +42,7 @@ module.exports = {
       // add this rule
       {
         test: /\.mdx?/,
-        loader: "mdxx-loader",
+        loader: "amdx-loader",
       },
     ],
   },
@@ -49,7 +58,7 @@ module.exports = {
       // add this rule
       {
         test: /\.mdx?/,
-        loader: "mdxx-loader/lib/amp",
+        loader: "amdx-loader/lib/amp",
       },
     ],
   },
@@ -60,10 +69,10 @@ module.exports = {
 
 ```js
 // rollup.config.js
-import { mdxx } from "rollup-plugin-mdxx";
+import { amdx } from "rollup-plugin-amdx";
 export default {
   // ...
-  plugins: [mdxx()],
+  plugins: [amdx()],
 };
 ```
 
@@ -71,7 +80,7 @@ export default {
 
 ```bash
 # install
-$ npm install mdxx-cli -g
+$ npm install amdx-cli -g
 ```
 
 ## Example
@@ -105,14 +114,14 @@ console.log(str);
 
 ```bash
 # run with js
-$ mdxx foo.md # output as html
+$ amdx foo.md # output as html
 
 # Write js
-$ mdxx index.tsx --mode js --out out.js
+$ amdx index.tsx --mode js --out out.js
 $ node out.js # dump js
 
 # Write with chunk
-$ mdxx index.tsx --mode js --outdir out
+$ amdx index.tsx --mode js --outdir out
 $ node out/index.js
 ```
 
@@ -122,8 +131,8 @@ $ node out/index.js
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { compile } from "mdxx-compiler";
-import { parse } from "mdxx-parser";
+import { compile } from "amdx-runner";
+import { parse } from "amdx";
 
 const ast = parse(`# hello`);
 
@@ -141,12 +150,12 @@ ReactDOM.render(<App />, document.querySelector("#main"));
 
 ## As rollup plugin
 
-`rollup-mdxx-plugin` makes `.md` and `.mdx` loadable as react component.
+`rollup-amdx-plugin` makes `.md` and `.mdx` loadable as react component.
 
 ```js
 // rollup.config.js
 import { rollup } from "rollup";
-import { mdxx } from "rollup-plugin-mdxx";
+import { amdx } from "rollup-plugin-amdx";
 
 export default {
   input: "index.mdx",
@@ -156,7 +165,7 @@ export default {
   },
   plugins: [
     // your plugin...
-    mdxx()
+    amdx()
   ]
 };
 ```
@@ -164,7 +173,7 @@ export default {
 index.mdx
 
 ```md
-# Hello mdxx
+# Hello amdx
 
 import Foo from "./foo.mdx" //
 
@@ -182,25 +191,29 @@ import Foo from "./foo.mdx" //
 - [x] Google Analytics
 - [x] Header
 - [x] Fix css on export
-- [x] mdxx-compiler: amp option
-- [x] ssg: Support `styled-components`
-- [x] ssg: AMP Install Service Worker
-- [x] ssg: Refactor layout css
-- [x] ssg: `amp-img` fixed height
+- [x] amdx-runner: amp option
+- [x] amdxg Support `styled-components`
+- [x] amdxg AMP Install Service Worker
+- [x] amdxg Refactor layout css
+- [x] amdxg `amp-img` fixed height
 - [x] compiler: heading slug
 - [x] compiler: toc
-- [x] ssg: Fix css
-- [x] ssg: Support amp-social-share
-- [x] ssg: mdxx-ssg-cli
+- [x] amdxg Fix css
+- [x] amdxg Support amp-social-share
+- [x] amdxg amdxg-cli
 - [x] parser: Support amp-mathml
 - [x] CI
-- [x] ssg: Gen git history
-- [x] ssg: Link to GitHub PR
-- [x] mdxx-ssg-components: create
-- [ ] ssg: clickable anchor
-- [ ] ssg: Render mdx on `pages/*.mdx`
-- [ ] ssg: amp-script
-- [ ] ssg: Gen RSS
+- [x] amdxg Gen git history
+- [x] amdxg Link to GitHub PR
+- [x] amdxg-components: create
+- [x] amdxg Render mdx on `pages/*.mdx` => auto gen /docs by getStaticProps
+- [x] amdxg Gen RSS
+- [ ] amdxg amp-script compiler or `new:script` boilerplate
+- [ ] amdxg clickable anchor
+- [ ] Rename to something
+- [ ] Fix prism
+- [ ] Fix amp-img
+- [ ] Next 9.4 ssg fallback mode
 
 ## LICENSE
 
