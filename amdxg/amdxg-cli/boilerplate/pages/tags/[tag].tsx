@@ -39,7 +39,7 @@ export default (props: Props) => {
           {props.tagName} - {ssgConfig.siteName}
         </title>
       </Head>
-      <Layout ssgConfig={ssgConfig}>
+      <Layout config={ssgConfig}>
         <TagPage tagName={props.tagName} pages={props.pages} />
       </Layout>
     </>

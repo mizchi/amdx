@@ -55,7 +55,7 @@ export default (props: Props) => (
         {props.frontmatter.title} - {ssgConfig.siteName}
       </title>
     </Head>
-    <Layout ssgConfig={ssgConfig}>
+    <Layout config={ssgConfig}>
       <Article
         ssgConfig={ssgConfig}
         history={props.history}

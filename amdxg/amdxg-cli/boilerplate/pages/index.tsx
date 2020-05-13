@@ -12,7 +12,7 @@ export default () => {
       <Head>
         <title>{ssgConfig.siteName}</title>
       </Head>
-      <Layout ssgConfig={ssgConfig}>
+      <Layout config={ssgConfig}>
         <h2>Pages</h2>
         <PageList pages={pages as any} />
         <h2>Tags</h2>

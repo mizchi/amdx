@@ -11,7 +11,7 @@ export default () => {
       <Head>
         <title>Tags - {ssgConfig.siteName}</title>
       </Head>
-      <Layout ssgConfig={ssgConfig}>
+      <Layout config={ssgConfig}>
         <TagList tags={Object.keys(tagmap)} />
       </Layout>
     </>

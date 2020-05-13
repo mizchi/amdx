@@ -36,7 +36,7 @@ function _loadConfig() {
   return require(path.join(process.cwd(), "amdxg.config.js"));
 }
 
-function buildSitemap(flags: {}) {
+function buildSitemap(_flags: {}) {
   const ssgConfig = _loadConfig();
   const pages = genPages(process.cwd());
   const sitemap = buildSitemapXML(ssgConfig.host, pages);
@@ -82,7 +82,7 @@ function buildTags(flags: {}) {
     path.join(process.cwd(), "gen/tagmap.json"),
     JSON.stringify(tagMap)
   );
-  console.log("[amdxg:gen/tags]", "gen/tagmap.json");
+  console.log("[amdxg:build:tags]", "gen/tagmap.json");
 }
 
 function buildRSS(flags: {}) {
@@ -164,7 +164,7 @@ function buildHistory(flags: {}) {
   });
 }
 
-function newPage(flags: {}) {
+function newPage(_flags: {}) {
   const [, , , inputName] = process.argv;
   const format = require("date-fns/format");
   const now = Date.now();
@@ -173,7 +173,7 @@ function newPage(flags: {}) {
 
   const mdxPath = path.join(process.cwd(), "docs", slug + ".mdx");
 
-  const title = inputName ? inputName : slug;
+  const title = inputName ? `${current}-${inputName}` : slug;
   fs.writeFileSync(
     mdxPath,
     `---
