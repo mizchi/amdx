@@ -9,3 +9,4 @@ export * from "./SocialShare";
 export * from "./PageList";
 export * from "./TagList";
 export * from "./TagPage";
+export * from "./Link";

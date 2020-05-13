@@ -1,8 +1,9 @@
-import { Article, Layout } from "amdxg-components";
+import { Article } from "amdxg-components";
+import { Layout } from "../components/Layout";
 import { GetStaticProps } from "next";
 import ReactDOMServer from "react-dom/server";
 import pages from "../gen/pages.json";
-import ssgConfig from "../amdxg.config";
+import _config from "../amdxg.config";
 import Head from "next/head";
 
 type Props = {
@@ -52,12 +53,12 @@ export default (props: Props) => (
   <>
     <Head>
       <title>
-        {props.frontmatter.title} - {ssgConfig.siteName}
+        {props.frontmatter.title} - {_config.siteName}
       </title>
     </Head>
-    <Layout ssgConfig={ssgConfig}>
+    <Layout config={_config}>
       <Article
-        ssgConfig={ssgConfig}
+        ssgConfig={_config}
         history={props.history}
         toc={props.toc}
         title={props.frontmatter.title}

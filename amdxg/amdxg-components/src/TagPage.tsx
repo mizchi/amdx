@@ -1,5 +1,6 @@
 import React from "react";
 import { TagList } from "./TagList";
+import { Link } from "./Link";
 export function TagPage(props: {
   tagName: string;
   pages: Array<{ slug: string; title: string }>;
@@ -13,12 +14,7 @@ export function TagPage(props: {
         {props.pages.map((page) => {
           return (
             <div key={page.slug}>
-              <a
-                className="text-blue-500 hover:text-blue-800"
-                href={`/${page.slug}`}
-              >
-                {page.title}
-              </a>
+              <Link href={`/${page.slug}`}>{page.title}</Link>
             </div>
           );
         })}

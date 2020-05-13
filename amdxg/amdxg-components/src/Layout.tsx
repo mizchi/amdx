@@ -44,7 +44,7 @@ export function Header(props: { config: AmdxgConfig }) {
           href="/"
           className="font-semibold text-xl tracking-tight text-gray-200"
         >
-          ⚡{props.config.siteName}
+          ⚡ {props.config.siteName}
         </a>
       </div>
     </nav>

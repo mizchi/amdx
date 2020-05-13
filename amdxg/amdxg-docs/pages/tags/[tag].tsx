@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Layout, TagPage } from "amdxg-components";
 import { GetStaticProps } from "next";
-import ssgConfig from "../../amdxg.config";
+import _config from "../../amdxg.config";
 import tagmap from "../../gen/tagmap.json";
 
 export const config = { amp: true };
@@ -36,10 +36,10 @@ export default (props: Props) => {
     <>
       <Head>
         <title>
-          {props.tagName} - {ssgConfig.siteName}
+          {props.tagName} - {_config.siteName}
         </title>
       </Head>
-      <Layout ssgConfig={ssgConfig}>
+      <Layout config={_config}>
         <TagPage tagName={props.tagName} pages={props.pages} />
       </Layout>
     </>

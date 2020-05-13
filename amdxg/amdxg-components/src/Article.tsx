@@ -1,13 +1,12 @@
 import React from "react";
-import Head from "next/head";
 import { ToC } from "./ToC";
 import { History } from "./History";
 import { SocialShare } from "./SocialShare";
-import { SsgConfig } from "./types";
+import { AmdxgConfig } from "./types";
 import { TagList } from "./TagList";
 
 export function Article(props: {
-  ssgConfig: SsgConfig;
+  ssgConfig: AmdxgConfig;
   children: React.ReactNode;
   title: string;
   toc?: Array<{ id: string; depth: number; title: string }>;
