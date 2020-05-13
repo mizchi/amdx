@@ -169,16 +169,17 @@ function newPage(_flags: {}) {
   const format = require("date-fns/format");
   const now = Date.now();
   const current = format(now, "yyyyMMddHHmm");
-  let slug = inputName ? inputName : current;
+  const title = inputName ? inputName : current;
+  const slug = inputName ? `${current}-${inputName}` : current;
 
   const mdxPath = path.join(process.cwd(), "docs", slug + ".mdx");
 
-  const title = inputName ? `${current}-${inputName}` : slug;
   fs.writeFileSync(
     mdxPath,
     `---
 title: ${title}
 created: ${now}
+tags: []
 ---
 `
   );
