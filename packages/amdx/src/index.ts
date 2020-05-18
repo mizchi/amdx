@@ -8,8 +8,6 @@ import breaks from "remark-breaks";
 // @ts-ignore
 import katex from "remark-html-katex";
 // @ts-ignore
-// import toc from "remark-toc";
-// @ts-ignore
 import frontmatterPlugin from "remark-frontmatter";
 // @ts-ignore
 import remarkMdx from "remark-mdx";
@@ -140,67 +138,13 @@ const fn = unified()
   .use(breaks)
   .use(highlighter);
 
-export function parse(code: string, options: ParseOptions = {}): ParseResult {
-  const errors = [];
-  const file = vfile();
-  file.contents = code;
-  if (options.cursor) {
-    file.data.cursor = options.cursor;
-  }
+export function parseFileToAst(file: any) {
+  const internalAst = fn.parse(file);
+  return fn.runSync(internalAst, file) as any;
+}
 
-  const amp = !!options.amp;
-
-  const parsed = fn.parse(file);
-
-  // console.log("vfile", file);
-  const ast = fn.runSync(parsed, file) as any;
-
-  // console.log(ast.children[1]);
-  // const amp = true; // TODO
-  ast.children.forEach((n: any, index: number) => {
-    if (amp && n.type === "math") {
-      const newNode = {
-        type: "jsx",
-        value: `<amp-mathml
-          layout="container"
-          data-formula="\\[${n.value}\\]"
-        />`,
-        position: n.position,
-      };
-      ast.children[index] = newNode;
-    }
-  });
-
-  let frontmatter = null;
-  const frontmatterNode = ast.children.find(
-    (child: any) => child.type === "yaml"
-  );
-  if (frontmatterNode) {
-    try {
-      const yamlParsed = yaml.parse(frontmatterNode.value);
-      frontmatter = yamlParsed;
-    } catch (err) {
-      errors.push(err.message);
-    }
-  }
-
-  const exports = ast.children.filter((c: any) => c.type === "export");
-  const imports = ast.children.filter((c: any) => c.type === "import");
-
-  const parsedImports = parseImport(
-    imports.map((i: any) => i.value).join("\n")
-  );
-
-  const nodes = ast.children.filter(
-    (c: any) => c.type !== "import" && c.type !== "export"
-  );
-
-  const newAst = {
-    ...ast,
-    children: nodes,
-  };
-
-  const hast = toHAST(newAst, {
+export function parseAstToHast(ast: any) {
+  return toHAST(ast, {
     handlers: {
       // TODO: test
       inlineCode(h: any, node: MDXNode) {
@@ -227,13 +171,80 @@ export function parse(code: string, options: ParseOptions = {}): ParseResult {
     },
     allowDangerousHtml: true,
   });
+}
+
+export function parseFrontmatter(ast: any): object | null {
+  const frontmatterNode = ast.children.find(
+    (child: any) => child.type === "yaml"
+  );
+  if (frontmatterNode) {
+    const yamlParsed = yaml.parse(frontmatterNode.value);
+    return yamlParsed;
+  }
+  return null;
+}
+
+export function parse(code: string, options: ParseOptions = {}): ParseResult {
+  const errors = [];
+  const file = vfile();
+  file.contents = code;
+  if (options.cursor) {
+    file.data.cursor = options.cursor;
+  }
+  const amp = !!options.amp;
+
+  const ast = parseFileToAst(file);
+
+  // math
+  ast.children.forEach((n: any, index: number) => {
+    if (amp && n.type === "math") {
+      const newNode = {
+        type: "jsx",
+        value: `<amp-mathml
+          layout="container"
+          data-formula="\\[${n.value}\\]"
+        />`,
+        position: n.position,
+      };
+      ast.children[index] = newNode;
+    }
+  });
+
+  let frontmatter = null;
+  try {
+    frontmatter = parseFrontmatter(ast);
+  } catch (err) {
+    errors.push(err.message);
+  }
+
+  const { exports, imports } = getImports(ast);
+
+  const nodes = ast.children.filter(
+    (c: any) => c.type !== "import" && c.type !== "export"
+  );
+
+  const newAst = {
+    ...ast,
+    children: nodes,
+  };
+
+  const hast = parseAstToHast(ast);
 
   return {
     ast: hast,
     toc: file.data.toc,
-    imports: parsedImports,
+    imports,
     exports,
     frontmatter,
     errors,
   };
+}
+
+export function getImports(ast: any) {
+  const exports = ast.children.filter((c: any) => c.type === "export");
+  const imports = ast.children.filter((c: any) => c.type === "import");
+  const parsedImports = parseImport(
+    imports.map((i: any) => i.value).join("\n")
+  );
+  return { exports, imports: parsedImports };
 }

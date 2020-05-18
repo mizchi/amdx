@@ -1,18 +1,18 @@
 const path = require("path");
 module.exports = {
   resolve: {
-    extensions: [".tsx", ".js", ".jsx", ".ts", ".json"]
+    extensions: [".tsx", ".js", ".jsx", ".ts", ".json"],
   },
   entry: {
-    parser: path.join(__dirname, "src/parser.ts")
+    amdx: path.join(__dirname, "src/index.ts"),
   },
   output: {
     globalObject: "globalThis",
     libraryTarget: "umd",
-    filename: "[name].js"
+    filename: "[name].js",
   },
   node: {
-    fs: "empty"
+    fs: "empty",
   },
   module: {
     rules: [
@@ -22,11 +22,11 @@ module.exports = {
           {
             loader: "ts-loader",
             options: {
-              transpileOnly: true
-            }
-          }
-        ]
-      }
-    ]
-  }
+              transpileOnly: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
 };

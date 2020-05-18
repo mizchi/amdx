@@ -23,18 +23,30 @@ refractor.register(require("refractor/lang/lisp.js"));
 refractor.register(require("refractor/lang/r.js"));
 refractor.register(require("refractor/lang/rust.js"));
 refractor.register(require("refractor/lang/go.js"));
-refractor.register(require("refractor/lang/haskell.js"));
 refractor.register(require("refractor/lang/scala.js"));
 refractor.register(require("refractor/lang/scss.js"));
 refractor.register(require("refractor/lang/css.js"));
 refractor.register(require("refractor/lang/c.js"));
 refractor.register(require("refractor/lang/cpp.js"));
+refractor.register(require("refractor/lang/d.js"));
+refractor.register(require("refractor/lang/elm.js"));
+refractor.register(require("refractor/lang/erlang.js"));
+refractor.register(require("refractor/lang/dart.js"));
+refractor.register(require("refractor/lang/elixir.js"));
 refractor.register(require("refractor/lang/csharp.js"));
 refractor.register(require("refractor/lang/java.js"));
 refractor.register(require("refractor/lang/kotlin.js"));
+refractor.register(require("refractor/lang/bash.js"));
+refractor.register(require("refractor/lang/docker.js"));
+refractor.register(require("refractor/lang/haskell.js"));
+refractor.register(require("refractor/lang/php.js"));
+refractor.register(require("refractor/lang/swift.js"));
+refractor.register(require("refractor/lang/sql.js"));
+refractor.register(require("refractor/lang/wasm.js"));
+refractor.register(require("refractor/lang/yaml.js"));
 
 export const highlighter: unified.Plugin = (options: any = {}) => {
-  return tree => {
+  return (tree) => {
     visit(tree, "code", (node: any, index, parent) => {
       const [lang, filename] = (node.lang || "").split(":");
       if (lang) {
