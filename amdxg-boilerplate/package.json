@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "echo wip",
-    "build": "amdxg build && next build && next export && amdxg postbuild",
+    "build": "mkdir -p gen && amdxg build && next build && next export && amdxg postbuild",
     "dev": "amdxg build && next"
   },
   "dependencies": {

@@ -2,4 +2,5 @@
 .next
 node_modules
 amdxg.config
-gen
+gen/*
+!.gitkeep
