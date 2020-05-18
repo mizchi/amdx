@@ -1,36 +1,31 @@
-# AMDXG DOCS by AMDXG
+# AMDXG Blog template
 
-## Features
+## Create your own project
 
-- Build amdx on next.js ssg mode
-- Support AMP
-
-## Create your own blog
-
-```bash
-# install node and npm
-npx degit mizchi/amdx/packages/ssg blog
+```
+npx degit mizchi/mdxx/templates/blog blog
 cd blog
 npm install
+# edit amdxg.config.json
+```
 
-# create new page
-amdxg new:page
+## Write your article
 
-# with slug
-amdxg new:page foo
-# edit docs/foo.mdx
+```
+amdxg new:page my-first-article
+# edit docs/*-my-first-article.mdx
+npm run dev # start server
+```
 
-# Preview
-npm run dev
+## Deploy
 
-# Deploy
+```
+## Build and deploy to netily
 npm run build
-```
-
-## deploy to netlify
-
-Create your account for netlify
-
-```
+npm i -g netlify-cli
 netlify deploy -d out --prod
 ```
+
+## LICENSE
+
+MIT

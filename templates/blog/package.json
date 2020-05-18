@@ -4,7 +4,6 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "test": "echo wip",
     "build": "mkdir -p gen && amdxg build && next build && next export && amdxg postbuild",
     "dev": "amdxg build && next"
   },
