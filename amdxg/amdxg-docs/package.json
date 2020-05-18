@@ -1,6 +1,6 @@
 {
   "name": "amdxg-docs",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -9,7 +9,7 @@
     "dev": "amdxg build && next"
   },
   "dependencies": {
-    "amdx": "^0.8.0",
+    "amdx": "^0.8.5",
     "amdxg-components": "^0.8.2",
     "date-fns": "^2.12.0",
     "next": "^9.4.0",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.0",
-    "amdx-loader": "^0.8.0",
+    "amdx-loader": "^0.8.5",
     "amdx-runner": "^0.8.0",
     "amdxg-cli": "^0.8.4",
     "raw-loader": "^4.0.1",
