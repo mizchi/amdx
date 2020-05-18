@@ -19,6 +19,10 @@ body {
   color: white;
 }
 
+.markdown-body ul {
+  list-style: disc;
+}
+
 .amp-img-container {
   position: relative;
   width: 100%;
