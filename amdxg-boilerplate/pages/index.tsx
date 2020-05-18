@@ -1,6 +1,5 @@
 import Head from "next/head";
-import { PageList, TagList } from "amdxg-components";
-import { Layout } from "../components/Layout";
+import { PageList, TagList, Layout } from "amdxg-components";
 import pages from "../gen/pages.json";
 import _config from "../amdxg.config";
 import tagmap from "../gen/tagmap.json";

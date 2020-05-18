@@ -1,5 +1,4 @@
-import { Article } from "amdxg-components";
-import { Layout } from "../components/Layout";
+import { Article, Layout } from "amdxg-components";
 import { GetStaticProps } from "next";
 import ReactDOMServer from "react-dom/server";
 import pages from "../gen/pages.json";
@@ -19,7 +18,7 @@ type Props = {
   html: string;
 };
 
-export const config = { amp: "hybrid" };
+export const config = { amp: true };
 
 export function getStaticPaths() {
   const paths = pages.map((page) => {
