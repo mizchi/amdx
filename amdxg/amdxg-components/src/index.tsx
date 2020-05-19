@@ -10,3 +10,4 @@ export * from "./PageList";
 export * from "./TagList";
 export * from "./TagPage";
 export * from "./Link";
+export * from "./Slide";
