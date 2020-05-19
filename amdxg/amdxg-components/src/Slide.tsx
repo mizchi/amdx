@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// @ts-ignore
 import * as amdx from "amdx";
 import { compile } from "amdx-runner";
 import vfile from "vfile";
@@ -7,7 +6,6 @@ import vfile from "vfile";
 export function Slide(props: { rawMdx: string }) {
   const file = vfile();
   file.contents = props.rawMdx;
-  // @ts-ignore
   const parsed = amdx.parseFileToAst(file);
   parsed.childern = parsed.children.filter((node: any) => {
     return !["yaml", "import", "export"].includes(node.type);
@@ -28,7 +26,6 @@ export function Slide(props: { rawMdx: string }) {
   }
 
   const documents = blocks.map((b) => {
-    // @ts-ignore
     const hast = amdx.parseAstToHast({ type: "root", children: b });
     return compile(hast, {
       components: {},
