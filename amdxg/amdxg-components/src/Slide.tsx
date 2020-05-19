@@ -82,7 +82,7 @@ export function SlidePlayer(props: { documents: Array<any> }) {
       <div
         style={{
           width: "100%",
-          height: "60vh",
+          height: "75vh",
           paddingTop: 20,
           paddingLeft: 20,
           paddingRight: 20,
