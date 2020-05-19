@@ -12,6 +12,9 @@ export type ParseOptions = {
 };
 
 export function parse(mdx: string, options?: ParseOptions): ParseResult;
+export function parseFrontmatter(ast: any): object | null;
+export function parseAstToHast(ast: any): types.RootNode;
+export function parseFileToAst(file: any): any;
 
 export type ParsedImports = Array<{
   importPath: string;
