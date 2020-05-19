@@ -103,9 +103,7 @@ function buildRSS(flags: {}) {
           return `
         <item>
           <title>${escape(p.title)}</title>
-          <link>
-            ${path.join(amdxgConfig.host, p.slug)}
-          </link>
+          <link>${path.join(amdxgConfig.host, p.slug)}</link>
           <pubDate>${new Date(p.created).toISOString()}</pubDate>
           <description>
           <![CDATA[]]>
