@@ -58,7 +58,7 @@ export function Footer() {
         created by&nbsp;
         <a
           href="https://github.com/mizchi/amdx"
-          className="underline text-blue-500 hover:no-underline"
+          className="underline text-blue-400 hover:no-underline"
         >
           amdxg
         </a>
