@@ -3,10 +3,10 @@
 ## Create your own project
 
 ```
-npx degit mizchi/mdxx/templates/blog blog
+npx degit mizchi/amdx/templates/blog blog
 cd blog
 npm install
-# edit amdxg.config.json
+# edit amdxg.config.js
 ```
 
 ## Write your article
