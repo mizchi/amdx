@@ -1,6 +1,6 @@
 {
   "name": "amdx",
-  "version": "0.8.5",
+  "version": "0.8.12",
   "main": "dist/amdx.js",
   "scripts": {
     "build": "webpack --mode production",

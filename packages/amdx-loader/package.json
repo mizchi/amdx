@@ -1,6 +1,6 @@
 {
   "name": "amdx-loader",
-  "version": "0.8.5",
+  "version": "0.8.12",
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc -p .",
@@ -14,8 +14,8 @@
   "types": "index.d.ts",
   "license": "MIT",
   "dependencies": {
-    "amdx": "^0.8.5",
-    "amdx-runner": "^0.8.0",
+    "amdx": "^0.8.12",
+    "amdx-runner": "^0.8.12",
     "loader-utils": "^2.0.0"
   },
   "gitHead": "0a9e846199d1cc13b6281d4e158c627f43306df8",
