@@ -1,6 +1,6 @@
 {
   "name": "amdxg-docs",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "amdx": "^0.8.5",
-    "amdxg-components": "^0.8.6",
+    "amdxg-components": "^0.8.7",
     "date-fns": "^2.12.0",
     "next": "^9.4.0",
     "react": "^16.13.1",
