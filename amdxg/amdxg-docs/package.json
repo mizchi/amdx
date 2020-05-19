@@ -1,6 +1,6 @@
 {
   "name": "amdxg-docs",
-  "version": "0.8.10",
+  "version": "0.8.11",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -23,7 +23,7 @@
     "@types/styled-components": "^5.1.0",
     "amdx-loader": "^0.8.5",
     "amdx-runner": "^0.8.0",
-    "amdxg-cli": "^0.8.4",
+    "amdxg-cli": "^0.8.11",
     "raw-loader": "^4.0.1",
     "ts-node": "^8.10.1",
     "typescript": "^3.8.3"
