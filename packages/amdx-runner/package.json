@@ -1,6 +1,6 @@
 {
   "name": "amdx-runner",
-  "version": "0.8.13",
+  "version": "0.8.14",
   "license": "MIT",
   "main": "dist/compiler.js",
   "module": "dist/compiler.mjs",
@@ -17,7 +17,7 @@
     "test": "ts-node -T -O '{\"module\":\"commonjs\"}' test/compiler.test.tsx"
   },
   "dependencies": {
-    "amdx-types": "^0.8.0"
+    "amdx-types": "^0.8.14"
   },
   "devDependencies": {
     "style-to-object": "^0.3.0",

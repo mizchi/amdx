@@ -1,6 +1,6 @@
 {
   "name": "amdx",
-  "version": "0.8.13",
+  "version": "0.8.14",
   "main": "dist/amdx.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -19,7 +19,7 @@
     "@babel/plugin-syntax-object-rest-spread": "^7.8.3",
     "@types/babel__core": "^7.1.6",
     "@types/node": "^12.12.31",
-    "amdx-types": "^0.8.0",
+    "amdx-types": "^0.8.14",
     "github-slugger": "^1.3.0",
     "mdast-util-to-hast": "^8.0.0",
     "refractor": "^2.10.1",
