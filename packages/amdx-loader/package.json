@@ -18,7 +18,7 @@
     "amdx-runner": "^0.8.14",
     "loader-utils": "^2.0.0"
   },
-  "gitHead": "f1a55567ee9e65ec9e504f1fd6f931996b3cdf26",
+  "gitHead": "acae093fdd1c08d0435313872be7de8479fc95db",
   "devDependencies": {
     "@types/loader-utils": "^1.1.3"
   }

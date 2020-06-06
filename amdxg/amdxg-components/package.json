@@ -35,7 +35,7 @@
     "react-dom": "*",
     "styled-components": "*"
   },
-  "gitHead": "59f9b26bd88aa9cc2067843bb99b5516b8d9cc1f",
+  "gitHead": "acae093fdd1c08d0435313872be7de8479fc95db",
   "dependencies": {
     "cssnano": "^4.1.10",
     "date-fns": "^2.13.0",

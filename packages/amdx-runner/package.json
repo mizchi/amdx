@@ -20,8 +20,9 @@
     "amdx-types": "^0.8.14"
   },
   "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
     "style-to-object": "^0.3.0",
     "ts-node": "^8.8.1"
   },
-  "gitHead": "f1a55567ee9e65ec9e504f1fd6f931996b3cdf26"
+  "gitHead": "acae093fdd1c08d0435313872be7de8479fc95db"
 }
