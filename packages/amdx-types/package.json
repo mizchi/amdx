@@ -1,6 +1,6 @@
 {
   "name": "amdx-types",
-  "version": "0.8.14",
+  "version": "0.9.0",
   "typings": "index.d.ts",
   "files": [
     "index.d.ts"
