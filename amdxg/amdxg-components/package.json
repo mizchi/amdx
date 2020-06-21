@@ -1,6 +1,6 @@
 {
   "name": "amdxg-components",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "main": "lib/index.js",
   "license": "MIT",
   "typings": "lib/index.d.ts",
