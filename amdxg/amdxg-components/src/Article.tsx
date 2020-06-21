@@ -30,13 +30,12 @@ export function Article(props: {
               {props.tags && <TagList tags={props.tags} />}
               by{" "}
               <a href={props.ssgConfig.authorLink}>{props.ssgConfig.author}</a>
+              &nbsp;
+              {props.createdAt && (
+                <>created at {format(props.createdAt, "yyyy/MM/dd/HH:mm")} </>
+              )}
             </p>
             {props.toc && <ToC toc={props.toc} />}
-            {props.createdAt && (
-              <div>
-                created at {format(props.createdAt, "yyyy/MM/dd/HH:mm")}{" "}
-              </div>
-            )}
           </div>
           {props.children}
           <div className="py-4">
