@@ -4,12 +4,14 @@ import { History } from "./History";
 import { SocialShare } from "./SocialShare";
 import { AmdxgConfig } from "./types";
 import { TagList } from "./TagList";
+import format from "date-fns/format";
 
 export function Article(props: {
   ssgConfig: AmdxgConfig;
   children: React.ReactNode;
   title: string;
   toc?: Array<{ id: string; depth: number; title: string }>;
+  createdAt?: number;
   history?: Array<{
     hash: string;
     author: string;
@@ -22,7 +24,7 @@ export function Article(props: {
     <>
       <div className="rounded shadow-lg antialiased">
         <div className="markdown-body px-6">
-          <div className="">
+          <div>
             <h1>{props.title}</h1>
             <p>
               {props.tags && <TagList tags={props.tags} />}
@@ -30,6 +32,11 @@ export function Article(props: {
               <a href={props.ssgConfig.authorLink}>{props.ssgConfig.author}</a>
             </p>
             {props.toc && <ToC toc={props.toc} />}
+            {props.createdAt && (
+              <div>
+                created at {format(props.createdAt, "yyyy/MM/dd/HH:mm")}{" "}
+              </div>
+            )}
           </div>
           {props.children}
           <div className="py-4">
