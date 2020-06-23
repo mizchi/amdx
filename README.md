@@ -1,6 +1,6 @@
 # AMDX
 
-Accelarated MDX
+Accelerated MDX
 
 ## Features
 
