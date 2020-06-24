@@ -1,6 +1,6 @@
 {
   "name": "amdxg-cli",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "license": "MIT",
   "bin": {
     "amdxg": "bin/amdxg.js"
